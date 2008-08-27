@@ -3,9 +3,9 @@ require 'discount'
 require "uv"
 
 desc 'Transforma o arquivo em HTML'
-task :html => :merge do
-  if File.exists?('output/full_book.texttile')
-    output = File.new('output/full_book.texttile').read
+task :html do
+  if File.exists?('output/full_book.markdown')
+    output = File.new('output/full_book.markdown').read
     output = Discount.new(output).to_html
 
     File.open('output/index.html', 'w') do |f|
@@ -17,5 +17,7 @@ task :html => :merge do
       end
       f.puts html_template
     end
+  else
+    puts "You haven't made the merge of book's files. Before generate the html or pdf run rake merge_[pt/en]"
   end
 end

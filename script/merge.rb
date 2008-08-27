@@ -1,8 +1,16 @@
-desc 'Agrupa todos os arquivos em um único arquivo'
+desc 'Portuguese'
+task :merge_pt do
+  File.open('output/full_book.markdown', 'w+') do |f|
+    Dir["pt/**/*.markdown"].sort.each do |path|
+      f << File.new(path).read + "\r\n"
+    end
+  end
+end
 
-task :merge do
-  File.open('output/full_book.texttile', 'w+') do |f|
-    Dir["text/**/*.markdown"].sort.each do |path|
+desc 'English'
+task :merge_en do
+  File.open('output/full_book.markdown', 'w+') do |f|
+    Dir["en/**/*.markdown"].sort.each do |path|
       f << File.new(path).read + "\r\n"
     end
   end
