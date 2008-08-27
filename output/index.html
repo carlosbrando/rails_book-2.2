@@ -40,13 +40,13 @@
 	</div> -->
 	
 	<div class="chapter">
-		<h1>Introduction</h1>
+		<h1>Introdução</h1>
 
-<p>Around July of 2004 David Heinemeier Hansson publicly released the Ruby on Rails framework. The framework had been extracted from a web application called he was working on called Basecamp. More than three years later, on the December 7th 2007, Ruby on Rails version 2.0 was released with numerous important changes.</p>
+<p>Por volta do mês de julho de 2004 David Heinemeier Hansson lançou publicamente o framework Ruby on Rails, que havia sido extraído de um software chamado Basecamp. Mais de três anos depois, no dia 7 de dezembro de 2007 o Ruby on Rails chegou a sua versão 2.0 com diversas alterações importantes.</p>
 
-<p>Six months have passed since then, and during this time more than <strong>1400 developers</strong> from all around the world have contributed  <strong>1600 patches</strong> to the framework. Today, June 1st 2008, version 2.1 of the Ruby on Rails framework was released.</p>
+<p>De lá para cá se passaram seis meses, e neste tempo mais de <strong>1400 programadores</strong> do mundo todo contribuiram criando <strong>1600 patches</strong>. E hoje, 1 de junho de 2008 o Ruby on Rails chega à sua versão 2.1.</p>
 
-<p>Major new features according to David Heinemeier Hansson:</p>
+<p>De acordo com David as principais novidades nesta versão são:</p>
 
 <ul>
 <li>Timezones</li>
@@ -58,88 +58,130 @@
 </ul>
 
 
-<p>As always, to update or install the new version:</p>
+<p>Para atualizar ou instalar a nova versão, é o de sempre:</p>
 
 <pre class="mac_classic">gem install rails
 </pre>
 
-<h2>Acknowledgment</h2>
+<h2>Agradecimentos</h2>
 
-<p>To Marcos Tapajós, co-author of this book. If it wasn't for him, you probably you wouldn't be reading this right now.</p>
+<p>Ao Marcos Tapajós que é o co-autor deste livro. Se não fosse por ele acho que você não estaria lendo isto.</p>
 
-<p>To Daniel Lopes who made the beautiful cover for this edition.</p>
+<p>Ao Daniel Lopes que fez uma linda capa para esta edição.</p>
 
-<p>To all of the Ruby on Rails Brazilian community that helped directly or indirectly with this book, commenting on blog posts and giving suggestions. It's like I always say, the best of Rails is its community! Keep creating, inventing, and specially sharing.</p>
-
-<h2> Translators</h2>
-
-<p>This book was proudly translated to english by these Brazilian guys:</p>
-
-<p><strong>Pedro Pimentel</strong> - <a href="http://www.pedropimentel.com">http://www.pedropimentel.com</a></p>
-
-<p>Chapters 3-8 and 10-13</p>
-
-<p><strong>Rafael Barbosa</strong> - <a href="http://www.act-as-newbie.com/">http://www.act-as-newbie.com</a></p>
-
-<p>Introduction and chapter 1</p>
-
-<p><strong>Ricardo S Yasuda</strong> - <a href="http://blog.shadowmaru.org/">http://blog.shadowmaru.org</a></p>
-
-<p>Chapter 14</p>
-
-<p><strong>Caike Souza</strong> - <a href="http://tech-death.blogspot.com/">http://tech-death.blogspot.com</a></p>
-
-<p>Chapter 2</p>
-
-<p><strong>Abraão Coelho</strong> - <a href="http://abrcoelho.net/">http://abrcoelho.net</a></p>
-
-<p>Chapter 9</p>
-
-<p><strong>Bruno Miranda</strong> - <a href="http://brunomiranda.com">http://brunomiranda.com</a></p>
-
-<p>Reviser</p>
+<p>A toda a comunidade brasileira de Ruby on Rails que colaborou direta ou indiretamente com este livro, comentando os textos no blog e dando sugestões. É como sempre costumo dizer, o melhor do Rails é a comunidade! Continuem criando, inventando e principalmente compartilhando...</p>
 
 <h1> ActiveRecord</h1>
 
-<p>ActiveRecord is an object-relational mapping layer responsible for the interoperability among application
-and database and also responsible for data abstraction. (wikipedia)</p>
+<p>O Active Record é uma camada de mapeamento objeto-relacional (object-relational mapping layer), responsável pela interoperabilidade entre a aplicação e o banco de dados e pela abstração dos dados.
+(wikipedia)</p>
 
 <h1> ActiveSupport</h1>
 
-<p>Active Support is a collection of useful classes and default libraries extensions which were considered useful for Ruby on Rails Applications.
+<p>Active Support é uma coleção de várias classes úteis e extensões de bibliotecas padrões, que foram considerados úteis para aplicações em Ruby on Rails.
 (wikipedia)</p>
+
+<h2> Introduzindo Memoizable para cache de atributos</h2>
+
+<p>Performance é coisa séria, e um dos métodos mais usados para aumentar a velocidade de execução em códigos é o uso de cache. Quem nunca fez algo assim?</p>
+
+<pre class="mac_classic"><span class="Keyword">class</span> <span class="TypeName">Person<span class="InheritedClassName"> <span class="InheritedClassName">&lt;</span> ActiveRecord::Base</span></span>
+  <span class="Keyword">def</span> <span class="FunctionName">age</span>
+    <span class="Variable"><span class="Variable">@</span>age</span> <span class="Keyword">||=</span> um_calculo_muito_complexo
+  <span class="Keyword">end</span>
+<span class="Keyword">end</span>
+</pre>
+
+<p>Nesta versão do Rails temos uma forma mais elegante de fazer isto usando o método <strong>memoize</strong> (é <strong>memoize</strong> mesmo e não <strong>memorize</strong>). Vamos alterar o exemplo acima para funcionar com esta nova funcionalidade:</p>
+
+<pre class="mac_classic"><span class="Keyword">class</span> <span class="TypeName">Person<span class="InheritedClassName"> <span class="InheritedClassName">&lt;</span> ActiveRecord::Base</span></span>
+  <span class="Keyword">def</span> <span class="FunctionName">age</span>
+    um_calculo_muito_complexo
+  <span class="Keyword">end</span>
+  memoize <span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>age</span>
+<span class="Keyword">end</span>
+</pre>
+
+<p>O método <strong>age</strong> será executado apenas uma vez e o seu retorno será armazenado e retornado em futuras chamadas ao método.</p>
+
+<p>Só existe uma diferença entre os dois códigos acima. No primeiro, como o método é executado todas as vezes, se o valor armazenado na variável <strong>@age</strong> for <strong>nil</strong> ou <strong>false</strong> o cálculo (muito complexo) será executado novamente até termos a idade da pessoa.</p>
+
+<p>No segundo exemplo, o método <strong>age</strong> só será executado uma vez e o valor retornado será sempre devolvido nas próximas chamadas, mesmo que seja <strong>nil</strong> ou <strong>false</strong>.</p>
 
 <h1> ActiveResource</h1>
 
-<p>ActiveResource is a layer responsible by the client side implementation of RESTful systems. Through ActiveResource is possible to consume RESTful services by using objects that work like a proxy for remote services.</p>
+<p>O ActiveResource é uma camada de mapeamento responsável pela implementação do lado cliente de sistemas RESTful. Através do ActiveResource é possível consumir serviços RESTful através do uso de objetos que funcionam como um proxy para serviços remotos.</p>
 
 <h1> ActionPack</h1>
 
-<p>Comprises ActionView (visualization generation for end user, like HTML, XML, JavaScript, and etc) and ActionController (business flow control)
-(adapted from wikipedia)</p>
+<p>Compreende o Action View (geração de visualização de usuário, como HTML, XML, JavaScript, entre outros) e o Action Controller (controle de fluxo de negócio).
+(wikipedia)</p>
+
+<h2> caches_action</h2>
+
+<p>Foi acrescentado a opção <strong>:layout</strong> no método <strong>caches_action</strong>.</p>
+
+<pre class="mac_classic"><span class="Keyword">class</span> <span class="TypeName">ListsController<span class="InheritedClassName"> <span class="InheritedClassName">&lt;</span> ApplicationController</span></span>
+  ...
+
+  caches_action <span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>index</span>, <span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>layout</span> =&gt; <span class="BuiltInConstant">false</span>
+
+  ...
+<span class="Keyword">end</span>
+</pre>
+
+<p>No exemplo acima eu especifiquei <strong>:layout => false</strong>, isto significa que o layout não será armazenado no cache, apenas o conteúdo da action será. Isto é muito útil quando temos conteúdo dinâmico no layout (o que acontece na maioria dos casos).</p>
+
+<p>Se você não especificar nada ele assumirá o padrão atual que é <strong>true</strong>.</p>
+
+<h2> RJS#page.reload</h2>
+
+<p>O método <strong>reload</strong> foi incluído ao <strong>ActionView::Helpers::PrototypeHelper</strong> para ser usado em templates <strong>.rjs</strong> ou blocos <strong>render(:update)</strong>. Este método força a recarga da página atual no browser usando javascript. Em outras palavras é um atalho para o já muito usado <strong>window.location.reload();</strong>.</p>
+
+<p>Veja como usar:</p>
+
+<pre class="mac_classic">respond_to <span class="Keyword">do </span>|<span class="Variable">format</span>|
+  format.<span class="FunctionName">js</span> <span class="Keyword">do</span>
+    <span class="FunctionName">render</span>(<span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>update</span>) { |<span class="Variable">page</span>| page.<span class="FunctionName">reload</span> }
+  <span class="Keyword">end</span>
+<span class="Keyword">end</span>
+</pre>
 
 <h1> ActionController</h1>
 
-<p>ActionController is the layer responsible by receiving web requests and taking decisions of what is going to be run and rendered or to redirect the request to another action.
-An Action is defined as public methods within controllers which are automatically available through routes.</p>
+<p>O ActionController é a camada responsável por receber as requisições web e de tomar as decisões do quê será executado e renderizado ou de redirecionar para outra ação.
+Uma ação é definido como métodos públicos nos controladores que são automaticamente disponíveis através das rotas.</p>
 
 <h1>ActionView</h1>
 
-<p>ActionView is the layer responsible by the generation of the viewable interface visible to users through conversion of ERB templates.</p>
+<p>O ActionView é a camada responsável pela geração da interface visível ao usuário através da conversão dos templates ERB.</p>
 
 <h1> Railties</h1>
 
-<h1> Rake Tasks, Plugins and Scripts</h1>
+<h1> Rake Tasks, Plugins e Scripts</h1>
 
-<h1> Prototype and script.aculo.us</h1>
+<h1> Prototype e script.aculo.us</h1>
 
 <h1> Ruby 1.9</h1>
 
 <h1> Debug</h1>
 
-<h1> Bugs and Fixes</h1>
+<h1> Bugs e Correções</h1>
 
-<h1> Additional Information</h1>
+<h2> end_of_quarter</h2>
+
+<p>Nem bem havia saído o Rails 2.1 e já foi encontrado um erro sério. Se você ainda tiver um projeto criado nesta versão entre no <strong>irb</strong> e tente rodar isto:</p>
+
+<pre class="mac_classic"><span class="LibraryObject">Date</span>.<span class="FunctionName">new</span>(<span class="Number">2008</span>, <span class="Number">5</span>, <span class="Number">31</span>).<span class="FunctionName">end_of_quarter</span>
+</pre>
+
+<p><strong>ERRO!</strong></p>
+
+<p>Por que? A implementação do método <strong>end_of_quarter</strong> foi feita da maneira errada, ele avança até o último mês do trimestre e depois pega último dia. O problema é que ele apenas avança o mês, e como estou partindo do dia 31 de maio, ele tentar criar uma nova instância do objeto <strong>Date</strong> para 31 de junho, que não existe. Com o objeto <strong>Time</strong> não é disparado uma exceção, mas ele retorna a data errada: 31 de julho.</p>
+
+<p>Nesta versão este erro já foi corrigido, mas caso você ainda esteja usando a versão 2.1 em algum projeto, muito cuidado, porque este erro só ocorrerá se usarmos o método <strong>end_of_quarter</strong> nos dias 31 de maio, julho e agosto.</p>
+
+<h1> Informações Adicionais</h1>
 
 <h1> CHANGELOG</h1>
 
