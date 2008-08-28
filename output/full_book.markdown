@@ -55,6 +55,21 @@ Na minha opinião, desta forma o código fica muito mais claro, principalmente s
 
 Só tenha em mente que a chave usada é o nome da tabela (você percebe pelo nome pluralizado) ou um alias caso você o tenha especificado na query.
 
+## Nova opção :from para métodos de cálculo do ActiveRecord
+
+Uma nova opção foi incluída aos métodos de cálculos do **ActiveRecord** (**count**, **sum**, **average**, **minimum** e **maximum**).
+
+Ao fazer uso da opção **:from**, podemos sobrecarregar o nome da tabela na query gerada pelo **ActiveRecord**, o que não parece muito útil em um primeiro momento. Mas algo interessante que esta opção nos permite fazer é forçar o MySQL a usar um índice especifico ao realizar o cálculo desejado.
+
+Veja alguns exemplos de uso:
+
+	# Forçando o MySQL a usar um índice para realizar o cálculo
+	Edge.count :all, :from => 'edges USE INDEX(unique_edge_index)',
+	           :conditions => 'sink_id < 5')
+
+	# Realizando o cálculo em uma tabela diferente da associada a classe
+	Company.count :all, :from => 'accounts'
+
 ## Definindo como o método validates\_length\_of deve funcionar
 
 O método **validates\_length\_of** faz parte dos muitos métodos de validação contidos no **ActiveRecord**. Este método em particular serve para garantir que o valor gravado em uma determinada coluna no banco de dados terá um tamanho máximo, mínimo, exato, ou até mesmo se está em um intervalo de valores.
@@ -231,7 +246,50 @@ O **script/server** agora verifica a disponibilidade do **Thin** e o usa. Muito 
 
 # Ruby 1.9
 
-# Debug
+# Performace
+
+## Melhorando a performace do Rails
+
+Jeremy Kemper andou trabalhando em melhorias de performace no Rails.Uma das coisas que ele andou melhorando foi o **Erb**, tornando-o mais rápido. Além disso ele tem atacado alguns métodos especiais como o **concat** e **capture** que são usados por muitos **helpers** do Rails.
+
+Jeremy também atacou o processo de inicialização de **partials** e otimizou diversos helpers que geravam código em **Javascript**.
+
+A classe **RecordIdentifier** também foi melhorada através do uso de caches. O **RecordIdentifier** incorpora uma série de convenções para lidar com registros **ActiveRecords** e **ActiveResources** ou praticamente qualquer outro tipo de modelo que tenha um id.
+
+É interessante ver este tipo de ação, o Rails já está ficando grande e pesado demais, e processos de otimização devem se tornar uma contante daqui para frente.
+
+## Criando testes de performace
+
+No Rails 2.2 ganhamos um novo **generator** para testes de performace.
+
+Ao executar no terminal o seguinte comando:
+
+	[carlosbrando:edge]$ ./script/generate performance_test Login
+	      exists  test/performance/
+	      create  test/performance/login_test.rb
+
+Será criado um arquivo chamado **test/performance/login\_test.rb**. Veja o código gerado:
+
+	require 'performance/test_helper'
+
+	class LoginTest < ActionController::PerformanceTest
+	  # Replace this with your real tests.
+	  def test_homepage
+	    get '/'
+	  end
+	end
+
+Neste arquivo podemos colocar todos os testes que desejarmos e ao executá-lo teremos informações sobre cada um dos testes, como tempo de processamento, uso de memória e outros. Para realizar o teste executamos no terminal:
+
+	[carlosbrando:edge]$ ruby test/performance/login_test.rb
+	Loaded suite test/performance/login_test
+	Started
+	LoginTest#test_homepage (32 ms warmup)
+	        process_time: 11 ms
+	              memory: unsupported
+	             objects: unsupported
+	.
+	Finished in 0.870842 seconds.
 
 # Bugs e Correções
 

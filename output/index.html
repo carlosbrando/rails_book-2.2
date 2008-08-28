@@ -105,6 +105,22 @@
 
 <p>Só tenha em mente que a chave usada é o nome da tabela (você percebe pelo nome pluralizado) ou um alias caso você o tenha especificado na query.</p>
 
+<h2> Nova opção :from para métodos de cálculo do ActiveRecord</h2>
+
+<p>Uma nova opção foi incluída aos métodos de cálculos do <strong>ActiveRecord</strong> (<strong>count</strong>, <strong>sum</strong>, <strong>average</strong>, <strong>minimum</strong> e <strong>maximum</strong>).</p>
+
+<p>Ao fazer uso da opção <strong>:from</strong>, podemos sobrecarregar o nome da tabela na query gerada pelo <strong>ActiveRecord</strong>, o que não parece muito útil em um primeiro momento. Mas algo interessante que esta opção nos permite fazer é forçar o MySQL a usar um índice especifico ao realizar o cálculo desejado.</p>
+
+<p>Veja alguns exemplos de uso:</p>
+
+<pre class="mac_classic"><span class="Comment"><span class="Comment">#</span> Forçando o MySQL a usar um índice para realizar o cálculo</span>
+<span class="LibraryObject">Edge</span>.<span class="FunctionName">count</span> <span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>all</span>, <span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>from</span> =&gt; <span class="String"><span class="String">'</span>edges USE INDEX(unique_edge_index)<span class="String">'</span></span>,
+           <span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>conditions</span> =&gt; <span class="String"><span class="String">'</span>sink_id &lt; 5<span class="String">'</span></span>)
+
+<span class="Comment"><span class="Comment">#</span> Realizando o cálculo em uma tabela diferente da associada a classe</span>
+<span class="LibraryObject">Company</span>.<span class="FunctionName">count</span> <span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>all</span>, <span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>from</span> =&gt; <span class="String"><span class="String">'</span>accounts<span class="String">'</span></span>
+</pre>
+
 <h2> Definindo como o método validates_length_of deve funcionar</h2>
 
 <p>O método <strong>validates_length_of</strong> faz parte dos muitos métodos de validação contidos no <strong>ActiveRecord</strong>. Este método em particular serve para garantir que o valor gravado em uma determinada coluna no banco de dados terá um tamanho máximo, mínimo, exato, ou até mesmo se está em um intervalo de valores.</p>
@@ -298,7 +314,53 @@ Uma ação é definido como métodos públicos nos controladores que são automa
 
 <h1> Ruby 1.9</h1>
 
-<h1> Debug</h1>
+<h1> Performace</h1>
+
+<h2> Melhorando a performace do Rails</h2>
+
+<p>Jeremy Kemper andou trabalhando em melhorias de performace no Rails.Uma das coisas que ele andou melhorando foi o <strong>Erb</strong>, tornando-o mais rápido. Além disso ele tem atacado alguns métodos especiais como o <strong>concat</strong> e <strong>capture</strong> que são usados por muitos <strong>helpers</strong> do Rails.</p>
+
+<p>Jeremy também atacou o processo de inicialização de <strong>partials</strong> e otimizou diversos helpers que geravam código em <strong>Javascript</strong>.</p>
+
+<p>A classe <strong>RecordIdentifier</strong> também foi melhorada através do uso de caches. O <strong>RecordIdentifier</strong> incorpora uma série de convenções para lidar com registros <strong>ActiveRecords</strong> e <strong>ActiveResources</strong> ou praticamente qualquer outro tipo de modelo que tenha um id.</p>
+
+<p>É interessante ver este tipo de ação, o Rails já está ficando grande e pesado demais, e processos de otimização devem se tornar uma contante daqui para frente.</p>
+
+<h2> Criando testes de performace</h2>
+
+<p>No Rails 2.2 ganhamos um novo <strong>generator</strong> para testes de performace.</p>
+
+<p>Ao executar no terminal o seguinte comando:</p>
+
+<pre class="mac_classic">[carlosbrando<span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>edge</span>]$ .<span class="Keyword">/</span>script<span class="Keyword">/</span>generate performance_test <span class="Variable">Login</span>
+      exists  test<span class="Keyword">/</span>performance<span class="Keyword">/</span>
+      create  test<span class="Keyword">/</span>performance<span class="Keyword">/</span>login_test.<span class="FunctionName">rb</span>
+</pre>
+
+<p>Será criado um arquivo chamado <strong>test/performance/login_test.rb</strong>. Veja o código gerado:</p>
+
+<pre class="mac_classic"><span class="Keyword">require</span> <span class="String"><span class="String">'</span>performance/test_helper<span class="String">'</span></span>
+
+<span class="Keyword">class</span> <span class="TypeName">LoginTest<span class="InheritedClassName"> <span class="InheritedClassName">&lt;</span> ActionController::PerformanceTest</span></span>
+<span class="Comment">  <span class="Comment">#</span> Replace this with your real tests.</span>
+  <span class="Keyword">def</span> <span class="FunctionName">test_homepage</span>
+    get <span class="String"><span class="String">'</span>/<span class="String">'</span></span>
+  <span class="Keyword">end</span>
+<span class="Keyword">end</span>
+</pre>
+
+<p>Neste arquivo podemos colocar todos os testes que desejarmos e ao executá-lo teremos informações sobre cada um dos testes, como tempo de processamento, uso de memória e outros. Para realizar o teste executamos no terminal:</p>
+
+<pre class="mac_classic">[carlosbrando<span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>edge</span>]$ ruby test<span class="Keyword">/</span>performance<span class="Keyword">/</span>login_test.<span class="FunctionName">rb</span>
+<span class="Variable">Loaded</span> suite test<span class="Keyword">/</span>performance<span class="Keyword">/</span>login_test
+<span class="Variable">Started</span>
+<span class="Variable">LoginTest</span><span class="Comment"><span class="Comment">#</span>test_homepage (32 ms warmup)</span>
+        process_time: <span class="Number">11</span> ms
+              memory: unsupported
+             objects: unsupported
+.
+<span class="Variable">Finished</span> <span class="Keyword">in</span> <span class="Number">0.870842</span> seconds.
+</pre>
 
 <h1> Bugs e Correções</h1>
 
