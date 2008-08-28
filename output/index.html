@@ -76,6 +76,31 @@
 <p>O Active Record é uma camada de mapeamento objeto-relacional (object-relational mapping layer), responsável pela interoperabilidade entre a aplicação e o banco de dados e pela abstração dos dados.
 (wikipedia)</p>
 
+<h2> Nova opção para associações, :validate</h2>
+
+<p>Foi adicionado ao Rails uma nova opção para associações. Se incluirmos a opção <strong>:validate => false</strong> na associação o <strong>ActiveRecord</strong> salvará os dados do objeto pai, sem validar os objetos associados. Exemplo:</p>
+
+<pre class="mac_classic"><span class="Keyword">class</span> <span class="TypeName">AuditLog<span class="InheritedClassName"> <span class="InheritedClassName">&lt;</span> ActiveRecord::Base</span></span>
+  belongs_to <span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>developer</span>, <span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>validate</span> =&gt; <span class="BuiltInConstant">false</span>
+<span class="Keyword">end</span>
+
+log <span class="Keyword">=</span> <span class="LibraryObject">AuditLog</span>.<span class="FunctionName">create</span>(<span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>developer_id</span> =&gt; <span class="Number">0</span> , <span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>message</span> =&gt; <span class="String"><span class="String">&quot;</span><span class="String">&quot;</span></span>)
+log.<span class="FunctionName">developer</span> <span class="Keyword">=</span> <span class="LibraryObject">Developer</span>.<span class="FunctionName">new</span>
+
+puts log.<span class="FunctionName">developer</span>.<span class="FunctionName">valid?</span>
+<span class="Comment"><span class="Comment">#</span> =&gt; false</span>
+
+puts log.<span class="FunctionName">valid?</span>
+<span class="Comment"><span class="Comment">#</span> =&gt; true</span>
+
+puts log.<span class="FunctionName">save</span>
+<span class="Comment"><span class="Comment">#</span> =&gt; true</span>
+</pre>
+
+<p>Note que mesmo com a associação não sendo valida, o objeto <strong>log</strong> foi salvo.</p>
+
+<p>O valor padrão é <strong>false</strong>, ou seja, todas as validações em associações <strong>belongs_to</strong> estarão desligadas como padrão e para ligarmos devemos usar a expressão <strong>:validate => true</strong>.</p>
+
 <h2> Uma nova forma de especificar conditions usando Hash</h2>
 
 <p>Ao realizar buscas no banco de dados, por vezes temos de fazer uso da opção <strong>:joins</strong> afim de melhorar a performance de nosso aplicativo, em outros casos precisamos simplesmente recuperar algum tipo de informação que depende do resultado de duas tabelas.</p>
@@ -121,6 +146,24 @@
 <span class="LibraryObject">Company</span>.<span class="FunctionName">count</span> <span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>all</span>, <span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>from</span> =&gt; <span class="String"><span class="String">'</span>accounts<span class="String">'</span></span>
 </pre>
 
+<h2> Método merge_conditions do ActiveRecord agora é público</h2>
+
+<p>O método <strong>merge_conditions</strong> do <strong>ActiveRecord</strong> agora é um método público. O que significa que ele estará presente em todas os seus <strong>Models</strong>.</p>
+
+<p>Este método faz exatamente o que o nome diz, você pode informar várias <strong>conditions</strong> separadas em seus parâmetros e ele junta tudo em uma condition só. Por exemplo:</p>
+
+<pre class="mac_classic"><span class="Keyword">class</span> <span class="TypeName">Post<span class="InheritedClassName"> <span class="InheritedClassName">&lt;</span> ActiveRecord::Base</span></span>
+<span class="Keyword">end</span>
+
+a <span class="Keyword">=</span> { <span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>author</span> =&gt; <span class="String"><span class="String">'</span>Carlos Brando<span class="String">'</span></span> }
+b <span class="Keyword">=</span> [ <span class="String"><span class="String">'</span>title = ?<span class="String">'</span></span>, <span class="String"><span class="String">'</span>Edge Rails<span class="String">'</span></span> ]
+
+<span class="LibraryObject">Post</span>.<span class="FunctionName">merge_conditions</span>(a, b)
+<span class="Comment"><span class="Comment">#</span> =&gt; &quot;(\&quot;posts\&quot;.\&quot;author\&quot; = 'Carlos Brando') AND (title = 'Edge Rails')&quot;</span>
+</pre>
+
+<p>Note que ele une as <strong>conditions</strong> com um <strong>AND</strong>, sempre.</p>
+
 <h2> Definindo como o método validates_length_of deve funcionar</h2>
 
 <p>O método <strong>validates_length_of</strong> faz parte dos muitos métodos de validação contidos no <strong>ActiveRecord</strong>. Este método em particular serve para garantir que o valor gravado em uma determinada coluna no banco de dados terá um tamanho máximo, mínimo, exato, ou até mesmo se está em um intervalo de valores.</p>
@@ -164,6 +207,47 @@ array.<span class="FunctionName">eighth</span>  <span class="Comment"><span clas
 array.<span class="FunctionName">ninth</span>   <span class="Comment"><span class="Comment">#</span> =&gt; array[8]</span>
 array.<span class="FunctionName">tenth</span>   <span class="Comment"><span class="Comment">#</span> =&gt; array[9]</span>
 </pre>
+
+<h2> Novo método Enumerable#many?</h2>
+
+<p>Um novo método foi adicionado ao módulo <strong>Enumerable</strong>: <strong>many?</strong>. E como o nome mesmo diz, ele verifica se a coleção possui mais de um objeto, ou em outras palavras se tem muitos objetos associados.</p>
+
+<p>Este método é um alias para <strong>collection.size > 1</strong>. Vamos ver alguns exemplos:</p>
+
+<pre class="mac_classic"><span class="Keyword">&gt;&gt;</span> [].<span class="FunctionName">many?</span>
+<span class="Comment"><span class="Comment">#</span> =&gt; false</span>
+
+<span class="Keyword">&gt;&gt;</span> [ <span class="Number">1</span> ].<span class="FunctionName">many?</span>
+<span class="Comment"><span class="Comment">#</span> =&gt; false</span>
+
+<span class="Keyword">&gt;&gt;</span> [ <span class="Number">1</span>, <span class="Number">2</span> ].<span class="FunctionName">many?</span>
+<span class="Comment"><span class="Comment">#</span> =&gt; true</span>
+</pre>
+
+<p>Além deste formato dado nos exemplos, este método também recebeu uma nova implementação permitindo que ele aceite blocos, que funciona exatamente como o método <strong>any?</strong>.</p>
+
+<p>Vamos aos exemplos:</p>
+
+<pre class="mac_classic"><span class="Keyword">&gt;&gt;</span> x <span class="Keyword">=</span> <span class="String"><span class="String">%w{</span> a b c b c <span class="String">}</span></span>
+<span class="Comment"><span class="Comment">#</span> =&gt; [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;b&quot;, &quot;c&quot;]</span>
+
+<span class="Keyword">&gt;&gt;</span> x.<span class="FunctionName">many?</span>
+<span class="Comment"><span class="Comment">#</span> =&gt; true</span>
+
+<span class="Keyword">&gt;&gt;</span> x.<span class="FunctionName">many?</span> { |<span class="Variable">y</span>| y <span class="Keyword">==</span> <span class="String"><span class="String">'</span>a<span class="String">'</span></span> }
+<span class="Comment"><span class="Comment">#</span> =&gt; false</span>
+
+<span class="Keyword">&gt;&gt;</span> x.<span class="FunctionName">many?</span> { |<span class="Variable">y</span>| y <span class="Keyword">==</span> <span class="String"><span class="String">'</span>b<span class="String">'</span></span> }
+<span class="Comment"><span class="Comment">#</span> =&gt; true</span>
+
+
+<span class="Comment"><span class="Comment">#</span> um outro exemplo...</span>
+people.<span class="FunctionName">many?</span> { |<span class="Variable">p</span>| p.<span class="FunctionName">age</span> <span class="Keyword">&gt;</span> <span class="Number">26</span> }
+</pre>
+
+<p>Apenas para relembrar e reforçar, este método só retornará <strong>true</strong> se mais de um objeto passar nas condições quando usado o bloco, e quando a coleção tiver mais de um objeto quando usado sem condicionais.</p>
+
+<p>Só uma curiosidade, o método inicialmente se chamaria <strong>several?</strong>, mas foi alterado para <strong>many?</strong> depois.</p>
 
 <h2> Crie regras para o String#humanize</h2>
 
@@ -220,6 +304,137 @@ array.<span class="FunctionName">tenth</span>   <span class="Comment"><span clas
 
 <p>No segundo exemplo, o método <strong>age</strong> só será executado uma vez e o valor retornado será sempre devolvido nas próximas chamadas, mesmo que seja <strong>nil</strong> ou <strong>false</strong>.</p>
 
+<h2> Novo método Object#present?</h2>
+
+<p>Um novo método foi acrescentado à classe <strong>Object</strong>. O método <strong>present?</strong> é o equivalente a <strong>!Object#blank?</strong>.</p>
+
+<p>Em outras palavras um objeto está presente se ele não for vazio. Mas o que é um objeto vazio?</p>
+
+<pre class="mac_classic"><span class="Keyword">class</span> <span class="TypeName">EmptyTrue</span>
+  <span class="Keyword">def</span> <span class="FunctionName">empty?</span>(<span class="FunctionParameter"></span>) <span class="BuiltInConstant">true</span>; <span class="Keyword">end</span>
+<span class="Keyword">end</span>
+
+a <span class="Keyword">=</span> <span class="LibraryObject">EmptyTrue</span>.<span class="FunctionName">new</span>
+b <span class="Keyword">=</span> <span class="BuiltInConstant">nil</span>
+c <span class="Keyword">=</span> <span class="BuiltInConstant">false</span>
+d <span class="Keyword">=</span> <span class="String"><span class="String">'</span><span class="String">'</span></span>
+e <span class="Keyword">=</span> <span class="String"><span class="String">'</span>   <span class="String">'</span></span>
+g <span class="Keyword">=</span> <span class="String"><span class="String">&quot;</span>  <span class="StringInterpolation">\n</span><span class="StringInterpolation">\t</span>  <span class="StringInterpolation">\r</span> <span class="String">&quot;</span></span>
+g <span class="Keyword">=</span> []
+h <span class="Keyword">=</span> {}
+
+a.<span class="FunctionName">present?</span> <span class="Comment"><span class="Comment">#</span> =&gt; false</span>
+b.<span class="FunctionName">present?</span> <span class="Comment"><span class="Comment">#</span> =&gt; false</span>
+c.<span class="FunctionName">present?</span> <span class="Comment"><span class="Comment">#</span> =&gt; false</span>
+d.<span class="FunctionName">present?</span> <span class="Comment"><span class="Comment">#</span> =&gt; false</span>
+e.<span class="FunctionName">present?</span> <span class="Comment"><span class="Comment">#</span> =&gt; false</span>
+f.<span class="FunctionName">present?</span> <span class="Comment"><span class="Comment">#</span> =&gt; false</span>
+g.<span class="FunctionName">present?</span> <span class="Comment"><span class="Comment">#</span> =&gt; false</span>
+h.<span class="FunctionName">present?</span> <span class="Comment"><span class="Comment">#</span> =&gt; false</span>
+</pre>
+
+<p>Todos estes objetos são vazios ou não estão presentes.</p>
+
+<p>Mas, muito cuidado, algumas pessoas tem confundido as coisas. Veja alguns exemplos de objetos que NÃO estão vazios, ou seja, estão presentes:</p>
+
+<pre class="mac_classic"><span class="Keyword">class</span> <span class="TypeName">EmptyFalse</span>
+  <span class="Keyword">def</span> <span class="FunctionName">empty?</span>(<span class="FunctionParameter"></span>) <span class="BuiltInConstant">false</span>; <span class="Keyword">end</span>
+<span class="Keyword">end</span>
+
+a <span class="Keyword">=</span> <span class="LibraryObject">EmptyFalse</span>.<span class="FunctionName">new</span>
+b <span class="Keyword">=</span> <span class="LibraryObject">Object</span>.<span class="FunctionName">new</span>
+c <span class="Keyword">=</span> <span class="BuiltInConstant">true</span>
+d <span class="Keyword">=</span> <span class="Number">0</span>
+e <span class="Keyword">=</span> <span class="Number">1</span>
+f <span class="Keyword">=</span> <span class="String"><span class="String">'</span>a<span class="String">'</span></span>
+g <span class="Keyword">=</span> [<span class="BuiltInConstant">nil</span>]
+h <span class="Keyword">=</span> { <span class="BuiltInConstant">nil</span> =&gt; <span class="Number">0</span> }
+
+a.<span class="FunctionName">present?</span> <span class="Comment"><span class="Comment">#</span> =&gt; true</span>
+b.<span class="FunctionName">present?</span> <span class="Comment"><span class="Comment">#</span> =&gt; true</span>
+c.<span class="FunctionName">present?</span> <span class="Comment"><span class="Comment">#</span> =&gt; true</span>
+d.<span class="FunctionName">present?</span> <span class="Comment"><span class="Comment">#</span> =&gt; true</span>
+e.<span class="FunctionName">present?</span> <span class="Comment"><span class="Comment">#</span> =&gt; true</span>
+f.<span class="FunctionName">present?</span> <span class="Comment"><span class="Comment">#</span> =&gt; true</span>
+g.<span class="FunctionName">present?</span> <span class="Comment"><span class="Comment">#</span> =&gt; true</span>
+h.<span class="FunctionName">present?</span> <span class="Comment"><span class="Comment">#</span> =&gt; true</span>
+</pre>
+
+<p>Qualquer objeto que contenha um valor, está presente, isto vale até mesmo para um <strong>Array</strong> preenchido com um <strong>nil</strong>, porque o <strong>Array</strong> não está vazio.</p>
+
+<h2> StringInquirer</h2>
+
+<p>Uma nova classe foi incluída ao Rails, a classe <strong>StringInquirer</strong>.</p>
+
+<p>Para entender como funciona, vou ter de explicar usando alguns exemplos. Vamos criar uma classe chamada <strong>Cliente</strong> que contém um método que retorna o <strong>status</strong> do cliente:</p>
+
+<pre class="mac_classic"><span class="Keyword">class</span> <span class="TypeName">Cliente</span>
+  <span class="Keyword">def</span> <span class="FunctionName">status</span>
+    <span class="String"><span class="String">&quot;</span>ativo<span class="String">&quot;</span></span>
+  <span class="Keyword">end</span>
+<span class="Keyword">end</span>
+
+c <span class="Keyword">=</span> <span class="LibraryObject">Cliente</span>.<span class="FunctionName">new</span>
+c.<span class="FunctionName">status</span>
+<span class="Comment"><span class="Comment">#</span> =&gt; &quot;ativo&quot;</span>
+
+c.<span class="FunctionName">status</span> <span class="Keyword">==</span> <span class="String"><span class="String">&quot;</span>ativo<span class="String">&quot;</span></span>
+<span class="Comment"><span class="Comment">#</span> =&gt; true</span>
+
+c.<span class="FunctionName">status</span> <span class="Keyword">==</span> <span class="String"><span class="String">&quot;</span>inativo<span class="String">&quot;</span></span>
+<span class="Comment"><span class="Comment">#</span> =&gt; false</span>
+</pre>
+
+<p>Ok, até aqui tudo normal. Agora vou modificar a implementação do método status usando a classe <strong>StringInquirer</strong>, sempre lembrando que o retorno do método <strong>status</strong> pode vir de uma coluna do banco de dados (claro), isto é apenas um exemplo.</p>
+
+<pre class="mac_classic"><span class="Keyword">class</span> <span class="TypeName">Cliente</span>
+  <span class="Keyword">def</span> <span class="FunctionName">status</span>
+    <span class="LibraryObject">ActiveSupport</span>::<span class="FunctionName">StringInquirer</span>.<span class="FunctionName">new</span>(<span class="String"><span class="String">&quot;</span>ativo<span class="String">&quot;</span></span>)
+  <span class="Keyword">end</span>
+<span class="Keyword">end</span>
+
+c <span class="Keyword">=</span> <span class="LibraryObject">Cliente</span>.<span class="FunctionName">new</span>
+c.<span class="FunctionName">status</span>
+<span class="Comment"><span class="Comment">#</span> =&gt; &quot;ativo&quot;</span>
+
+<span class="Comment"><span class="Comment">#</span> Agora vem a grande diferença:</span>
+c.<span class="FunctionName">status</span>.<span class="FunctionName">ativo?</span>
+<span class="Comment"><span class="Comment">#</span> =&gt; true</span>
+
+c.<span class="FunctionName">status</span>.<span class="FunctionName">inativo?</span>
+<span class="Comment"><span class="Comment">#</span> =&gt; false</span>
+</pre>
+
+<p>Para verificar se o <strong>status</strong> do cliente é o esperado, ao invés de comparar <strong>Strings</strong>, eu uso um método com o valor do status e o sinal de interrogação.</p>
+
+<p>Claro que isto já começou a ser usado no próprio Rails. Por exemplo, caso você precise verificar se o Rails foi carregado em ambiente de produção, você pode substituir o velho <strong>Rails.env == "production"</strong>, por:</p>
+
+<pre class="mac_classic"><span class="LibraryObject">Rails</span>.<span class="FunctionName">env</span>.<span class="FunctionName">production?</span>
+</pre>
+
+<h2> Nova sintaxe para testes</h2>
+
+<p>Uma nova forma de se declarar testes foi adicionada ao Rails, usando declarações <strong>test/do</strong>. Veja:</p>
+
+<pre class="mac_classic">test <span class="String"><span class="String">&quot;</span>verify something<span class="String">&quot;</span></span> <span class="Keyword">do</span>
+<span class="Comment">  <span class="Comment">#</span> ...</span>
+<span class="Keyword">end</span>
+</pre>
+
+<p>Este é o novo padrão para testes do Rails, veja como ficou um arquivo de teste unitário recém criado nesta versão:</p>
+
+<pre class="mac_classic"><span class="Keyword">require</span> <span class="String"><span class="String">'</span>test_helper<span class="String">'</span></span>
+
+<span class="Keyword">class</span> <span class="TypeName">PostTest<span class="InheritedClassName"> <span class="InheritedClassName">&lt;</span> ActiveSupport::TestCase</span></span>
+<span class="Comment">  <span class="Comment">#</span> Replace this with your real tests.</span>
+  test <span class="String"><span class="String">&quot;</span>the truth<span class="String">&quot;</span></span> <span class="Keyword">do</span>
+    assert <span class="BuiltInConstant">true</span>
+  <span class="Keyword">end</span>
+<span class="Keyword">end</span>
+</pre>
+
+<p>A forma convencional, usando métodos, também continuará funcionando, então nossos testes antigos não quebrarão.</p>
+
 <h1> ActiveResource</h1>
 
 <p>O ActiveResource é uma camada de mapeamento responsável pela implementação do lado cliente de sistemas RESTful. Através do ActiveResource é possível consumir serviços RESTful através do uso de objetos que funcionam como um proxy para serviços remotos.</p>
@@ -245,6 +460,34 @@ array.<span class="FunctionName">tenth</span>   <span class="Comment"><span clas
 <p>No exemplo acima eu especifiquei <strong>:layout => false</strong>, isto significa que o layout não será armazenado no cache, apenas o conteúdo da action será. Isto é muito útil quando temos conteúdo dinâmico no layout (o que acontece na maioria dos casos).</p>
 
 <p>Se você não especificar nada ele assumirá o padrão atual que é <strong>true</strong>.</p>
+
+<h2> Alteração no método concat</h2>
+
+<p>Se você tem o costume de evitar repetições em suas views criando helpers, com certeza já usou o método <strong>concat</strong>. Se você nunca usou este método, saiba que ele é como o <strong>puts</strong> para uma view.</p>
+
+<p>A implementação atual do método recebe dois parâmetros, uma <strong>string</strong> com o texto que será exibido na view e um segundo chamado <strong>binding</strong>. Acontece que devido a melhorias no código, embora ele ainda espere estes dois parâmetros, o <strong>binding</strong> não é mais necessário, na verdade o método simplesmente não o usa mais.</p>
+
+<p>Então este segundo parâmetro foi deprecado, ou seja, se você estiver informando ele à chamada do método e rodando o seu projeto sob o Rails 2.2, receberá a seguinte mensagem ao subir o seu servidor:</p>
+
+<p>The binding argument of #concat is no longer needed. Please remove it from your views and helpers.</p>
+
+<p>Em uma futura versão do Rails, este segundo parâmetro será removido.</p>
+
+<h2> Método link_to com blocos</h2>
+
+<p>O método <strong>link_to</strong> recebeu uma atualização que permite seu uso com blocos. Isto é interessante para os casos onde temos textos muito longos no hyperlink. Por exemplo, se hoje fazemos assim:</p>
+
+<pre class="mac_classic"><span class="Keyword">&lt;</span><span class="Keyword">%=</span> link_to <span class="String"><span class="String">&quot;</span>&lt;strong&gt;<span class="StringInterpolation"><span class="StringInterpolation">#{</span><span class="Variable"><span class="Variable">@</span>profile</span><span class="StringInterpolation"><span class="StringInterpolation">.</span><span class="FunctionName">name</span></span><span class="StringInterpolation">}</span></span>&lt;/strong&gt; -- &lt;span&gt;Check it out!!&lt;/span&gt;<span class="String">&quot;</span></span>, <span class="Variable"><span class="Variable">@</span>profile</span> <span class="String"><span class="String">%&gt;</span></span>
+</pre>
+
+<p>Agora podemos fazer assim, que teremos o mesmo resultado:</p>
+
+<pre class="mac_classic"><span class="Keyword">&lt;</span><span class="Keyword">%</span> <span class="FunctionName">link_to</span>(<span class="Variable"><span class="Variable">@</span>profile</span>) <span class="Keyword">do </span><span class="String"><span class="String">%&gt;</span></span>
+<span class="String">  &lt;strong<span class="String">&gt;</span></span><span class="Keyword">&lt;</span><span class="Keyword">%=</span> <span class="Variable"><span class="Variable">@</span>profile</span>.<span class="FunctionName">name</span> <span class="String"><span class="String">%&gt;</span>&lt;/strong<span class="String">&gt;</span></span> <span class="Keyword">-</span><span class="Keyword">-</span> <span class="Keyword">&lt;</span>span<span class="Keyword">&gt;</span><span class="Variable">Check</span> it out!!<span class="Keyword">&lt;</span><span class="Keyword">/</span>span<span class="Keyword">&gt;</span>
+<span class="Keyword">&lt;</span><span class="Keyword">%</span> <span class="Keyword">end</span> <span class="String"><span class="String">%&gt;</span></span>
+</pre>
+
+<p>Não é uma mudança significativa em funcionalidade, mas permite deixar o código mais legivel, e isto também é importante.</p>
 
 <h2> RJS#page.reload</h2>
 
@@ -300,6 +543,23 @@ Uma ação é definido como métodos públicos nos controladores que são automa
 <p>O ActionView é a camada responsável pela geração da interface visível ao usuário através da conversão dos templates ERB.</p>
 
 <h1> Railties</h1>
+
+<h2> Está chegando o fim dos plugins?</h2>
+
+<p>No Rails 2.1, gems passaram a poder ser usadas como plugins em nossos projetos. Para isto bastava criar uma pasta chamada <strong>rails</strong> dentro do projeto do gem e incluir um arquivo <strong>init.rb</strong>.</p>
+
+<p>Isto acrescentou um leque de novidades como <strong>config.gem</strong> e <strong>rake:gems</strong>. Mas isto nos faz pensar, já que agora eu posso carregar gems dentro da minha aplicação Rails, seria apenas uma questão de tempo até que plugins deixassem de existir.</p>
+
+<p>E parece que isto realmente pode acontecer. Para esta versão do Rails, por exemplo, foi incluída uma alteração que permite inicializar plugins tanto pelo arquivo <strong>init.rb</strong> na raiz do plugin, como em um arquivo em um diretório <strong>rails/init.rb</strong> (da mesma forma como fazemos com os gems), sendo esta segunda opção a prioritária.</p>
+
+<p>Assim, eu poderia por exemplo criar um gem (que funcionaria como um plugin) e instalar de duas maneiras:</p>
+
+<pre class="mac_classic">.<span class="Keyword">/</span>script<span class="Keyword">/</span>plugin install git<span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>/</span><span class="Keyword">/</span>github.<span class="FunctionName">com</span><span class="Keyword">/</span>user<span class="Keyword">/</span>plugin.<span class="FunctionName">git</span>
+
+sudo gem install user<span class="Keyword">-</span>plugin <span class="Keyword">-</span><span class="Keyword">-</span>source<span class="Keyword">=</span>http<span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>/</span><span class="Keyword">/</span>gems.<span class="FunctionName">github</span>.<span class="FunctionName">com</span>
+</pre>
+
+<p>Isto sem precisar manter dois arquivos <strong>init.rb</strong> (um na raiz e outro no diretório rails).</p>
 
 <h2> Suporte ao Thin melhorado no Rails</h2>
 
@@ -363,6 +623,16 @@ Uma ação é definido como métodos públicos nos controladores que são automa
 </pre>
 
 <h1> Bugs e Correções</h1>
+
+<h2> ActiveRecord</h2>
+
+<h3> Correção de uma colisão entre named_scope e :joins.</h3>
+
+<p>Quando se usava <strong>with_scope</strong> junto com <strong>:joins</strong> todos os atributos da tabelas secundárias eram adicionados ao modelo da tabela principal.</p>
+
+<h3> Partial updates não atualizavam o lock_version se nada foi alterado.</h3>
+
+<p>Quando usávamos optimistic locking com partial updates, tinhamos queries extras quando na verdade elas não eram necessárias.</p>
 
 <h2> Correção nas tarefas db:migrate:down e :up</h2>
 

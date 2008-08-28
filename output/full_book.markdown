@@ -28,6 +28,30 @@ A toda a comunidade brasileira de Ruby on Rails que colaborou direta ou indireta
 
 O Active Record é uma camada de mapeamento objeto-relacional (object-relational mapping layer), responsável pela interoperabilidade entre a aplicação e o banco de dados e pela abstração dos dados.
 (wikipedia)
+## Nova opção para associações, :validate
+
+Foi adicionado ao Rails uma nova opção para associações. Se incluirmos a opção **:validate => false** na associação o **ActiveRecord** salvará os dados do objeto pai, sem validar os objetos associados. Exemplo:
+
+	class AuditLog < ActiveRecord::Base
+	  belongs_to :developer, :validate => false
+	end
+
+	log = AuditLog.create(:developer_id => 0 , :message => "")
+	log.developer = Developer.new
+
+	puts log.developer.valid?
+	# => false
+
+	puts log.valid?
+	# => true
+
+	puts log.save
+	# => true
+
+Note que mesmo com a associação não sendo valida, o objeto **log** foi salvo.
+
+O valor padrão é **false**, ou seja, todas as validações em associações **belongs\_to** estarão desligadas como padrão e para ligarmos devemos usar a expressão **:validate => true**.
+
 ## Uma nova forma de especificar conditions usando Hash
 
 Ao realizar buscas no banco de dados, por vezes temos de fazer uso da opção **:joins** afim de melhorar a performance de nosso aplicativo, em outros casos precisamos simplesmente recuperar algum tipo de informação que depende do resultado de duas tabelas.
@@ -70,6 +94,23 @@ Veja alguns exemplos de uso:
 	# Realizando o cálculo em uma tabela diferente da associada a classe
 	Company.count :all, :from => 'accounts'
 
+## Método merge\_conditions do ActiveRecord agora é público
+
+O método **merge\_conditions** do **ActiveRecord** agora é um método público. O que significa que ele estará presente em todas os seus **Models**.
+
+Este método faz exatamente o que o nome diz, você pode informar várias **conditions** separadas em seus parâmetros e ele junta tudo em uma condition só. Por exemplo:
+
+	class Post < ActiveRecord::Base
+	end
+
+	a = { :author => 'Carlos Brando' }
+	b = [ 'title = ?', 'Edge Rails' ]
+
+	Post.merge_conditions(a, b)
+	# => "(\"posts\".\"author\" = 'Carlos Brando') AND (title = 'Edge Rails')"
+
+Note que ele une as **conditions** com um **AND**, sempre.
+
 ## Definindo como o método validates\_length\_of deve funcionar
 
 O método **validates\_length\_of** faz parte dos muitos métodos de validação contidos no **ActiveRecord**. Este método em particular serve para garantir que o valor gravado em uma determinada coluna no banco de dados terá um tamanho máximo, mínimo, exato, ou até mesmo se está em um intervalo de valores.
@@ -110,6 +151,45 @@ Vamos aos exemplos:
 	array.eighth  # => array[7]
 	array.ninth   # => array[8]
 	array.tenth   # => array[9]
+
+## Novo método Enumerable#many?
+
+Um novo método foi adicionado ao módulo **Enumerable**: **many?**. E como o nome mesmo diz, ele verifica se a coleção possui mais de um objeto, ou em outras palavras se tem muitos objetos associados.
+
+Este método é um alias para **collection.size > 1**. Vamos ver alguns exemplos:
+
+	>> [].many?
+	# => false
+
+	>> [ 1 ].many?
+	# => false
+
+	>> [ 1, 2 ].many?
+	# => true
+
+Além deste formato dado nos exemplos, este método também recebeu uma nova implementação permitindo que ele aceite blocos, que funciona exatamente como o método **any?**.
+
+Vamos aos exemplos:
+
+	>> x = %w{ a b c b c }
+	# => ["a", "b", "c", "b", "c"]
+
+	>> x.many?
+	# => true
+
+	>> x.many? { |y| y == 'a' }
+	# => false
+
+	>> x.many? { |y| y == 'b' }
+	# => true
+
+
+	# um outro exemplo...
+	people.many? { |p| p.age > 26 }
+
+Apenas para relembrar e reforçar, este método só retornará **true** se mais de um objeto passar nas condições quando usado o bloco, e quando a coleção tiver mais de um objeto quando usado sem condicionais.
+
+Só uma curiosidade, o método inicialmente se chamaria **several?**, mas foi alterado para **many?** depois.
 
 ## Crie regras para o String#humanize
 
@@ -162,6 +242,130 @@ Só existe uma diferença entre os dois códigos acima. No primeiro, como o mét
 
 No segundo exemplo, o método **age** só será executado uma vez e o valor retornado será sempre devolvido nas próximas chamadas, mesmo que seja **nil** ou **false**.
 
+## Novo método Object#present?
+
+Um novo método foi acrescentado à classe **Object**. O método **present?** é o equivalente a **!Object#blank?**.
+
+Em outras palavras um objeto está presente se ele não for vazio. Mas o que é um objeto vazio?
+
+	class EmptyTrue
+	  def empty?() true; end
+	end
+
+	a = EmptyTrue.new
+	b = nil
+	c = false
+	d = ''
+	e = '   '
+	g = "  \n\t  \r "
+	g = []
+	h = {}
+
+	a.present? # => false
+	b.present? # => false
+	c.present? # => false
+	d.present? # => false
+	e.present? # => false
+	f.present? # => false
+	g.present? # => false
+	h.present? # => false
+
+Todos estes objetos são vazios ou não estão presentes.
+
+Mas, muito cuidado, algumas pessoas tem confundido as coisas. Veja alguns exemplos de objetos que NÃO estão vazios, ou seja, estão presentes:
+
+	class EmptyFalse
+	  def empty?() false; end
+	end
+
+	a = EmptyFalse.new
+	b = Object.new
+	c = true
+	d = 0
+	e = 1
+	f = 'a'
+	g = [nil]
+	h = { nil => 0 }
+
+	a.present? # => true
+	b.present? # => true
+	c.present? # => true
+	d.present? # => true
+	e.present? # => true
+	f.present? # => true
+	g.present? # => true
+	h.present? # => true
+
+Qualquer objeto que contenha um valor, está presente, isto vale até mesmo para um **Array** preenchido com um **nil**, porque o **Array** não está vazio.
+
+## StringInquirer
+
+Uma nova classe foi incluída ao Rails, a classe **StringInquirer**.
+
+Para entender como funciona, vou ter de explicar usando alguns exemplos. Vamos criar uma classe chamada **Cliente** que contém um método que retorna o **status** do cliente:
+
+	class Cliente
+	  def status
+	    "ativo"
+	  end
+	end
+
+	c = Cliente.new
+	c.status
+	# => "ativo"
+
+	c.status == "ativo"
+	# => true
+
+	c.status == "inativo"
+	# => false
+
+Ok, até aqui tudo normal. Agora vou modificar a implementação do método status usando a classe **StringInquirer**, sempre lembrando que o retorno do método **status** pode vir de uma coluna do banco de dados (claro), isto é apenas um exemplo.
+
+	class Cliente
+	  def status
+	    ActiveSupport::StringInquirer.new("ativo")
+	  end
+	end
+
+	c = Cliente.new
+	c.status
+	# => "ativo"
+
+	# Agora vem a grande diferença:
+	c.status.ativo?
+	# => true
+
+	c.status.inativo?
+	# => false
+
+Para verificar se o **status** do cliente é o esperado, ao invés de comparar **Strings**, eu uso um método com o valor do status e o sinal de interrogação.
+
+Claro que isto já começou a ser usado no próprio Rails. Por exemplo, caso você precise verificar se o Rails foi carregado em ambiente de produção, você pode substituir o velho **Rails.env == "production"**, por:
+
+	Rails.env.production?
+
+## Nova sintaxe para testes
+
+Uma nova forma de se declarar testes foi adicionada ao Rails, usando declarações **test/do**. Veja:
+
+	test "verify something" do
+	  # ...
+	end
+
+Este é o novo padrão para testes do Rails, veja como ficou um arquivo de teste unitário recém criado nesta versão:
+
+	require 'test_helper'
+
+	class PostTest < ActiveSupport::TestCase
+	  # Replace this with your real tests.
+	  test "the truth" do
+	    assert true
+	  end
+	end
+
+A forma convencional, usando métodos, também continuará funcionando, então nossos testes antigos não quebrarão.
+
 # ActiveResource
 
 O ActiveResource é uma camada de mapeamento responsável pela implementação do lado cliente de sistemas RESTful. Através do ActiveResource é possível consumir serviços RESTful através do uso de objetos que funcionam como um proxy para serviços remotos.
@@ -184,6 +388,32 @@ Foi acrescentado a opção **:layout** no método **caches\_action**.
 No exemplo acima eu especifiquei **:layout => false**, isto significa que o layout não será armazenado no cache, apenas o conteúdo da action será. Isto é muito útil quando temos conteúdo dinâmico no layout (o que acontece na maioria dos casos).
 
 Se você não especificar nada ele assumirá o padrão atual que é **true**.
+
+## Alteração no método concat
+
+Se você tem o costume de evitar repetições em suas views criando helpers, com certeza já usou o método **concat**. Se você nunca usou este método, saiba que ele é como o **puts** para uma view.
+
+A implementação atual do método recebe dois parâmetros, uma **string** com o texto que será exibido na view e um segundo chamado **binding**. Acontece que devido a melhorias no código, embora ele ainda espere estes dois parâmetros, o **binding** não é mais necessário, na verdade o método simplesmente não o usa mais.
+
+Então este segundo parâmetro foi deprecado, ou seja, se você estiver informando ele à chamada do método e rodando o seu projeto sob o Rails 2.2, receberá a seguinte mensagem ao subir o seu servidor:
+
+The binding argument of #concat is no longer needed. Please remove it from your views and helpers.
+
+Em uma futura versão do Rails, este segundo parâmetro será removido.
+
+## Método link\_to com blocos
+
+O método **link\_to** recebeu uma atualização que permite seu uso com blocos. Isto é interessante para os casos onde temos textos muito longos no hyperlink. Por exemplo, se hoje fazemos assim:
+
+	<%= link_to "<strong>#{@profile.name}</strong> -- <span>Check it out!!</span>", @profile %>
+
+Agora podemos fazer assim, que teremos o mesmo resultado:
+
+	<% link_to(@profile) do %>
+	  <strong><%= @profile.name %></strong> -- <span>Check it out!!</span>
+	<% end %>
+
+Não é uma mudança significativa em funcionalidade, mas permite deixar o código mais legivel, e isto também é importante.
 
 ## RJS#page.reload
 
@@ -233,6 +463,22 @@ Uma ação é definido como métodos públicos nos controladores que são automa
 
 O ActionView é a camada responsável pela geração da interface visível ao usuário através da conversão dos templates ERB.
 # Railties
+
+## Está chegando o fim dos plugins?
+
+No Rails 2.1, gems passaram a poder ser usadas como plugins em nossos projetos. Para isto bastava criar uma pasta chamada **rails** dentro do projeto do gem e incluir um arquivo **init.rb**.
+
+Isto acrescentou um leque de novidades como **config.gem** e **rake:gems**. Mas isto nos faz pensar, já que agora eu posso carregar gems dentro da minha aplicação Rails, seria apenas uma questão de tempo até que plugins deixassem de existir.
+
+E parece que isto realmente pode acontecer. Para esta versão do Rails, por exemplo, foi incluída uma alteração que permite inicializar plugins tanto pelo arquivo **init.rb** na raiz do plugin, como em um arquivo em um diretório **rails/init.rb** (da mesma forma como fazemos com os gems), sendo esta segunda opção a prioritária.
+
+Assim, eu poderia por exemplo criar um gem (que funcionaria como um plugin) e instalar de duas maneiras:
+
+	./script/plugin install git://github.com/user/plugin.git
+
+	sudo gem install user-plugin --source=http://gems.github.com
+
+Isto sem precisar manter dois arquivos **init.rb** (um na raiz e outro no diretório rails).
 
 ## Suporte ao Thin melhorado no Rails
 
@@ -292,6 +538,16 @@ Neste arquivo podemos colocar todos os testes que desejarmos e ao executá-lo te
 	Finished in 0.870842 seconds.
 
 # Bugs e Correções
+
+## ActiveRecord
+
+### Correção de uma colisão entre named\_scope e :joins.
+
+Quando se usava **with\_scope** junto com **:joins** todos os atributos da tabelas secundárias eram adicionados ao modelo da tabela principal.
+
+### Partial updates não atualizavam o lock\_version se nada foi alterado.
+
+Quando usávamos optimistic locking com partial updates, tinhamos queries extras quando na verdade elas não eram necessárias.
 
 ## Correção nas tarefas db:migrate:down e :up
 
