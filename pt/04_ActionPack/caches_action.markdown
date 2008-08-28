@@ -1,4 +1,4 @@
-## caches\_action
+## Nova opção :layout no método caches\_action
 
 Foi acrescentado a opção **:layout** no método **caches\_action**.
 

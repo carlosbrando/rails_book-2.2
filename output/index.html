@@ -76,10 +76,106 @@
 <p>O Active Record é uma camada de mapeamento objeto-relacional (object-relational mapping layer), responsável pela interoperabilidade entre a aplicação e o banco de dados e pela abstração dos dados.
 (wikipedia)</p>
 
+<h2> Uma nova forma de especificar conditions usando Hash</h2>
+
+<p>Ao realizar buscas no banco de dados, por vezes temos de fazer uso da opção <strong>:joins</strong> afim de melhorar a performance de nosso aplicativo, em outros casos precisamos simplesmente recuperar algum tipo de informação que depende do resultado de duas tabelas.</p>
+
+<p>Por exemplo, se desejássemos recuperar todos os usuários do sistema que compraram itens da cor vermelha, faríamos algo assim:</p>
+
+<pre class="mac_classic"><span class="LibraryObject">User</span>.<span class="FunctionName">all</span> <span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>joins</span> =&gt; <span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>items</span>, <span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>conditions</span> =&gt; [<span class="String"><span class="String">&quot;</span>items.color = ?<span class="String">&quot;</span></span>, <span class="String"><span class="String">'</span>red<span class="String">'</span></span>]
+</pre>
+
+<p>Este tipo de sintaxe parece incomodar já que você precisa incluir o nome da tabela (no caso <strong>items</strong>) dentro de uma <strong>string</strong>. O código parece estranho.</p>
+
+<p>No Rails 2.2 encontraremos uma novidade nesta questão, nos permitindo fazer a mesma coisa de uma forma um pouco diferente, usando uma chave dentro do <strong>hash</strong> para identificar a tabela:</p>
+
+<pre class="mac_classic"><span class="LibraryObject">User</span>.<span class="FunctionName">all</span> <span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>joins</span> =&gt; <span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>items</span>, <span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>conditions</span> =&gt; {
+  <span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>age</span> =&gt; <span class="Number">10</span>,
+  <span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>items</span> =&gt; { <span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>color</span> =&gt; <span class="String"><span class="String">'</span>red<span class="String">'</span></span> }
+}
+
+<span class="Comment"><span class="Comment">#</span> um outro exemplo que talvez deixe o código mais claro</span>
+<span class="LibraryObject">User</span>.<span class="FunctionName">all</span> <span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>joins</span> =&gt; <span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>items</span>, <span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>conditions</span> =&gt; {
+  <span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>users</span> =&gt; { <span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>age</span> =&gt; <span class="Number">10</span> },
+  <span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>items</span> =&gt; { <span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>color</span> =&gt; <span class="String"><span class="String">'</span>red<span class="String">'</span></span> }
+}
+</pre>
+
+<p>Na minha opinião, desta forma o código fica muito mais claro, principalmente se temos de condicionar muitos campos de várias tabelas diferentes.</p>
+
+<p>Só tenha em mente que a chave usada é o nome da tabela (você percebe pelo nome pluralizado) ou um alias caso você o tenha especificado na query.</p>
+
+<h2> Definindo como o método validates_length_of deve funcionar</h2>
+
+<p>O método <strong>validates_length_of</strong> faz parte dos muitos métodos de validação contidos no <strong>ActiveRecord</strong>. Este método em particular serve para garantir que o valor gravado em uma determinada coluna no banco de dados terá um tamanho máximo, mínimo, exato, ou até mesmo se está em um intervalo de valores.</p>
+
+<p>Mas o termo "tamanho" é relativo. Hoje quando dizemos "tamanho" estamos nos referindo a quantidade de caracteres no texto.</p>
+
+<p>Mas imagine um caso onde eu tenha um campo em um formulário onde a limitação não seja definida pela quantidade de caracteres e sim pela quantidade de palavras, algo como "escreva um texto com no mínimo 100 palavras". Imagine uma página onde o usuário tenha de redigir uma redação, por exemplo.</p>
+
+<p>Hoje, para validar isto não teríamos outra escolha senão criarmos um novo método que faça esta validação. Mas à partir do Rails 2.2 poderemos personalizar o método <strong>validates_length_of</strong> para funcionar da forma como desejamos usando a opção <strong>:tokenizer</strong>.</p>
+
+<p>Veja um exemplo que resolveria o problema citado acima:</p>
+
+<pre class="mac_classic">validates_length_of <span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>essay</span>,
+                    <span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>minimum</span> =&gt; <span class="Number">100</span>,
+                    <span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>too_short</span> =&gt; <span class="String"><span class="String">&quot;</span>Sua redação deve ter no mínimo %d palavras.<span class="String">&quot;</span></span>),
+                    <span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>tokenizer</span> =&gt; lambda {|<span class="Variable">str</span>| str.<span class="FunctionName">scan</span>(<span class="String"><span class="String">/</span></span><span class="String"><span class="StringInterpolation">\w</span>+</span><span class="String"><span class="String">/</span></span>) }
+</pre>
+
+<p>Este é apenas um exemplo do que podemos fazer com esta nova opção. Além disso podemos usa-lá para contar apenas a quantidade de dígitos, menções de uma única palavra, etc..</p>
+
 <h1> ActiveSupport</h1>
 
 <p>Active Support é uma coleção de várias classes úteis e extensões de bibliotecas padrões, que foram considerados úteis para aplicações em Ruby on Rails.
 (wikipedia)</p>
+
+<h2> Array#second até Array#tenth</h2>
+
+<p>No objeto Array já tínhamos o método <strong>first</strong> e <strong>last</strong>, então porque não ter também os métodos <strong>second</strong>, <strong>third</strong>, <strong>fourth</strong> e assim por diante? É isso mesmo, foram acrescentados ao objeto <strong>Array</strong> os métodos que vão do <strong>second</strong> (segundo) até o <strong>tenth</strong> (décimo), que servem para retornar o objeto especifico dentro do <strong>Array</strong> (o terceiro objeto do array, por exemplo).</p>
+
+<p>Vamos aos exemplos:</p>
+
+<pre class="mac_classic">array <span class="Keyword">=</span> (<span class="Number">1</span>..<span class="Number">10</span>).<span class="FunctionName">to_a</span>
+
+array.<span class="FunctionName">second</span>  <span class="Comment"><span class="Comment">#</span> =&gt; array[1]</span>
+array.<span class="FunctionName">third</span>   <span class="Comment"><span class="Comment">#</span> =&gt; array[2]</span>
+array.<span class="FunctionName">fourth</span>  <span class="Comment"><span class="Comment">#</span> =&gt; array[3]</span>
+array.<span class="FunctionName">fifth</span>   <span class="Comment"><span class="Comment">#</span> =&gt; array[4]</span>
+array.<span class="FunctionName">sixth</span>   <span class="Comment"><span class="Comment">#</span> =&gt; array[5]</span>
+array.<span class="FunctionName">seventh</span> <span class="Comment"><span class="Comment">#</span> =&gt; array[6]</span>
+array.<span class="FunctionName">eighth</span>  <span class="Comment"><span class="Comment">#</span> =&gt; array[7]</span>
+array.<span class="FunctionName">ninth</span>   <span class="Comment"><span class="Comment">#</span> =&gt; array[8]</span>
+array.<span class="FunctionName">tenth</span>   <span class="Comment"><span class="Comment">#</span> =&gt; array[9]</span>
+</pre>
+
+<h2> Crie regras para o String#humanize</h2>
+
+<p>Já faz um certo tempo que Pratik Naik estava tentando colocar este patch no Rails e parece que finalmente conseguiu.</p>
+
+<p>No arquivo <strong>config/initializers/inflections.rb</strong> você tem a opção de acrescentar novas inflexões para pluralização, singularização e outros:</p>
+
+<pre class="mac_classic"><span class="LibraryObject">Inflector</span>.<span class="FunctionName">inflections</span> <span class="Keyword">do </span>|<span class="Variable">inflect</span>|
+  inflect.<span class="FunctionName">plural</span> <span class="Keyword">/</span><span class="Keyword">^</span>(ox)<span class="Variable"><span class="Variable">$</span>/</span>i, <span class="String"><span class="String">'</span>en<span class="String">'</span></span>
+  inflect.<span class="FunctionName">singular</span> <span class="Keyword">/</span><span class="Keyword">^</span>(ox)en<span class="Keyword">/</span>i, <span class="String"><span class="String">'</span><span class="String">'</span></span>
+  inflect.<span class="FunctionName">irregular</span> <span class="String"><span class="String">'</span>person<span class="String">'</span></span>, <span class="String"><span class="String">'</span>people<span class="String">'</span></span>
+  inflect.<span class="FunctionName">uncountable</span> <span class="String"><span class="String">%w(</span> fish sheep <span class="String">)</span></span>
+<span class="Keyword">end</span>
+</pre>
+
+<p>No Rails 2.2 você também pode incluir inflexões para o método <strong>humanize</strong> da classe <strong>String</strong>. Vamos aos famosos exemplos:</p>
+
+<pre class="mac_classic"><span class="String"><span class="String">'</span>jargon_cnt<span class="String">'</span></span>.<span class="FunctionName">humanize</span> <span class="Comment"><span class="Comment">#</span> =&gt; &quot;Jargon cnt&quot;</span>
+<span class="String"><span class="String">'</span>nomedojogo<span class="String">'</span></span>.<span class="FunctionName">humanize</span> <span class="Comment"><span class="Comment">#</span> =&gt; &quot;Nomedojogo&quot;</span>
+
+<span class="LibraryObject">ActiveSupport</span>::<span class="FunctionName">Inflector</span>.<span class="FunctionName">inflections</span> <span class="Keyword">do </span>|<span class="Variable">inflect</span>|
+  inflect.<span class="FunctionName">human</span>(<span class="String"><span class="String">/</span></span><span class="String">_cnt$</span><span class="String"><span class="String">/i</span></span>, <span class="String"><span class="String">'</span>_count<span class="String">'</span></span>)
+  inflect.<span class="FunctionName">human</span>(<span class="String"><span class="String">'</span>nomedojogo<span class="String">'</span></span>, <span class="String"><span class="String">'</span>Nome do Jogo<span class="String">'</span></span>)
+<span class="Keyword">end</span>
+
+<span class="String"><span class="String">'</span>jargon_cnt<span class="String">'</span></span>.<span class="FunctionName">humanize</span> <span class="Comment"><span class="Comment">#</span> =&gt; &quot;Jargon count&quot;</span>
+<span class="String"><span class="String">'</span>nomedojogo<span class="String">'</span></span>.<span class="FunctionName">humanize</span> <span class="Comment"><span class="Comment">#</span> =&gt; &quot;Nome do jogo&quot;</span>
+</pre>
 
 <h2> Introduzindo Memoizable para cache de atributos</h2>
 
@@ -117,7 +213,7 @@
 <p>Compreende o Action View (geração de visualização de usuário, como HTML, XML, JavaScript, entre outros) e o Action Controller (controle de fluxo de negócio).
 (wikipedia)</p>
 
-<h2> caches_action</h2>
+<h2> Nova opção :layout no método caches_action</h2>
 
 <p>Foi acrescentado a opção <strong>:layout</strong> no método <strong>caches_action</strong>.</p>
 
@@ -147,6 +243,37 @@
 <span class="Keyword">end</span>
 </pre>
 
+<h2> Dando um nome para a variável local de uma coleção de partials</h2>
+
+<p>No código abaixo estamos usando uma <strong>partial</strong> com uma coleção de dados:</p>
+
+<pre class="mac_classic">render <span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>partial</span> =&gt; <span class="String"><span class="String">&quot;</span>admin_person<span class="String">&quot;</span></span>, <span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>collection</span> =&gt; <span class="Variable"><span class="Variable">@</span>winners</span>
+</pre>
+
+<p>Dentro da <strong>partial</strong> podemos usar então a variável <strong>admin_person</strong> para acessar os itens da coleção. Mas temos de concordar que este nome de variável é meio ruim.</p>
+
+<p>Agora temos a opção de personalizar o nome desta variável usando a opção <strong>:as</strong>. Vamos alterar o exemplo acima:</p>
+
+<pre class="mac_classic">render <span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>partial</span> =&gt; <span class="String"><span class="String">&quot;</span>admin_person<span class="String">&quot;</span></span>, <span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>collection</span> =&gt; <span class="Variable"><span class="Variable">@</span>winners</span>, <span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>as</span> =&gt; <span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>person</span>
+</pre>
+
+<p>Agora podemos acessar cada item da coleção usando a variável <strong>person</strong> que tem um nome mais intuitivo.</p>
+
+<h2> polymorphic_url agora é capaz de lidar com recursos singleton</h2>
+
+<p>Para mais detalhes sobre o que são rotas singulares veja o capítulo "Informações Adicionais" no fim deste livro.</p>
+
+<p>Até agora o helper <strong>polymorphic_url</strong> não estava tratando singleton resources corretamente.</p>
+
+<p>Um novo patch foi incluído no Rails para permitir que especifiquemos um singular resource usando símbolos, assim como fazemos com namespaces. Exemplo:</p>
+
+<pre class="mac_classic"><span class="Comment"><span class="Comment">#</span> este código</span>
+<span class="FunctionName">polymorphic_url</span>([<span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>admin</span>, <span class="Variable"><span class="Variable">@</span>user</span>, <span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>blog</span>, <span class="Variable"><span class="Variable">@</span>post</span>])
+
+<span class="Comment"><span class="Comment">#</span> é a mesma coisa que</span>
+<span class="FunctionName">admin_user_blog_post_url</span>(<span class="Variable"><span class="Variable">@</span>user</span>, <span class="Variable"><span class="Variable">@</span>post</span>)
+</pre>
+
 <h1> ActionController</h1>
 
 <p>O ActionController é a camada responsável por receber as requisições web e de tomar as decisões do quê será executado e renderizado ou de redirecionar para outra ação.
@@ -158,6 +285,13 @@ Uma ação é definido como métodos públicos nos controladores que são automa
 
 <h1> Railties</h1>
 
+<h2> Suporte ao Thin melhorado no Rails</h2>
+
+<p>O <strong>script/server</strong> agora verifica a disponibilidade do <strong>Thin</strong> e o usa. Muito conveniente se vocês estiver usando <strong>Thin</strong> no seu ambiente de produção (e quiser rodar o mesmo em desenvolvimento). Você deve acrescentar a seguinte linha no seu arquivo <strong>environment.rb</strong> para que isto funcione.</p>
+
+<pre class="mac_classic">config.<span class="FunctionName">gem</span> <span class="String"><span class="String">'</span>thin<span class="String">'</span></span>
+</pre>
+
 <h1> Rake Tasks, Plugins e Scripts</h1>
 
 <h1> Prototype e script.aculo.us</h1>
@@ -167,6 +301,38 @@ Uma ação é definido como métodos públicos nos controladores que são automa
 <h1> Debug</h1>
 
 <h1> Bugs e Correções</h1>
+
+<h2> Correção nas tarefas db:migrate:down e :up</h2>
+
+<p>Quando se usava o comando <strong>rake db:migrate:down VERSION=alguma_versão</strong>, os registros na tabela <strong>schema_migrations</strong> não eram atualizados.</p>
+
+<p>Isto significa que após usar o comando <strong>rake db:migrate:down</strong> ou <strong>up</strong> se você rodar o comando <strong>rake db:migrate</strong> algumas <strong>migrations</strong> podem não ser executadas. Vamos simular isto para ficar fácil de entender o problema:</p>
+
+<pre class="mac_classic">$ .<span class="Keyword">/</span>script<span class="Keyword">/</span>generate migration test_migration
+      create  db<span class="Keyword">/</span>migrate
+      create  db<span class="Keyword">/</span>migrate<span class="Keyword">/</span>20080608082216_test_migration.<span class="FunctionName">rb</span>
+
+$ rake db<span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>migrate</span>
+(<span class="Keyword">in</span> <span class="Keyword">/</span><span class="Variable">Users</span><span class="Keyword">/</span>erik<span class="Keyword">/</span>projects<span class="Keyword">/</span>railstest)
+<span class="Keyword">==</span> <span class="Number">20080608082216</span> <span class="Variable">TestMigration</span>: migrating <span class="Keyword">===</span><span class="Keyword">===</span><span class="Keyword">===</span><span class="Keyword">===</span><span class="Keyword">===</span><span class="Keyword">===</span><span class="Keyword">===</span><span class="Keyword">===</span><span class="Keyword">===</span><span class="Keyword">===</span><span class="Keyword">===</span><span class="Keyword">===</span>
+<span class="Keyword">-</span><span class="Keyword">-</span> <span class="FunctionName">create_table</span>(<span class="String"><span class="String">&quot;</span>foo<span class="String">&quot;</span></span>)
+   <span class="Keyword">-</span><span class="Keyword">&gt;</span> <span class="Number">0.</span>0137s
+<span class="Keyword">==</span> <span class="Number">20080608082216</span> <span class="Variable">TestMigration</span>: migrated (<span class="Number">0.</span>0140s) <span class="Keyword">===</span><span class="Keyword">===</span><span class="Keyword">===</span><span class="Keyword">===</span><span class="Keyword">===</span><span class="Keyword">===</span><span class="Keyword">===</span><span class="Keyword">===</span><span class="Keyword">===</span>
+
+$ rake db<span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>migrate</span><span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>down</span> <span class="Variable">VERSION</span><span class="Keyword">=</span><span class="Number">20080608082216</span>
+(<span class="Keyword">in</span> <span class="Keyword">/</span><span class="Variable">Users</span><span class="Keyword">/</span>erik<span class="Keyword">/</span>projects<span class="Keyword">/</span>railstest)
+<span class="Keyword">==</span> <span class="Number">20080608082216</span> <span class="Variable">TestMigration</span>: reverting <span class="Keyword">===</span><span class="Keyword">===</span><span class="Keyword">===</span><span class="Keyword">===</span><span class="Keyword">===</span><span class="Keyword">===</span><span class="Keyword">===</span><span class="Keyword">===</span><span class="Keyword">===</span><span class="Keyword">===</span><span class="Keyword">===</span><span class="Keyword">===</span>
+<span class="Keyword">-</span><span class="Keyword">-</span> <span class="FunctionName">drop_table</span>(<span class="String"><span class="String">&quot;</span>foo<span class="String">&quot;</span></span>)
+   <span class="Keyword">-</span><span class="Keyword">&gt;</span> <span class="Number">0.</span>0139s
+<span class="Keyword">==</span> <span class="Number">20080608082216</span> <span class="Variable">TestMigration</span>: reverted (<span class="Number">0.</span>0144s) <span class="Keyword">===</span><span class="Keyword">===</span><span class="Keyword">===</span><span class="Keyword">===</span><span class="Keyword">===</span><span class="Keyword">===</span><span class="Keyword">===</span><span class="Keyword">===</span><span class="Keyword">===</span>
+
+$ rake db<span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>migrate</span>
+(<span class="Keyword">in</span> <span class="Keyword">/</span><span class="Variable">Users</span><span class="Keyword">/</span>erik<span class="Keyword">/</span>projects<span class="Keyword">/</span>railstest)
+
+$
+</pre>
+
+<p>Este problema foi corrigido ao se certificar de atualizar a tabela <strong>schema_migrations</strong> após a execução destas tarefas.</p>
 
 <h2> end_of_quarter</h2>
 
@@ -181,7 +347,56 @@ Uma ação é definido como métodos públicos nos controladores que são automa
 
 <p>Nesta versão este erro já foi corrigido, mas caso você ainda esteja usando a versão 2.1 em algum projeto, muito cuidado, porque este erro só ocorrerá se usarmos o método <strong>end_of_quarter</strong> nos dias 31 de maio, julho e agosto.</p>
 
+<h2> PostgreSQL</h2>
+
+<p>No PostgreSQL, a sintaxe dele de <strong>typecast</strong> é a seguinte: <column>::<type></p>
+
+<p>O problema é que quando se usava essa sintaxe, o <strong>ActiveRecord</strong> achava que o na verdade era um named bind e reclamava que o valor para ele não estava sendo passado no <strong>hash</strong>. Agora este problema está corrigido, permitindo que façamos algo assim:</p>
+
+<pre class="mac_classic"><span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>conditions</span> =&gt; [<span class="String"><span class="String">'</span>:foo::integer<span class="String">'</span></span>, { <span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>foo</span> =&gt; <span class="Number">1</span> }]
+</pre>
+
+<h2> Solução de bug no método rename_column</h2>
+
+<p>Esta alteração trata-se na verdade de uma correção de um bug no método <strong>rename_column</strong>. Para entender qual era o problema precisamos de um cenário como exemplo. Primeiro criamos um <strong>migration</strong>:</p>
+
+<pre class="mac_classic">create_table <span class="String"><span class="String">&quot;</span>users<span class="String">&quot;</span></span>, <span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>force</span> =&gt; <span class="BuiltInConstant">true</span> <span class="Keyword">do </span>|<span class="Variable">t</span>|
+  t.<span class="FunctionName">column</span> <span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>name</span>, <span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>string</span>, <span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>default</span> =&gt; <span class="String"><span class="String">'</span><span class="String">'</span></span>
+<span class="Keyword">end</span>
+</pre>
+
+<p>Ok, agora criamos um segundo <strong>migration</strong> onde vamos renomear a coluna <strong>name</strong> da tabela:</p>
+
+<pre class="mac_classic">rename_column <span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>users</span>, <span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>name</span>, <span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>first_name</span>
+</pre>
+
+<p>Se você fizer o teste em sua máquina, notará que ao usar o método <strong>rename_column</strong> a "nova" coluna <strong>first_name</strong> não terá mais o valor padrão definido no primeiro <strong>migration</strong>.</p>
+
+<p>Este bug já está resolvido para esta versão do Rails.</p>
+
 <h1> Informações Adicionais</h1>
+
+<h2> O que é uma Rota Singular?</h2>
+
+<p>Além do <strong>map.resources</strong>, há também uma forma singular (ou "singleton") de rotear recursos: <strong>map.resource</strong>. Esta forma é usada para representar um recurso que só aparece uma vez no contexto.</p>
+
+<p>Faz muito sentido usar uma rota singular quando temos um recurso que será único dentro da aplicação ou da sessão do usuário corrente.</p>
+
+<p>Por exemplo, em um projeto de uma agenda cada usuário registrado tem seu próprio catálogo de endereços, então poderíamos cria nossa rota assim:</p>
+
+<pre class="mac_classic">map.<span class="FunctionName">resource</span> <span class="UserDefinedConstant"><span class="UserDefinedConstant">:</span>address_book</span>
+</pre>
+
+<p>Com isto podemos usar todo o conjunto de recursos disponibilizados pelo Rails, tais como:</p>
+
+<pre class="mac_classic"><span class="Variable">GET</span><span class="Keyword">/</span><span class="Variable">PUT</span> address_book_url
+<span class="Variable">GET</span>     edit_address_book_url
+<span class="Variable">PUT</span>     update_address_book_url
+</pre>
+
+<p>Note que tudo está no singular. Estamos assumindo que no contexto atual não precisamos especificar qual catálogo de endereços desejamos, ao invés disso podemos simplesmente dizer "o catálogo de endereços", já que o usuário atual só tem um.</p>
+
+<p>O relacionamento entre a tabela de catálogos e o usuário corrente não é automático, você deve autenticar o usuário e retornar o catálogo dele. Não existe mágica aqui, é apenas uma outra técnica de roteamento a nossa disposição, se precisarmos.</p>
 
 <h1> CHANGELOG</h1>
 
