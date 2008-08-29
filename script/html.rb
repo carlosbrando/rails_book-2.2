@@ -3,7 +3,7 @@ require 'discount'
 require "uv"
 
 desc 'Create HTML files'
-task :html do
+task :html => :merge do
   LANGUAGES.each do |language|
     if File.exists?("output/#{language}/full_book.markdown")
       output = File.new("output/#{language}/full_book.markdown").read
