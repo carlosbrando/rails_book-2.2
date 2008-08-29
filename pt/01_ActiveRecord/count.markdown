@@ -10,5 +10,5 @@ Veja alguns exemplos de uso:
 	Edge.count :all, :from => 'edges USE INDEX(unique_edge_index)',
 	           :conditions => 'sink_id < 5')
 
-	# Realizando o cálculo em uma tabela diferente da associada a classe
+	# Realizando o cálculo em uma tabela diferente da classe associada
 	Company.count :all, :from => 'accounts'
