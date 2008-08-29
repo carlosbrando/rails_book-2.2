@@ -1,0 +1,49 @@
+## O que é I18n?
+
+Primeiro, para entender o porque deste nome, precisamos ter um conhecimento profundo de cálculos matemáticos. Conte comigo, quantas letras temos entre o I e o n na palavra Internationalization? 18. Muito bom, I18n.
+
+O mesmo vale para Localization e L10n.
+
+Já viu quando um site tem aquelas bandeirinhas no topo, permitindo que você escolha em que língua quer navegar? Quando você clica em uma delas, todos os textos do site mudam para a língua correspondente daquele país. Isto se chama Internationalization, ou como acabamos de aprender I18n.
+
+Claro que estou sendo muito simplista, na maioria das vezes não é só os textos que mudam de um país para outro. Não podemos nos esquecer do formato da data, fuso-horário, padrões de peso e medida. E talvez o mais importante a moeda.
+
+## I18n e L10n, qual a diferença?
+
+Internacionalização é preparar seu software para que pessoas de outros países e línguas possam usá-lo.
+
+Localização (L10n) é adaptar o seu produto as necessidades de um país. É como pegar um site americano que só aceita pagamento via PayPal e adaptá-lo para aceitar boleto bancário, por exemplo.
+
+## O que tem de novo no Rails?
+
+No Rails 2.2 este plugin de internacionalização será integrado ao seu código fonte.
+
+Isto não significa que o Rails sofreu grandes alterações. Na verdade quase nada mudou, ele continua sendo o mesmo framework de sempre, com todas as suas mensagens de validações em inglês e tudo mais.
+
+A diferença é que se quiséssemos estas mensagem em português, ou em outro idioma, teríamos de criar um monkey patch para isto. Não posso deixar de citar como exemplo o famoso Brazilian Rails, que faz exatamente isto para traduzir as mensagens do Active Record.
+
+A novidade é que com o lançamento do Rails 2.2 temos uma forma padronizada e mais simples de fazer isto, usando uma interface comum.
+
+## Como isto funciona?
+
+Básicamente este gem é dividido em duas partes:
+
+* A primeira acrescenta à API do Rails uma coleção de novos métodos, estes métodos basicamente servirão para acessar a segunda parte do gem.
+
+* A segunda parte é um backend simples que implementa toda a lógica para fazer o Rails funcionar exatamente como funcionava antes, usando a localização en-US.
+
+A grande diferença é que esta segunda parte poderá ser substituída por uma que dê suporte à internacionalização que você deseja. Melhor ainda, uma série de plugins que serão lançados irão fazer exatamente isto.
+
+O alicerce desta implementação é um módulo chamado **I18n** que vem através do gem incorporado ao **ActiveSupport**. Este módulo acrescenta as seguintes funcionalidades ao Rails:
+
+* O método **translate**, que será usado para retornar traduções.
+
+* O método **localize**, que usaremos para "traduzir" objetos **Date**, **DateTime** e **Time** para a localização atual.
+
+Além destes métodos este módulo traz todo o código necessário para armazenar e carregar os backends de "localização". E já vem com um manipulador de exceções padrão que captura exceções levantadas no backend.
+
+Tanto o backend como o manipulador de exceções podem (devem) ser substituídos. Além disso para facilitar, os métodos **#translate** e **#localize** também poderão ser executados usando os métodos **#t** e **#l** respectivamente.
+
+## Exemplos práticos
+
+A melhor forma de enteder como usar este suporte a internacionalização no Rails é vendo seu funcionamento na prática. Eu aconselho então acessar o projeto criado por Sven Fuchs e outros no endereço: **http://i18n-demo.phusion.nl/**.
