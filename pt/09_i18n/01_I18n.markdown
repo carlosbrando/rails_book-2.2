@@ -34,15 +34,15 @@ Básicamente este gem é dividido em duas partes:
 
 A grande diferença é que esta segunda parte poderá ser substituída por uma que dê suporte à internacionalização que você deseja. Melhor ainda, uma série de plugins que serão lançados irão fazer exatamente isto.
 
-O alicerce desta implementação é um módulo chamado **I18n** que vem através do gem incorporado ao **ActiveSupport**. Este módulo acrescenta as seguintes funcionalidades ao Rails:
+O alicerce desta implementação é um módulo chamado `I18n` que vem através do gem incorporado ao `ActiveSupport`. Este módulo acrescenta as seguintes funcionalidades ao Rails:
 
-* O método **translate**, que será usado para retornar traduções.
+* O método `translate`, que será usado para retornar traduções.
 
-* O método **localize**, que usaremos para "traduzir" objetos **Date**, **DateTime** e **Time** para a localização atual.
+* O método `localize`, que usaremos para "traduzir" objetos `Date`, `DateTime` e `Time` para a localização atual.
 
 Além destes métodos este módulo traz todo o código necessário para armazenar e carregar os backends de "localização". E já vem com um manipulador de exceções padrão que captura exceções levantadas no backend.
 
-Tanto o backend como o manipulador de exceções podem (devem) ser substituídos. Além disso para facilitar, os métodos **#translate** e **#localize** também poderão ser executados usando os métodos **#t** e **#l** respectivamente.
+Tanto o backend como o manipulador de exceções podem (devem) ser substituídos. Além disso para facilitar, os métodos `#translate` e `#localize` também poderão ser executados usando os métodos `#t` e `#l` respectivamente.
 
 ## Exemplos práticos
 

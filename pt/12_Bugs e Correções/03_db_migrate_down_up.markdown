@@ -1,8 +1,8 @@
 ## Correção nas tarefas db:migrate:down e :up
 
-Quando se usava o comando **rake db:migrate:down VERSION=alguma\_versão**, os registros na tabela **schema\_migrations** não eram atualizados.
+Quando se usava o comando `rake db:migrate:down VERSION=alguma_versão`, os registros na tabela **schema\_migrations** não eram atualizados.
 
-Isto significa que após usar o comando **rake db:migrate:down** ou **up** se você rodar o comando **rake db:migrate** algumas **migrations** podem não ser executadas. Vamos simular isto para ficar fácil de entender o problema:
+Isto significa que após usar o comando `rake db:migrate:down` ou `up` se você rodar o comando `rake db:migrate` algumas **migrations** podem não ser executadas. Vamos simular isto para ficar fácil de entender o problema:
 
 	$ ./script/generate migration test_migration
 	      create  db/migrate

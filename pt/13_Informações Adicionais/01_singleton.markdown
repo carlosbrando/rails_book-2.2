@@ -1,6 +1,6 @@
 ## O que é uma Rota Singular?
 
-Além do **map.resources**, há também uma forma singular (ou "singleton") de rotear recursos: **map.resource**. Esta forma é usada para representar um recurso que só aparece uma vez no contexto.
+Além do `map.resources`, há também uma forma singular (ou "singleton") de rotear recursos: `map.resource`. Esta forma é usada para representar um recurso que só aparece uma vez no contexto.
 
 Faz muito sentido usar uma rota singular quando temos um recurso que será único dentro da aplicação ou da sessão do usuário corrente.
 
