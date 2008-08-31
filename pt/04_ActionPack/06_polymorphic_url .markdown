@@ -2,7 +2,7 @@
 
 Para mais detalhes sobre o que são rotas singulares veja o capítulo "Informações Adicionais" no fim deste livro.
 
-Até agora o helper **polymorphic\_url** não estava tratando singleton resources corretamente.
+Até agora o helper `polymorphic_url` não estava tratando singleton resources corretamente.
 
 Um novo patch foi incluído no Rails para permitir que especifiquemos um singular resource usando símbolos, assim como fazemos com namespaces. Exemplo:
 
