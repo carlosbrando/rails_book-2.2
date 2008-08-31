@@ -1,6 +1,6 @@
 ## Usando a opção :accessible para fazer atribuições em massa no ActiveRecord
 
-Todos os métodos de associações do **ActiveRecord** (**belongs\_to**, **has\_one**, **has\_many** e **has\_and\_belongs\_to\_many**) receberam um nova opção que permite a atribuição de valores para suas associações usando **hashes** aninhados.
+Todos os métodos de associações do **ActiveRecord** (`belongs_to`, `has_one`, `has_many` e `has_and_belongs_to_many`) receberam um nova opção que permite a atribuição de valores para suas associações usando **hashes** aninhados.
 
 Vamos pegar como exemplo um modelo chamado **Post**:
 
@@ -9,7 +9,7 @@ Vamos pegar como exemplo um modelo chamado **Post**:
 	  has_many :comments, :accessible => true
 	end
 
-Note que logo após associar este modelo com **author** e **comments** estou definindo a nova opção **:accessible** como **true** (verdadeiro). Com esta opção "ligada" eu posso fazer algo assim:
+Note que logo após associar este modelo com **author** e **comments** estou definindo a nova opção `:accessible` como `true` (verdadeiro). Com esta opção "ligada" eu posso fazer algo assim:
 
 	post = Post.create({
 	  :title => 'Accessible Attributes',

@@ -1,6 +1,6 @@
 ## Uma nova forma de especificar conditions usando Hash
 
-Ao realizar buscas no banco de dados, por vezes temos de fazer uso da opção **:joins** a fim de melhorar a performance de nosso aplicativo, em outros casos precisamos simplesmente recuperar algum tipo de informação que depende do resultado de duas tabelas.
+Ao realizar buscas no banco de dados, por vezes temos de fazer uso da opção `:joins` a fim de melhorar a performance de nosso aplicativo, em outros casos precisamos simplesmente recuperar algum tipo de informação que depende do resultado de duas tabelas.
 
 Por exemplo, se desejássemos recuperar todos os usuários do sistema que compraram itens da cor vermelha, faríamos algo assim:
 

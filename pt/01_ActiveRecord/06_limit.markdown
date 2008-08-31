@@ -1,6 +1,6 @@
 ## Tratando a opção :limit como bytes
 
-À partir desta versão do Rails quando usarmos a opção **:limit** para colunas com números inteiros, em nossas migrations, estaremos nos referindo ao número de bytes, no MySQL e no PostgreSQL (no sqlite sempre foi assim).
+À partir desta versão do Rails quando usarmos a opção `:limit` para colunas com números inteiros, em nossas migrations, estaremos nos referindo ao número de bytes, no MySQL e no PostgreSQL (no sqlite sempre foi assim).
 
 O tipo da coluna no banco de dados dependerá da quantidade de bytes espeficida. Veja o trecho de código que identifica o tipo da coluna para o MySQL:
 
