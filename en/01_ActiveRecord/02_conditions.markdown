@@ -1,6 +1,6 @@
 ## A new way of specifying conditions with a Hash
 
-When performing database queries, sometimes you need to use the **:joins** option, either to improve application performance or when you need to retrieve information that depends on results from more than one table.
+When performing database queries, sometimes you need to use the `:joins` option, either to improve application performance or when you need to retrieve information that depends on results from more than one table.
 
 For example, if you wanted to retrieve all users who bought red items, you could do something like this:
 
