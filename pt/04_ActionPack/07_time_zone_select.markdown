@@ -1,4 +1,4 @@
-## Suporte a expressões regulares no time_zone_select
+## Suporte a expressões regulares no time\_zone\_select
 
 Na classe `TimeZone` do `ActiveSupport` existe o método `us_zones` que convenientemente retorna uma lista dinâmica com todos os fusos-horários americanos.
 
