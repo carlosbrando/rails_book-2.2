@@ -1,6 +1,6 @@
 ## Array#second até Array#tenth
 
-No objeto Array já tínhamos o método **first** e **last**, então porque não ter também os métodos **second**, **third**, **fourth** e assim por diante? É isso mesmo, foram acrescentados ao objeto **Array** os métodos que vão do **second** (segundo) até o **tenth** (décimo), que servem para retornar o objeto especifico dentro do **Array** (o terceiro objeto do array, por exemplo).
+No objeto Array já tínhamos o método `first` e `last`, então porque não ter também os métodos `second`, `third`, `fourth` e assim por diante? É isso mesmo, foram acrescentados ao objeto **Array** os métodos que vão do `second` (segundo) até o `tenth` (décimo), que servem para retornar o objeto especifico dentro do **Array** (o terceiro objeto do array, por exemplo).
 
 Vamos aos exemplos:
 

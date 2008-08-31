@@ -1,6 +1,6 @@
 ## Novo método Object#present?
 
-Um novo método foi acrescentado à classe **Object**. O método **present?** é o equivalente a **!Object#blank?**.
+Um novo método foi acrescentado à classe `Object`. O método `present?` é o equivalente a `!Object#blank?`.
 
 Em outras palavras um objeto está presente se ele não for vazio. Mas o que é um objeto vazio?
 
@@ -52,4 +52,4 @@ Mas, muito cuidado, algumas pessoas tem confundido as coisas. Veja alguns exempl
 	g.present? # => true
 	h.present? # => true
 
-Qualquer objeto que contenha um valor, está presente, isto vale até mesmo para um **Array** preenchido com um **nil**, porque o **Array** não está vazio.
+Qualquer objeto que contenha um valor, está presente, isto vale até mesmo para um `Array` preenchido com um `nil`, porque o `Array` não está vazio.

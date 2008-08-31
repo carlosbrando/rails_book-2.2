@@ -11,7 +11,7 @@ No arquivo **config/initializers/inflections.rb** você tem a opção de acresce
 	  inflect.uncountable %w( fish sheep )
 	end
 
-No Rails 2.2 você também pode incluir inflexões para o método **humanize** da classe **String**. Vamos aos famosos exemplos:
+No Rails 2.2 você também pode incluir inflexões para o método `humanize` da classe `String`. Vamos aos famosos exemplos:
 
 	'jargon_cnt'.humanize # => "Jargon cnt"
 	'nomedojogo'.humanize # => "Nomedojogo"
