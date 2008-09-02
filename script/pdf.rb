@@ -10,3 +10,8 @@ task :pdf => :html do
     end    
   end
 end
+
+desc 'Open Portuguese version of the book'
+task :pdf_pt => :pdf do
+  `open output/pt/book.pdf`
+end
