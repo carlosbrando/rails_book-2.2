@@ -1,0 +1,18 @@
+%%
+%% This is file `ltwdsque.fd',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% ucs.dtx  (with options: `ltwdsque.fd')
+%% 
+%% Copyright 2001 Dominique Unruh <dominique@unruh.de>
+%% 
+%% This program is provided under the terms of the LaTeX Project Public
+%% License with some modifications.
+%% See the file LICENSE (http://www.unruh.de/DniQ/latex/unicode/content/LICENSE)
+%% for information.
+%% 
+\ProvidesFile{ltwdsque.fd}[2001/10/11 Fontfamily dsque for Fontencoding LTW]%
+\DeclareFontFamily{LTW}{dsque}{}
+\DeclareFontShape{LTW}{dsque}{m}{n}{<-> tengdsq}{}

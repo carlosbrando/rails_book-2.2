@@ -1,0 +1,18 @@
+%%
+%% This is file `ltwdsnol.fd',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% ucs.dtx  (with options: `ltwdsnol.fd')
+%% 
+%% Copyright 2001 Dominique Unruh <dominique@unruh.de>
+%% 
+%% This program is provided under the terms of the LaTeX Project Public
+%% License with some modifications.
+%% See the file LICENSE (http://www.unruh.de/DniQ/latex/unicode/content/LICENSE)
+%% for information.
+%% 
+\ProvidesFile{ltwdsnol.fd}[2001/10/11 Fontfamily dsnol for Fontencoding LTW]%
+\DeclareFontFamily{LTW}{dsnol}{}
+\DeclareFontShape{LTW}{dsnol}{m}{n}{<-> tengdsn}{}

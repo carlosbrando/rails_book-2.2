@@ -1,0 +1,35 @@
+
+To install this LaTeX UTF-8 support, simply put the files ucs.sty,
+utf8x.def, ucsencs.def and data/* somewhere in your TeX-path. If you
+want CJK characters, you need the c??enc.def files, too. For Klingon
+you need lklenc.def and lklkli.fd.
+
+You may have to run some command like mktexlsr, lest the files will
+not be found by TeX. What to do, however, is distribution dependent.
+
+Warning: If you install the files into some directory, where TeX does
+not search recursively (usually the current directory and your
+personal TeX directory are of that kind), you have to put the contents
+of data directly into that directory.
+
+If you don't install data/uninames.dat, you will save abount 300 KB,
+but you won't get the full names of the characters in error messages.
+
+If you have added glyphs macros in one of the files in config (see
+perldoc makeunidef.pl for information on the config file format), you
+have to recreate the files in data.
+
+First you need UnicodeData.txt from
+
+	http://www.unicode.org/Public/UNIDATA/UnicodeData.txt
+
+(you may gzip it after downloading) and then you can recreate the files
+using
+
+	perl makeunidef.pl -t data --nocomments config/*.ucf config/*.ucf.gz
+
+You may supply another target directory instead of data, e.g. some
+directory in your TeX-path. makeunidef.pl will not delete or overwrite
+any files it has not created itself. If you add "--exclude
+cjkbg5,cjkgb,cjkjis,cjkhangul", no CJK characters will not be included,
+saving more than 1 MB of disk space.

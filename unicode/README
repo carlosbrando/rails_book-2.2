@@ -1,0 +1,33 @@
+
+=== ucs.sty ===
+
+This package contains support for using UTF-8 as input encoding in
+LaTeX documents.
+
+See INSTALL for installation instructions.
+
+The simplest use of this package is to add
+	\usepackage{ucs}
+	\usepackage[utf8x]{inputenc}
+to your header. You may even omit the first line in many cases. Often
+however you need to load additional packages etc., see
+languages.ps.gz for language-specific examples.
+
+The tables with LaTeX macros for the glyphs does not contain many
+entries yet. If your particular script is not supported, and you add
+the macros to the config files (see INSTALL and perldoc
+makeunidef.pl), please mail me those config files, and together with
+informations, if special packages or LaTeX versions are needed for
+these macros. Please do only supply macros, which generate aesthetic
+glyphs, no hacks. See also
+http://www.unruh.de/DniQ/latex/unicode/submitchar.html.
+
+The most recent version of this package can be found here:
+http://www.unruh.de/DniQ/latex/unicode/
+
+=========
+
+(C) 2000 by Dominique Unruh <dominique@unruh.de>
+
+See the LICENSE file for licensing informations.
+

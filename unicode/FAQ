@@ -1,0 +1,77 @@
+
+Question: LaTeX complains about missing commands I have not used. Why?
+
+Answer: The ucs package uses many macros from many packages. You have
+to include these into your preamble. To find out which package
+contains the missing macro, you can use e.g.
+    perl discovermacro.pl \themissingmacro
+or
+    perl discovermacro.pl mydocument.log
+or use the online version at
+   http://www.unruh.de/DniQ/cgi/discovermacro.cgi
+or have a look at the human readable file
+   ltxmacrs.txt.
+
+
+
+Question: The package complains about the missing file uni-global.def
+(and other files), but they are in the TeX search path.
+
+Answer: Perhaps you have put the ucs/data directory in a directory
+where TeX does not search recursively (e.g. your private TeX directory
+or the current directory). You can change this by putting the unicode
+package into a recursively searched directory or by putting the files
+in ucs/data directly into the searched directory at top level.
+
+
+
+Question: When I try to activate options in \usepackage[...]{ucs},
+LaTeX complains about an option clash.
+
+Answer: ucs.sty probably already got loaded via
+\usepackage[utf8x]{inputenc}. Try loading ucs.sty first or set the
+options with \SetUnicodeOption.
+
+
+
+Question: Why is the package named ucs.sty, but the directory unicode?
+(Or: Why are you mixing the names of two different standards)
+
+Answer: I started with unicode.sty, but there was an name clash with
+Sebastian Rahtz' jadetex/passivetex package. And I think, applying to
+practical solutions like this one, it is OK to use Unicode and UCS as
+synonyms. (UCS is an ISO standard, which has goals similar to those of
+Unicode, both standards agreed to stay compatible.)
+
+
+
+Question: I get an "TeX capacity exceeded" error. What can I do?
+
+Answer: Try the option "savemem". This will reduce the memory
+consumption of ucs.sty, especially if you use CJK glyphs, but will
+also slow down operation significantly. Or increase TeX's capacity, if
+this is feasible in your situation.
+
+
+
+Question (Esperanto): LATIN SMALL LETTER H WITH CIRCUMFLEX is ugly. ^h
+with babel package option esperanto is not. Why?
+
+Answer: esperanto.ldf has its own macro for ^h, ucs uses the standard
+\^h. Add
+  \DeclareTextCompositeCommand{\^}{T1}{h}{h\llap{\^{}}}
+  \DeclareTextCompositeCommand{\^}{OT1}{h}{h\llap{\^{}}}
+to your preamble, then \^h and the corresponding unicode character will
+yield the same as ^h.
+
+
+
+Question: When a line of my document displayed in the TeX terminal
+output or logfile, the non ascii characters are replaced by garbage. Why?
+
+Answer: The first possibility is, that you don't read the output with
+a unicode enabled terminal. The second is, that TeX replaces some
+bytes by ^^XX sequences. I do not know how to tell TeX which
+characters are to be escaped that way (tell me if you do). If no other
+mean helps, you can use latexout.pl which converts such output to
+UTF-8.
