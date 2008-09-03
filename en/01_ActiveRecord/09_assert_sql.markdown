@@ -18,5 +18,3 @@ In the example above I am confirming that in the specified block, at least one q
 	assert_sql(/\(\"companies\".\"id\" IN \(1\)\)/) do
 	  Account.find(1, :include => :firm)
 	end
-
-Be careful not to abuse this feature. (WHY????  I think you need to explain more.)

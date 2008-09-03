@@ -20,5 +20,3 @@ No exemplo acima estou confirmando que no bloco informado ao método pelo menos 
 	assert_sql(/\(\"companies\".\"id\" IN \(1\)\)/) do
 	  Account.find(1, :include => :firm)
 	end
-
-Cuidado para não abusar deste recurso.
