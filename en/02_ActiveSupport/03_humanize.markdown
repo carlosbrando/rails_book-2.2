@@ -4,12 +4,12 @@ For some time now Pratik Naik has been trying to get this patch accepted in Rail
 
 In **config/initializers/inflections.rb** you have the option of adding new inflections to pluralization, singularization and others:
 
-Inflector.inflections do |inflect|
-  inflect.plural /^(ox)$/i, '\1en'
-  inflect.singular /^(ox)en/i, '\1'
-  inflect.irregular 'person', 'people'
-  inflect.uncountable %w( fish sheep )
-end
+	Inflector.inflections do |inflect|
+	  inflect.plural /^(ox)$/i, '\1en'
+	  inflect.singular /^(ox)en/i, '\1'
+	  inflect.irregular 'person', 'people'
+	  inflect.uncountable %w( fish sheep )
+	end
 
 In Rails 2.2 you can also include inflections for the `String` class's `humanize` method. Let's look at some awesome examples:
 
