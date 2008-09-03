@@ -5,7 +5,7 @@ task :merge do
     
     File.open("output/#{language}/full_book.markdown", 'w+') do |f|
       Dir["#{language}/**/*.markdown"].sort.each do |path|
-        f << File.new(path).read + "\r\n"
+        f << File.new(path).read + "\r\n\r\n"
       end
     end
   end
