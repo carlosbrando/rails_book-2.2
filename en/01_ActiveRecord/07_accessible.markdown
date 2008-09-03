@@ -24,4 +24,4 @@ Notice how I can create all the associations using a single **hash**, with sub-l
 
 I could also do something like this to add a new comment:
 
-post.comments << { :body => 'Another Comment' }
+	post.comments << { :body => 'Another Comment' }
