@@ -148,6 +148,8 @@ table.lined td, table.lined th {
   margin: 27mm 16mm 27mm 16mm;
 /*  size: 7in 9.25in landscape;*/
   size: 9.25in 7in;
+/*	size: 8.5in 11in;*/
+/*	size: 6in 9in;*/
 
   @footnotes {
     border-top: thin solid black;
