@@ -12,4 +12,4 @@ Agora podemos fazer isto:
 
 	<%= time_zone_select( "user", 'time_zone', /Brasilia/) %>
 
-Para aprender mais sobre `TimeZones` aconselho assistir ao episódio 160 do RailsCasts (http://railscasts.com/episodes/106) e dar uma olhada no livro antecessor a este.
+Para aprender mais sobre `TimeZones`, aconselho assistir ao episódio 160 do RailsCasts (http://railscasts.com/episodes/106) e dar uma olhada no livro antecessor a este.
