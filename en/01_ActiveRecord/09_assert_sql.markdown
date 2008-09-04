@@ -1,6 +1,6 @@
 ## New test helper (assert\_sql)
 
-Maybe you have already heard of `assert_queries`, which helps to validate tests and the number of queries executed on a bank.  For example:
+Maybe you have already heard of `assert_queries`, which helps to validate tests and the number of queries executed on a database.  For example:
 
 In the test below I am specifying that if there are **partial\_updates**, a query should be executed on the database; otherwise, no query should be executed.
 
@@ -13,7 +13,7 @@ We have now got another helper to make it easier to test the SQL query that will
 	  end
 	end
 
-In the example above I am confirming that in the specified block, at least one query should contain the word **COUNT**. Obviously you can be more specific in the regular expression that you are using. Let's looks at another example:
+In the example above I am asserting that in the specified block, at least one query should contain the word **COUNT**. Obviously you can be more specific in the regular expression that you are using. Let's looks at another example:
 
 	assert_sql(/\(\"companies\".\"id\" IN \(1\)\)/) do
 	  Account.find(1, :include => :firm)
