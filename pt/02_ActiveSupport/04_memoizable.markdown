@@ -24,3 +24,11 @@ Só existe uma diferença entre os dois códigos acima. No primeiro, como o mét
 No segundo exemplo, o método **age** só será executado uma vez e o valor retornado será sempre devolvido nas próximas chamadas, mesmo que seja `nil` ou `false`.
 
 Se em algum momento você precisar desligar ou religar o cache em propriedade marcadas com o memoize, você pode fazer uso dos métodos `unmemoize_all` e `memoize_all`.
+
+	@person = Person.first
+
+	# Para desligar o cache do método age
+	@person.unmemoize_all
+
+	# Para ligar novamente o cache do método age apenas
+	@person.memoize_all
