@@ -1,19 +1,20 @@
-## Executando múltiplas instâncias de um projeto em subdiretórios
+## Executing multiple instances of a project in subdirectories
 
-Às vezes você tem de rodar múltiplas cópias do mesmo projeto. Talvez você tenha um produto que será usado por vários clientes, ou talvez você apenas deseje rodar uma versão de teste e produção do seu software ao mesmo tempo.
+Sometimes you need to run multiple copies of the same project. Maybe you have a product that will be used by various clients, or maybe you just want to run a test version and a production version of your app at the same time.
 
-A forma mais simples de se fazer isto é ter múltiplos (sub)domínios com uma instância do aplicativo em cada uma. Mas se isto não for possível você pode colocar seu aplicativo em um subdiretório e usar um prefixo na sua URL para distinguir as instâncias do seu software. Por exemplo, você poderia rodar vários blogs de usuários diferentes usando URLs como:
+The easiest way of doing this is to have multiple (sub)domains, each with its own instance of the app. But if this isn't possible, you can put your application in a subdirectory and use a prefix on its URL to distinguish each instance of your app. For example, you could run blogs for different users with URLs like:
 
-* http://www.nomedojogo.com/fulano/blog
-* http://www.nomedojogo.com/sicrano/blog
-* http://www.nomedojogo.com/beltrano/blog
+* http://www.nomedojogo.com/johndoe/blog
+* http://www.nomedojogo.com/jilldoe/blog
+* http://www.nomedojogo.com/joedoe/blog
 
-Nestes casos, os prefixos **fulano**, **sicrano** e **beltrano** identificarão as instâncias do aplicativo rodando em subdiretórios com os mesmos nomes. O roteamento do aplicativo começa depois disto. Você pode dizer ao Rails para ignorar esta parte das URLs quando uma requisição for feita, mas coloca-la nas URLs geradas por ele, configurando isto através da constante **RAILS\_RELATIVE\_URL\_ROOT** ou do método `AbstractRequest.relative_url_root`.
+In these cases, the prefixes **johndoe**, **jilldoe** and **joedoe** identify the instances of the app that are running in corresponding subdirectories of the same name. The application routing happens after this. You can tell Rails to ignore this part of the URLs when a request is made, but still put it on the URLs that it generates. This can be configured using the **RAILS\_RELATIVE\_URL\_ROOT** constant or the `AbstractRequest.relative_url_root` method.
 
-Porém se seu projeto Rails estiver rodando sob o Apache, esse recurso já é ativado automaticamente, por isto na maioria dos casos não temos de nos preocupar em configurar isto hoje. Isto se você estiver usando Apache.
+If your Rails project is running on Apache, however, this feature is already activated automatically, so in many cases it is not necessary to worry about configuring this. Once again, this is only if you are using Apache.
 
-Porém, no Rails 2.2 o `relative_url_root` não será mais configurado automaticamente pelo HTTP header. Teremos de fazer isto manualmente, colocando uma linha mais ou menos assim no arquivo **environment.rb** de cada um dos aplicativos:
+In Rails 2.2, however, the `relative_url_root` will not be automatically configured by the HTTP header. This will need to be done manually, putting a line in each of your apps'
+**environment.rb** files that looks something like this:
 
-	config.action_controller.relative_url_root = "/fulano"
+	config.action_controller.relative_url_root = "/johndoe"
 
-Feito isto, seu aplicativo irá ignorar o prefixo "fulano" logo depois do domínio. Mas ao gerar URLs ele sempre colocará este prefixo para garantir que você estará acessando o projeto no subdiretório correto.
+That done, your application will ignore the "johndoe" prefix that occurs after the domain. But when it generate URLs it will always put this prefix in to guarantee that you will be accessing the project in the right subdirectory.

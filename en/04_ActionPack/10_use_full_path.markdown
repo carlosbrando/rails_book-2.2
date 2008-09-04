@@ -1,5 +1,5 @@
-## :use\_full\_path do método render não existirá mais
+## :use\_full\_path in the render method is no longer available
 
 	render :file => "some/template", :use_full_path => true
 
-A opção `:use_full_path` do método render não existe mais no Rails 2.2. Não é algo sério já que ela nem mesmo era necessária.
+The `:use_full_path` option on the `render` method is no longer available in Rails 2.2. This is not anything serious, since it was not necessary.

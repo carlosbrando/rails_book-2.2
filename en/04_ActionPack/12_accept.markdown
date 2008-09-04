@@ -1,6 +1,6 @@
-## Desabilitando o cabeçalho Accept em requisições HTTP
+## Disabling the Accept header in HTTP requests
 
-Quando usamos o método `respond_to` para fazer algo assim:
+When we use the `respond_to` method to do something like this:
 
 	def index
 	  @people = Person.find(:all)
@@ -11,9 +11,9 @@ Quando usamos o método `respond_to` para fazer algo assim:
 	  end
 	end
 
-O Rails tem duas formas de identificar qual é o formato que deve ser usado, a primeira e mais comum é através do formato informado na URL (/index.xml, por exemplo) e a segunda forma para o caso de o formato não ter sido especificado é examinando o cabeçalho **Accept** da requisição HTTP.
+Rails has two ways of identifying what format it should use. The first and most common is through the format indicated in the URL (/index.xml, for example), and the second is when the format is not specified, in which case it consults the HTTP request's **Accept** header.
 
-Para quem não sabe o cabeçalho **Accept** é aquele que informa o tipo do documento desejado em **strings** mais ou menos assim:
+For those who may not know, the **Accept** header is used to indicate what types of documents (often called MIME Types: http://en.wikipedia.org/wiki/MIME) the browser prefers using **strings** like:
 
 	Accept: text/plain, text/html
 	Accept: text/x-dvi; q=.8; mxb=100000; mxt=5.0, text/x-c
@@ -21,14 +21,15 @@ Para quem não sabe o cabeçalho **Accept** é aquele que informa o tipo do docu
 	# recuperando esta informação via código
 	@request.env["HTTP_ACCEPT"] = "text/javascript"
 
-Para ver uma lista dos tipos mais comuns acesse a endereço: http://www.developershome.com/wap/detection/detection.asp?page=httpHeaders
+Consult this URL to see a list of some of the most common MIME types:
+http://www.developershome.com/wap/detection/detection.asp?page=httpHeaders
 
-Acontece que este cabeçalho é porcamente implementado na maioria dos browsers. E quando ele é usado em sites públicos algumas vezes estranhos erros acontecem quando robôs indexadores fazem seus requests.
+This header is implemented inefficiently on many browsers, and when it is used on public web sites, sometimes strange errors occur when indexing robots perform their HTTP requests.
 
-Assim, tomou-se a decisão de desativar este cabeçalho por padrão, depois voltou-se atrás e resolveu-se que era melhor deixar apenas a opção de desligar se desejado. Para isto basta incluir a seguinte linha no arquivo **environment.rb**:
+Thus the decision was made to disable this header by default, but soon after it was decided that it would be better to leave it enabled but just allow it to be disabled if desired. To do this, just include the following line in your **environment.rb**:
 
 	config.action_controller.use_accept_header = false
 
-Quando desligado, caso o formato não seja informado na URL o Rails assumirá que deve usar o format.html.
+When disabled, if the format is not indicated by the URL, Rails will assume that it should use **.html** format.
 
-Existe um caso especial quando fazemos requisições usando ajax se o cabeçalho **X-Requested-With** estiver presente. Neste caso o formato **format.js** ainda será usado mesmo que o formato não tenha sido especificado (/people/1, por exemplo).
+There is a special case when you make ajax requests using the **X-Requested-With** header. In this case, the **.js** format will be used even if the format was not specified (/people/1, for example).

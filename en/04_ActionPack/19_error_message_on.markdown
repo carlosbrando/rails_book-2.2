@@ -1,27 +1,27 @@
-## Alteração no método error\_message\_on
+## Changes in error\_message\_on
 
-O método `error_message_on` é extremamente útil. Com ele podemos exibir mensagens de erro retornadas por determinados métodos em um objeto de uma forma bem simples.
+The `error_message_on` message is very useful. You can use it to easily display error messages returned by certain methods in an object.
 
 	<%= error_message_on "post", "title" %>
 
-	<!-- ou -->
+	<!-- or -->
 
 	<%= error_message_on @post, "title" %>
 
-Isto fará com que uma mensagem de erro seja exibida na sua página dentro de uma tag DIV, caso um erro esteja associado ao campo title do modelo post.
+This will cause an error message to be displayed within a DIV tag if an error is associated with the title field of the Post model.
 
-Mas o mais interessante do método `error_message_on` é que podemos personaliza-lo para que exibida mensagens mais amigáveis. E é aqui que entra a alteração para o Rails 2.2.
+But the most interesting thing about the `error_message_on` method is that we can personalize it to display friendlier messages. Here is where the changes in Rails 2.2 come in.
 
-Na versão atual os parâmetros de personalização são passadas diretamente para o método, mas no Rails 2.2 serão passadas via um **Hash** de opções:
+In the current version, the personalization parameters are passed directly to the method, but in Rails 2.2 they will be passed as an option Hash:
 
 	<%= error_message_on "post", "title",
 	      :prepend_text => "Title simply ",
 	      :append_text => " (or it won't work).",
 	      :css_class => "inputError" %>
 
-Fique tranqüilo quanto a uma possível migração de seus projetos atuais, pois o código está preparado para funcionar também da forma antiga (pelo menos por um tempo), mas emitindo um aviso de alerta para que o código seja atualizado.
+Don't worry about having to port your current projects for these changes, because the code still works in the old way too (at least for a while), but with a warning that you need to update your code.
 
-## Mais métodos atualizados para receber Hashes de opções
+## More methods updated to accept option Hashes
 
 ### truncate
 
@@ -78,4 +78,4 @@ Fique tranqüilo quanto a uma possível migração de seus projetos atuais, pois
 		<a href=\"http://www.myblog.com/\" target=\"_blank\">http://www.myblog.com</a>. 
 		Please e-mail me at <a href=\"mailto:me@email.com\">me@email.com</a>."
 
-Todos os métodos continuam funcionando da forma antiga por enquanto, mas alertas serão emitidos no terminal para lembra-lo de atualizar seu código o mais rápido possível.
+All these methods continue working in the old way for now, but display warnings in the application log (and terminal, in development mode) to remind you to update your code as soon as possible.

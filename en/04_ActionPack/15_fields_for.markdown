@@ -1,10 +1,10 @@
-## Opção :index funcionando no fields\_for
+## :index option now works in fields\_for
 
-Muitas vezes a opção `:index` do método `select` pode ser útil, como por exemplo quando se precisa criar diversos dropdowns dinamicamente em uma página.
+Often the `:index` option of the `select` method is helpful, such as when you need to create many different dynamic select controls on a single page.
 
-Até agora o método `fields_for` não repassava esta opção para métodos como `select`, `collection_select`, `country_select` e `time_zone_select`, o que limitava o seu uso em determinados casos.
+Until now, the `fields_for` method didn't repass this option to methods like `select`, `collection_select`, `country_select` and `time_zone_select`, which limited its usefulness in certain circumstances.
 
-Isto já foi corrigido nesta versão do Rails. Por exemplo, apenas para efeito de teste veja o código abaixo e o seu retorno:
+This has been corrected in this version of Rails. For example, just as a test, check out this code and what it returns:
 
 	fields_for :post, @post, :index => 108 do |f|
 	  concat f.select(:category, %w( abe <mus> hest))

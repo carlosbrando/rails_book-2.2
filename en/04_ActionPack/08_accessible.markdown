@@ -1,8 +1,8 @@
-## Fazendo uso da opção accessible em formulários
+## Using the :accessible option in your forms
 
-No capítulo sobre `ActiveRecord` comentei sobre a nova forma de atribuir valores à associações usando a opção `:accessible`.
+In the `ActiveRecord` chapter I talked about a new way of setting values for associations using the `:accessible` option.
 
-Agora vou mostrar uma das grandes vantagens dessa novidade. Fazendo uso deste novo recurso podemos melhorar a forma como usamos o método `fields_for`. Vamos pegar um exemplo, baseado nos códigos dados antes:
+Now I will show you one of the big advantages of this option. By using this new feature we can improve the way we use the `fields_for` method. Here is an example based on previous code:
 
 	<% form_for @post do |f| %>
 	  <%= f.text_field :body %>
@@ -12,7 +12,7 @@ Agora vou mostrar uma das grandes vantagens dessa novidade. Fazendo uso deste no
 	  <%= submit_tag %>
 	<% end %>
 
-Estou usando o método `fields_for` para acrescentar o nome do autor na página de criação de posts. Agora vem a melhor parte, veja como ficaria a criação do post e do autor usando este novo recurso:
+I'm using the `fields_for` method to add the author's name to the post creation page. Here is the best part.  Take a look at how easy it is to create a post and an author using this new feature:
 
 	class PostController < ApplicationController
 
@@ -24,4 +24,4 @@ Estou usando o método `fields_for` para acrescentar o nome do autor na página 
 	  end
 	end
 
-Veja que estou usando apenas o método `create` do objeto `Post`. Como foi definido a opção `:accessible` do relacionamento deste objeto com o objeto `Author` como verdadeiro (`true`), a criação do autor é automática e transparente.
+Note how all I need to use is the `create` method of the `Post` class. Since the `:accessible => true` option was added to the association between this class and the `Author` class, the creation of the author is automatic and transparent.
