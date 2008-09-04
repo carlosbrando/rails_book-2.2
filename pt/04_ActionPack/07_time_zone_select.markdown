@@ -10,6 +10,6 @@ Foi implantado no objeto `TimeZone` o suporte para `=~` afim de ajudar a montar 
 
 Agora podemos fazer isto:
 
-	<%= time_zone_select( "user", 'time_zone', /Brasilia/) %>
+	<%= time_zone_select( "user", 'time_zone', /Australia/) %>
 
 Para aprender mais sobre `TimeZones`, aconselho assistir ao episódio 106 do RailsCasts (http://railscasts.com/episodes/106) e dar uma olhada no livro antecessor a este.
