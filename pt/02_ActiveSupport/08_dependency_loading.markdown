@@ -1,6 +1,6 @@
 ## Ligando e desligando carga de dependências
 
-Um novo parâmetro de inicialização foi adicionado ao Rails, afim de ligar ou desligar a carga de novas classes durante uma requisição.
+Um novo parâmetro de inicialização foi adicionado ao Rails, a fim de ligar ou desligar a carga de novas classes durante uma requisição.
 
 	config.dependency_loading = true
 	# ou

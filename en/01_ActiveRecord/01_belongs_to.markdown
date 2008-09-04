@@ -1,6 +1,6 @@
 ## New options for assocations: :validate
 
-A new option for associations has been added to Rails. If you include the `:validate => false` option on an association, `ActiveRecord` will save the data of the parent object without validating its associated objects.  For example:
+A new option for associations has been added to Rails. The `:validate` option can now be used to disable or enable validation of a model's associated objects.  For example:
 
 	class AuditLog < ActiveRecord::Base
 	  belongs_to :developer, :validate => false
@@ -18,6 +18,6 @@ A new option for associations has been added to Rails. If you include the `:vali
 	puts log.save
 	# => true
 
-Note that even though the association is not valid, the **log** object still gets saved.
+As you can see in this example, even though the associated object (`Developer`) is not valid, the main object (`AuditLog`) gets saved in the database. This wasn't the normal behavior in earlier versions of Rails, where a parent object could only be saved if all its children were valid.
 
-The default value is `false`; that is, all validations in `belongs_to` associations will be disconnected by default and if you want to connect them you need to use `:validate => true`.
+Although, in this prior example, I disabled validation to demonstrate this new feature, in fact, the default setting for `:validate` has been set to `false` in Rails 2.2, so `:validate => false` would not actually be necessary in the code above. On the other hand, if you wished to keep the old behavior, it would be necessary to use `:validate => true`.

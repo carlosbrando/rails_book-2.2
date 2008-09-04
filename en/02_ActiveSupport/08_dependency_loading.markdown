@@ -1,13 +1,11 @@
 ## Enabling and disabling dependency loading
 
-If you want to allow or restrict dependency loading during the course of a request, you can use a new configuration parameter.
+A new initialization parameter as been added to Rails that allows you to enable or disable the loading of new classes during a request.
 
 	config.dependency_loading = true
 	# or
 	config.dependency_loading = false
 
-Changing `dependency_loading` to `true` causes new classes to be loaded during a request. Changing it to `false` will disable this.
+If `dependency_loading` is `true`, during a request, Rails will attempt to load into memory any class that wasn't initially loaded during initialization. If it is `false`, these classes are ignored.
 
-If you want to run your project in an environment that allows concurrency, you should disable this option and load all your dependencies in the initialization files (using `require`, for example).
-
-If the `cache_classes` option is disabled, dependency loading will always be enabled.
+If you want to run your project in a threaded environment, you should disable this option and load all classes using eager loading, or by using the `require` method during system initialization.
