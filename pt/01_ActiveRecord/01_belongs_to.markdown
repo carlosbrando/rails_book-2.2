@@ -20,4 +20,4 @@ Foi adicionado ao Rails uma nova opção para associações. Se incluirmos a op�
 
 Note que mesmo com a associação não sendo valida, o objeto **log** foi salvo.
 
-O valor padrão é `false`, ou seja, todas as validações em associações `belongs_to` estarão desligadas como padrão e para ligarmos devemos usar a expressão `:validate => true`.
+Após o lançamento desta novidade houve uma alteração no padrão desta funcionalidade. Agora o valor padrão é `false`, ou seja, todas as validações em associações `belongs_to` estarão desligadas (como no exemplo) e para ligarmos o comportamento antigo devemos usar a expressão `:validate => true`.
