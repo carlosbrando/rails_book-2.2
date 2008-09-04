@@ -1,13 +1,11 @@
 ## Ligando e desligando carga de dependências
 
-Se você desejar permitir ou restringir a carga de dependências durante o ciclo de um requisição, pode fazer uso de um novo parâmetro de configuração.
+Um novo parâmetro de inicialização foi adicionado ao Rails, afim de ligar ou desligar a carga de novas classes durante uma requisição.
 
 	config.dependency_loading = true
 	# ou
 	config.dependency_loading = false
 
-Se `dependency_loading` for alterado para `true` (verdadeiro) ele permitirá que novas classes sejam carregadas durante uma requisição. Alterando para `false` (falso) este comportamento será desativado.
+Se `dependency_loading` for verdadeiro, durante uma requisição o Rails estará apto a carregar em memória qualquer classe que não tenha sido inicialmente carregada durante a inicialização do projeto. Caso ele seja falso, estas classes serão ignoradas.
 
-Se você quiser rodar seu projeto em um ambiente que permita concorrências, deve desabilitar esta opção e carregar (usando `require`, por exemplo) todas as suas dependências nos arquivos de inicialização.
-
-Se a opção `cache_classes` estiver desabilitada, a carga de dependências estará sempre ligada.
+Se você for executar seu projeto em um ambiente de threads concorrentes deve desabilitar esta opção e carregar todas estas classes usando eager load ou através do método `require` na inicialização do sistema.

@@ -4,7 +4,7 @@ Na classe `TimeZone` do `ActiveSupport` existe o método `us_zones` que convenie
 
 O problema é que em alguns casos vamos desenvolver software para pessoas em outros países, mas não existe um método tão conveniente assim que liste os fusos-horários destes países.
 
-Ouve uma longa discussão sobre criar ou não métodos como `african_zones`, `american_zones`, etc.. No fim prevaleceu o seguinte:
+Houve uma longa discussão sobre criar ou não métodos como `african_zones`, `american_zones`, etc.. No fim prevaleceu o seguinte:
 
 Foi implantado no objeto `TimeZone` o suporte para `=~` afim de ajudar a montar uma lista de fusos-horários a partir de uma expressão regular. Além disso o método `time_zone_select` foi alterado para trabalhar em conjunto com esta novidade.
 
