@@ -8,9 +8,9 @@ A forma mais simples de se fazer isto é ter múltiplos (sub)domínios com uma i
 * http://www.nomedojogo.com/sicrano/blog
 * http://www.nomedojogo.com/beltrano/blog
 
-Nestes casos, os prefixos **fulano**, **sicrano** e **beltrano** identificarão as instâncias do aplicativo rodando em subdiretórios com os mesmos nomes. O roteamento do aplicativo começa depois disto. Você pode dizer ao Rails para ignorar esta parte das URLs quando uma requisição for feita, mas coloca-la nas URLs geradas por ele, configurando isto através da constante **RAILS\_RELATIVE\_URL\_ROOT** ou do método `AbstractRequest.relative_url_root`.
+Nestes casos, os prefixos **fulano**, **sicrano** e **beltrano** identificarão as instâncias do aplicativo rodando em subdiretórios com os mesmos nomes. O roteamento do aplicativo começa depois disto. Você pode dizer ao Rails para ignorar esta parte das URLs quando uma requisição for feita, mas colocá-la nas URLs geradas por ele, configurando isto através da constante **RAILS\_RELATIVE\_URL\_ROOT** ou do método `AbstractRequest.relative_url_root`.
 
-Porém se seu projeto Rails estiver rodando sob o Apache, esse recurso já é ativado automaticamente, por isto na maioria dos casos não temos de nos preocupar em configurar isto hoje. Isto se você estiver usando Apache.
+Se seu projeto Rails estiver rodando sob o Apache, esse recurso já é ativado automaticamente. Por isso na maioria dos casos não temos de nos preocupar em configurar isto hoje. Isto se você estiver usando Apache.
 
 Porém, no Rails 2.2 o `relative_url_root` não será mais configurado automaticamente pelo HTTP header. Teremos de fazer isto manualmente, colocando uma linha mais ou menos assim no arquivo **environment.rb** de cada um dos aplicativos:
 

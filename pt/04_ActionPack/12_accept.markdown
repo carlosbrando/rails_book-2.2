@@ -11,7 +11,7 @@ Quando usamos o método `respond_to` para fazer algo assim:
 	  end
 	end
 
-O Rails tem duas formas de identificar qual é o formato que deve ser usado, a primeira e mais comum é através do formato informado na URL (/index.xml, por exemplo) e a segunda forma para o caso de o formato não ter sido especificado é examinando o cabeçalho **Accept** da requisição HTTP.
+O Rails tem duas formas de identificar qual é o formato que deve ser usado. A primeira e mais comum é através do formato informado na URL (/index.xml, por exemplo) e a segunda forma para o caso de o formato não ter sido especificado é examinando o cabeçalho **Accept** da requisição HTTP.
 
 Para quem não sabe o cabeçalho **Accept** é aquele que informa o tipo do documento desejado em **strings** mais ou menos assim:
 

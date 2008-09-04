@@ -10,8 +10,12 @@ Isto já foi corrigido nesta versão do Rails. Por exemplo, apenas para efeito d
 	  concat f.select(:category, %w( abe <mus> hest))
 	end
 
+Isto retornará:
+
 	<select id=\"post_108_category\" name=\"post[108][category]\">
 	  <option value=\"abe\">abe</option>
 	  <option value=\"&lt;mus&gt;\" selected=\"selected\">&lt;mus&gt;</option>
 	  <option value=\"hest\">hest</option>
 	</select>
+
+Veja que estou usando a opção `:index => 108` no método `fields_for`. Agora repare as propriedades **id** e **name** da tag criada pelo método `select`. Embora nada tenha sido especificado para este método, ele acrescenta o indice em seu resultado também.

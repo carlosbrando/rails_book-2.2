@@ -12,7 +12,7 @@ Agora vou mostrar uma das grandes vantagens dessa novidade. Fazendo uso deste no
 	  <%= submit_tag %>
 	<% end %>
 
-Estou usando o método `fields_for` para acrescentar o nome do autor na página de criação de posts. Agora vem a melhor parte, veja como ficaria a criação do post e do autor usando este novo recurso:
+Estou usando o método `fields_for` para acrescentar o nome do autor na página de criação de posts. Agora vem a melhor parte. Veja como ficaria a criação do post e do autor usando este novo recurso:
 
 	class PostController < ApplicationController
 
@@ -24,4 +24,4 @@ Estou usando o método `fields_for` para acrescentar o nome do autor na página 
 	  end
 	end
 
-Veja que estou usando apenas o método `create` do objeto `Post`. Como foi definido a opção `:accessible` do relacionamento deste objeto com o objeto `Author` como verdadeiro (`true`), a criação do autor é automática e transparente.
+Veja que estou usando apenas o método `create` da classe `Post`. Como foi definido a opção `:accessible` do relacionamento deste objeto com a classe `Author` como verdadeiro (`true`), a criação do autor é automática e transparente.
