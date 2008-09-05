@@ -1,3 +1,0 @@
-#ActionView
-
-ActionView is the layer responsible by the generation of the viewable interface visible to users through conversion of ERB templates.
