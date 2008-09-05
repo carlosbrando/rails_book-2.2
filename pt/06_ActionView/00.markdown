@@ -1,3 +1,0 @@
-#ActionView
-
-O ActionView é a camada responsável pela geração da interface visível ao usuário através da conversão dos templates ERB.
