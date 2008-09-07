@@ -1,49 +1,49 @@
-## O que é I18n?
+## What is i18n?
 
-Primeiro, para entender o porque deste nome, precisamos ter um conhecimento profundo de cálculos matemáticos. Conte comigo, quantas letras temos entre o I e o n na palavra Internationalization? 18. Muito bom, I18n.
+First, to understand the name, it is necessary to have a deep knowledge of mathematics. Count with me how many letters there are between the I and the N in "internationalization"? 18. Very good: i18n.
 
-O mesmo vale para Localization e L10n.
+The same goes for localization and l10n.
 
-Já viu quando um site tem aquelas bandeirinhas no topo, permitindo que você escolha em que língua quer navegar? Quando você clica em uma delas, todos os textos do site mudam para a língua correspondente daquele país. Isto se chama Internationalization, ou como acabamos de aprender I18n.
+Have you already seen a site with little flags at the top that allow you to choose which language you wish to browse the site in? When you click on one of them, all the site's content changes to the corresponding country's language. This is called internationalization, or, as we just learned, i18n.
 
-Claro que estou sendo muito simplista, na maioria das vezes não é só os textos que mudam de um país para outro. Não podemos nos esquecer do formato da data, fuso-horário, padrões de peso e medida. E talvez o mais importante a moeda.
+Of course I'm being a little simplistic here. Most of the time it's not just the text that changes from one country to another. We also can't forget data formats, timezones, units of measurement, and perhaps most importantly, currency.
 
-## I18n e L10n, qual a diferença?
+## i18n e l10n, what's the difference?
 
-Internacionalização é preparar seu software para que pessoas de outros países e línguas possam usá-lo.
+Internationalization is when you prepare your software so that people from other countries and languages can use it.
 
-Localização (L10n) é adaptar o seu produto as necessidades de um país. É como pegar um site americano que só aceita pagamento via PayPal e adaptá-lo para aceitar boleto bancário, por exemplo.
+Localization (l10n) is when you adapt your product to the needs of a certain country, such as, for example, when you take a US site that only accepts Paypal and change it to accept bank payments.
 
-## O que tem de novo no Rails?
+## What's new in Rails?
 
-No Rails 2.2 este plugin de internacionalização será integrado ao seu código fonte.
+In Rails 2.2 this internationalization plugin has been add to the core.
 
-Isto não significa que o Rails sofreu grandes alterações. Na verdade quase nada mudou, ele continua sendo o mesmo framework de sempre, com todas as suas mensagens de validações em inglês e tudo mais.
+This doesn't mean that Rails has undergone radical changes. Actually, almost nothing has changed. It continues to be the same framework, with all the usual validations in English, etc.
 
-A diferença é que se quiséssemos estas mensagem em português, ou em outro idioma, teríamos de criar um monkey patch para isto. Não posso deixar de citar como exemplo o famoso Brazilian Rails, que faz exatamente isto para traduzir as mensagens do Active Record.
+The difference is that if you wanted these messages to be in Portuguese, or in some other language, you would have to create a monkey patch for this. I can't fail to mention the famous Brazilian Rails, which does exactly this to translate ActiveRecord messages.
 
-A novidade é que com o lançamento do Rails 2.2 temos uma forma padronizada e mais simples de fazer isto, usando uma interface comum.
+The main improvement is that in Rails 2.2 we now have a standardized and simpler way of doing this, using a common interface.
 
-## Como isto funciona?
+## How does this work?
 
-Básicamente este gem é dividido em duas partes:
+Basically, this gem is split into two parts:
 
-* A primeira acrescenta à API do Rails uma coleção de novos métodos, estes métodos basicamente servirão para acessar a segunda parte do gem.
+* The first adds a bunch of new methods to the Rails API. These methods basically allow you to access the second part of the gem.
 
-* A segunda parte é um backend simples que implementa toda a lógica para fazer o Rails funcionar exatamente como funcionava antes, usando a localização en-US.
+* The second part is a simple backend that implements all the logic required to make Rails work like it did before, using en-US as the default localization configuration.
 
-A grande diferença é que esta segunda parte poderá ser substituída por uma que dê suporte à internacionalização que você deseja. Melhor ainda, uma série de plugins que serão lançados irão fazer exatamente isto.
+The big difference is that this second module can be replaced with another that supports the internationalization that you require. Even better, a series of plugins are coming out that will do just this.
 
-O alicerce desta implementação é um módulo chamado `I18n` que vem através do gem incorporado ao `ActiveSupport`. Este módulo acrescenta as seguintes funcionalidades ao Rails:
+The foundation of this implementation is a module call `i18n`, which comes from a gem built into `ActiveSupport`. This module adds the following features to Rails:
 
-* O método `translate`, que será usado para retornar traduções.
+* The `translate` method, which is used to retrieve translations.
 
-* O método `localize`, que usaremos para "traduzir" objetos `Date`, `DateTime` e `Time` para a localização atual.
+* The `localize` method, which is used to "translate" `Date`, `DateTime`, and `Time` objects to the current locale.
 
-Além destes métodos este módulo traz todo o código necessário para armazenar e carregar os backends de "localização". E já vem com um manipulador de exceções padrão que captura exceções levantadas no backend.
+Besides these methods, this module contains the code necessary to store and load the localization backends. And it comes with an standard exception handler that catches exceptions raised in the backend.
 
-Tanto o backend como o manipulador de exceções podem (devem) ser substituídos. Além disso para facilitar, os métodos `#translate` e `#localize` também poderão ser executados usando os métodos `#t` e `#l` respectivamente.
+Both the backend and the exception handler can (and should) be extended. There are also aliases for `#translate` and `#localize` that save you a little time: `#t` and `#l`, respectively.
 
-## Exemplos práticos
+## Practical examples
 
-A melhor forma de enteder como usar este suporte a internacionalização no Rails é vendo seu funcionamento na prática. Eu aconselho então acessar o projeto criado por Sven Fuchs e outros no endereço: **http://i18n-demo.phusion.nl/**.
+The best way to understand how to use this internationalization support in Rails is seeing how it works in practice. I recommend taking a look at a project created by Sven Fuchs and others at: **http://i18n-demo.phusion.nl/**.
