@@ -1,0 +1,3 @@
+# Internacionalização (I18n)
+
+Tudo começou em setembro de 2007 quando um grupo de desenvolvedores começou a construção de um plugin para o Rails chamado **rails-I18n**, que visava eliminar a necessidade de monkey patching no Rails para internacionalizar uma aplicação.
