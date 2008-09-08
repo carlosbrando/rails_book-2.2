@@ -8,6 +8,6 @@ Esta linha informa ao Rails que ele não deve fazer cache do código de seu proj
 
 Em produção é importantíssimo que você deixe isto ligado.
 
-Em projetos Rails 2.1, caso a linha acima não se encontre em seus arquivos de configuração, o Rails assumirá que não deve fazer o cache, esta era a condição padrão.
+Em projetos Rails 2.1, caso a linha acima não se encontre em seus arquivos de configuração, o Rails assumirá que não deve fazer o cache. Esta era a condição padrão.
 
 No Rails 2.2 isto foi invertido, caso nenhuma configuração seja encontrada ele assumirá que deve fazer o cache. Isto ajudará os inexperientes que colocam seus projetos em produção sem configurá-lo corretamente.
