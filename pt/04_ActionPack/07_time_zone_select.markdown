@@ -12,4 +12,15 @@ Agora podemos fazer isto:
 
 	<%= time_zone_select( "user", 'time_zone', /Australia/) %>
 
+O código acima retornará todos os fusos-horários, mas colocará no topo da lista os seguintes:
+
+	(GMT +08:00) Perth
+	(GMT +09:30) Adelaide
+	(GMT +09:30) Darwin
+	(GMT +10:00) Brisbane
+	(GMT +10:00) Canberra
+	(GMT +10:00) Hobart
+	(GMT +10:00) Melbourne
+	(GMT +10:00) Sydney
+
 Para aprender mais sobre `TimeZones`, aconselho assistir ao episódio 106 do RailsCasts (http://railscasts.com/episodes/106) e dar uma olhada no livro antecessor a este.
