@@ -1,0 +1,7 @@
+## Mensagem de ajuda para novos no Rails
+
+Foi adicionado ao arquivo 500.html do Rails uma mensagem para ajudar os programadores que estão começando com Rails:
+
+(If you’re the administrator of this website, then please read the log file “development.log” to find out what went wrong.)
+
+É o Rails se preocupando com a galera que está começando.
