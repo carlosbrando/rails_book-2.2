@@ -23,6 +23,8 @@ Fique tranqüilo quanto a uma possível migração de seus projetos atuais, pois
 
 ## Mais métodos atualizados para receber Hashes de opções
 
+Os seguintes métodos também foram alterados para aceitarem seus argumentos na forma de um **Hash** de opções, tornando o código mais legível e facilitando a manutenção.
+
 ### truncate
 
 	truncate("Once upon a time in a world far far away")
@@ -66,16 +68,21 @@ Fique tranqüilo quanto a uma possível migração de seus projetos atuais, pois
 
 ### auto\_link
 
-	post_body = "Welcome to my new blog at http://www.myblog.com/. Please e-mail me at me@email.com."
+	post_body = "Welcome to my new blog at http://www.nomedojogo.com/. Please e-mail me at me@email.com."
 
 	auto_link(post_body, :urls)
 	# => "Welcome to my new blog at 
-		<a href=\"http://www.myblog.com/\">http://www.myblog.com</a>. 
+		<a href=\"http://www.nomedojogo.com/\">http://www.nomedojogo.com</a>. 
 		Please e-mail me at me@email.com."
 
 	auto_link(post_body, :all, :target => "_blank")
 	# => "Welcome to my new blog at 
-		<a href=\"http://www.myblog.com/\" target=\"_blank\">http://www.myblog.com</a>. 
+		<a href=\"http://www.nomedojogo.com/\" target=\"_blank\">http://www.nomedojogo.com</a>. 
+		Please e-mail me at <a href=\"mailto:me@email.com\">me@email.com</a>."
+
+	auto_link(post_body, :link => :all, :html => {:target => "_blank"})
+	# => "Welcome to my new blog at 
+		<a href=\"http://www.nomedojogo.com/\" target=\"_blank\">http://www.nomedojogo.com</a>. 
 		Please e-mail me at <a href=\"mailto:me@email.com\">me@email.com</a>."
 
 Todos os métodos continuam funcionando da forma antiga por enquanto, mas alertas serão emitidos no terminal para lembra-lo de atualizar seu código o mais rápido possível.

@@ -66,16 +66,21 @@ Don't worry about having to port your current projects for these changes, becaus
 
 ### auto\_link
 
-	post_body = "Welcome to my new blog at http://www.myblog.com/. Please e-mail me at me@email.com."
+	post_body = "Welcome to my new blog at http://www.nomedojogo.com/. Please e-mail me at me@email.com."
 
 	auto_link(post_body, :urls)
 	# => "Welcome to my new blog at 
-		<a href=\"http://www.myblog.com/\">http://www.myblog.com</a>. 
+		<a href=\"http://www.nomedojogo.com/\">http://www.nomedojogo.com</a>. 
 		Please e-mail me at me@email.com."
 
 	auto_link(post_body, :all, :target => "_blank")
 	# => "Welcome to my new blog at 
-		<a href=\"http://www.myblog.com/\" target=\"_blank\">http://www.myblog.com</a>. 
+		<a href=\"http://www.nomedojogo.com/\" target=\"_blank\">http://www.nomedojogo.com</a>. 
+		Please e-mail me at <a href=\"mailto:me@email.com\">me@email.com</a>."
+
+	auto_link(post_body, :link => :all, :html => {:target => "_blank"})
+	# => "Welcome to my new blog at 
+		<a href=\"http://www.nomedojogo.com/\" target=\"_blank\">http://www.nomedojogo.com</a>. 
 		Please e-mail me at <a href=\"mailto:me@email.com\">me@email.com</a>."
 
 All these methods continue working in the old way for now, but display warnings in the application log (and terminal, in development mode) to remind you to update your code as soon as possible.
