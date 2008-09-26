@@ -36,10 +36,10 @@ Fique tranqüilo quanto a uma possível migração de seus projetos atuais, pois
 
 ### highlight
 
-	highlight('You searched for: rails', ['for', 'rails'], :highlighter => '<em>\1</em>')
+	highlight('You searched for: rails', ['for', 'rails'], :highlighter => '<em>\\1</em>')
 	# => You searched <em>for</em>: <em>rails</em>
 
-	highlight('You searched for: rails', 'rails', :highlighter => '<a href="search?q=\1">\1</a>')
+	highlight('You searched for: rails', 'rails', :highlighter => '<a href="search?q=\\1">\\1</a>')
 	# => You searched for: <a href="search?q=rails">rails</a>
 
 ### excerpt

@@ -28,5 +28,5 @@ Vejamos alguns exemplos de chaves geradas com esta nova biblioteca:
 	ActiveSupport::SecureRandom.base64(13) #=> "vKLJ0tXBHqQOuIcSIg=="
 
 	# random binary string.
-	ActiveSupport::SecureRandom.random_bytes(10) #=> "\016\t{\370g\310pbr\301"
-	ActiveSupport::SecureRandom.random_bytes(10) #=> "\323U\030TO\234\357\020\a\337"
+	ActiveSupport::SecureRandom.random_bytes(10) #=> "\\016\\t{\\370g\\310pbr\\301"
+	ActiveSupport::SecureRandom.random_bytes(10) #=> "\\323U\\030TO\\234\\357\\020\\a\\337"

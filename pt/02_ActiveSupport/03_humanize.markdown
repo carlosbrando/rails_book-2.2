@@ -5,8 +5,8 @@ Já faz um certo tempo que Pratik Naik estava tentando colocar este patch no Rai
 No arquivo **config/initializers/inflections.rb** você tem a opção de acrescentar novas inflexões para pluralização, singularização e outros:
 
 	Inflector.inflections do |inflect|
-	  inflect.plural /^(ox)$/i, '\1en'
-	  inflect.singular /^(ox)en/i, '\1'
+	  inflect.plural /^(ox)$/i, '\\1en'
+	  inflect.singular /^(ox)en/i, '\\1'
 	  inflect.irregular 'person', 'people'
 	  inflect.uncountable %w( fish sheep )
 	end
@@ -17,7 +17,7 @@ No Rails 2.2 você também pode incluir inflexões para o método `humanize` da 
 	'nomedojogo'.humanize # => "Nomedojogo"
 
 	ActiveSupport::Inflector.inflections do |inflect|
-	  inflect.human(/_cnt$/i, '\1_count')
+	  inflect.human(/_cnt$/i, '\\1_count')
 	  inflect.human('nomedojogo', 'Nome do Jogo')
 	end
 
