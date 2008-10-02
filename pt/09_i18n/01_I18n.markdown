@@ -42,7 +42,7 @@ O alicerce desta implementação é um módulo chamado `I18n` que vem através d
 
 Além destes métodos este módulo traz todo o código necessário para armazenar e carregar os backends de "localização". E já vem com um manipulador de exceções padrão que captura exceções levantadas no backend.
 
-Tanto o backend como o manipulador de exceções podem (devem) ser substituídos. Além disso para facilitar, os métodos `#translate` e `#localize` também poderão ser executados usando os métodos `#t` e `#l` respectivamente.
+Tanto o backend como o manipulador de exceções podem (devem) ser substituídos. Além disso para facilitar, os métodos `#translate` e `#localize` também poderão ser executados usando os métodos `#t` e `#l` respectivamente. E ambos os métodos funcionam em suas views e controllers.
 
 ## Exemplos práticos
 
