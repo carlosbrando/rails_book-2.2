@@ -1,0 +1,7 @@
+## Help message for Rails newbies
+
+A new message has been added to the 500.html file to help programmers who are just starting to use Rails:
+
+(If you’re the administrator of this website, then please read the log file “development.log” to find out what went wrong.)
+
+That's Rails, looking out for the new folks out there.
