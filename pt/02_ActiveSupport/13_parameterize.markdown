@@ -1,4 +1,4 @@
-## Edge Rails: Inflector#parameterize simplifica a criação de URLs elegantes
+## Inflector#parameterize simplifica a criação de URLs elegantes
 
 Um novo inflector foi incluído no Rails, e particularmente acho este é muito útil. O `parameterize` transforma um texto qualquer em um formato ideal para o uso em URLs. Por exemplo:
 

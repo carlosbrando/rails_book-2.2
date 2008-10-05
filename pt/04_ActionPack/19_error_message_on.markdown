@@ -33,7 +33,8 @@ Os seguintes métodos também foram alterados para aceitarem seus argumentos na 
 	truncate("Once upon a time in a world far far away", :length => 14)
 	# => Once upon a...
 
-	truncate("And they found that many people were sleeping better.", :omission => "... (continued)", :length => 15)
+	truncate("And they found that many people were sleeping better.", :omission => "... (continued)", 
+		:length => 15)
 	# => And they found... (continued)
 
 ### highlight
@@ -68,20 +69,20 @@ Os seguintes métodos também foram alterados para aceitarem seus argumentos na 
 
 ### auto\_link
 
-	post_body = "Welcome to my new blog at http://www.nomedojogo.com/. Please e-mail me at me@email.com."
+	post_body = "Welcome to my blog at http://www.nomedojogo.com/. Please e-mail me at me@email.com."
 
 	auto_link(post_body, :urls)
-	# => "Welcome to my new blog at 
+	# => "Welcome to my blog at 
 		<a href=\"http://www.nomedojogo.com/\">http://www.nomedojogo.com</a>. 
 		Please e-mail me at me@email.com."
 
 	auto_link(post_body, :all, :target => "_blank")
-	# => "Welcome to my new blog at 
+	# => "Welcome to my blog at 
 		<a href=\"http://www.nomedojogo.com/\" target=\"_blank\">http://www.nomedojogo.com</a>. 
 		Please e-mail me at <a href=\"mailto:me@email.com\">me@email.com</a>."
 
 	auto_link(post_body, :link => :all, :html => {:target => "_blank"})
-	# => "Welcome to my new blog at 
+	# => "Welcome to my blog at 
 		<a href=\"http://www.nomedojogo.com/\" target=\"_blank\">http://www.nomedojogo.com</a>. 
 		Please e-mail me at <a href=\"mailto:me@email.com\">me@email.com</a>."
 

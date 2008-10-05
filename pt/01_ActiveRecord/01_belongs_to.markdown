@@ -1,4 +1,4 @@
-## Nova opção para associações, :validate
+## Nova opção para associações: :validate
 
 Uma nova opção foi acrescentado às associações do Rails. A opção `:validate` pode ser usada para ligar ou desligar a validação de objetos associados ao modelo. Veja um exemplo:
 
