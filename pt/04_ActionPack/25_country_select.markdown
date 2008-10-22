@@ -12,4 +12,4 @@ A melhor solução, ou pelo menos a que geraria menos controvérsias, foi remove
 
 Para instalar o plugin oficial:
 
-	./script/plugin install git://github.com/rails/country_select.git
+`./script/plugin install git://github.com/rails/country_select.git`

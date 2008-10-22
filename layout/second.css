@@ -456,7 +456,8 @@ span.element, span.attribute {
 }
 span.property { font-weight: bold }
 code, pre, span.css, span.value, span.declaration {
-  color: #600;
+/*  color: #600;*/
+/*	color: #2A2F1F;*/
   font-size: 8pt;
   font-family: Monaco, "Lucida Console", "Lucida Sans Typewriter", monospace;
 }

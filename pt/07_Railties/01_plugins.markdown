@@ -8,8 +8,8 @@ E parece que isto realmente pode acontecer. Para esta versão do Rails, por exem
 
 Assim, eu poderia por exemplo criar um gem (que funcionaria como um plugin) e instalar de duas maneiras:
 
-	./script/plugin install git://github.com/user/plugin.git
+`./script/plugin install git://github.com/user/plugin.git`
 
-	sudo gem install user-plugin --source=http://gems.github.com
+`sudo gem install user-plugin --source=http://gems.github.com`
 
 Isto sem precisar manter dois arquivos **init.rb** (um na raiz e outro no diretório rails).

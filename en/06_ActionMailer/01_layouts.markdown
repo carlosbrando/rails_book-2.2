@@ -31,7 +31,8 @@ To avoid having the mailer use the default layout, all you have to do is include
 	  recipients recipient
 	  subject "You have a mail"
 	  from "tester@example.com"
-	  body render(:inline => "Hello, <%= @world %>", :layout => false, :body => { :world => "Earth" })
+	  body render(:inline => "Hello, <%= @world %>", :layout => false, 
+			:body => { :world => "Earth" })
 	end
 
 You can also specify a different layout for the mailer by changing the `:layout` option. In this case, the layout you use does not need to have the '_mailer' suffix.
@@ -40,7 +41,8 @@ You can also specify a different layout for the mailer by changing the `:layout`
 	  recipients recipient
 	  subject "You have a mail"
 	  from "tester@example.com"
-	  body render(:inline => "Hello, <%= @world %>", :layout => 'spam', :body => { :world => "Earth" })
+	  body render(:inline => "Hello, <%= @world %>", :layout => 'spam', 
+			:body => { :world => "Earth" })
 	end
 
 You can also tell `ActionMailer` which layout it should use like this:

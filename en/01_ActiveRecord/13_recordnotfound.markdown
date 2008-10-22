@@ -4,5 +4,5 @@ The `ActiveRecord` dynamic finders now have destructive counterparts that raise 
 
 To use these destructive versions, just add an exclamation point to the end of the method. Here is an example:
 
-Topic.find_by_title!("The First Topic!")
-# => ActiveRecord::RecordNotFound
+	Topic.find_by_title!("The First Topic!")
+	# => ActiveRecord::RecordNotFound

@@ -1,4 +1,4 @@
-## Session cookies are now HttpOnly
+## Session cookies are now Http Only
 
 Rails has an option for setting cookies that is often overlooked. The `:http_only` option causes a cookie to be accessible only through HTTP, preventing it from being accessed by javascript code. The default value for this is `false`.
 

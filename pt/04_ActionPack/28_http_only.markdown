@@ -1,4 +1,4 @@
-## Cookie de sessão agora é HttpOnly
+## Cookie de sessão agora é Http Only
 
 Ao se criar um cookie existe uma opção esquecida por muita gente. A opção `http_only` faz com que o cookie somente seja acessível via HTTP, impedindo que um trecho de código em javascript consiga acessá-lo. O valor padrão para esta opção é `false`.
 
