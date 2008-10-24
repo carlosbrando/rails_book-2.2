@@ -8,7 +8,7 @@ Por exemplo, se desejássemos recuperar todos os usuários do sistema que compra
 
 Este tipo de sintaxe parece incomodar já que você precisa incluir o nome da tabela (no caso **items**) dentro de uma **string**. O código parece estranho.
 
-No Rails 2.2 encontraremos uma novidade nesta questão, nos permitindo fazer a mesma coisa de uma forma um pouco diferente, usando uma chave dentro do **hash** para identificar a tabela:
+No Rails 2.2 encontraremos uma novidade nesta questão, nos permitindo fazer a mesma coisa de uma forma um pouco diferente, usando uma chave dentro do `Hash` para identificar a tabela:
 
 	User.all :joins => :items, :conditions => {
 	  :age => 10,

@@ -1,6 +1,6 @@
 ## Definindo como o método validates\_length\_of deve funcionar
 
-O método `validates_length_of` faz parte dos muitos métodos de validação contidos no **ActiveRecord**. Este método em particular serve para garantir que o valor gravado em uma determinada coluna no banco de dados terá um tamanho máximo, mínimo, exato, ou até mesmo se está em um intervalo de valores.
+O método `validates_length_of` faz parte dos muitos métodos de validação contidos no `ActiveRecord`. Este método em particular serve para garantir que o valor gravado em uma determinada coluna no banco de dados terá um tamanho máximo, mínimo, exato, ou até mesmo se está em um intervalo de valores.
 
 Mas o termo "tamanho" é relativo. Hoje quando dizemos "tamanho" estamos nos referindo a quantidade de caracteres no texto.
 

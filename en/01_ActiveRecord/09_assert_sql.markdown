@@ -4,7 +4,7 @@ Maybe you have already heard of `assert_queries`, which helps to validate tests 
 
 In the test below I am specifying that if there are **partial\_updates**, a query should be executed on the database; otherwise, no query should be executed.
 
-We have now got another helper to make it easier to test the SQL query that will be run from **ActiveRecord** abstractions. For example:
+We have now got another helper to make it easier to test the SQL query that will be run from `ActiveRecord` abstractions. For example:
 
 	def test_empty_with_counter_sql
 	  company = Firm.find(:first)

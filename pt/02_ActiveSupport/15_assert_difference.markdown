@@ -8,6 +8,4 @@ No Rails 2.2 a mensagem devolvida pelo método informará exatamente qual expres
 	  Post.create(params)
 	end
 
-O código acima retornará a seguinte mensagem, caso a segunda expressão não tenha passado:
-
-**<current\_user.posts.count> was expression that failed. <1> expected but was <0>.**
+O código acima retornará a seguinte mensagem, caso a segunda expressão não tenha passado: "<current\_user.posts.count> was expression that failed. <1> expected but was <0>.".

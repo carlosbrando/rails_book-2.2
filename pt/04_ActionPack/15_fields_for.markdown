@@ -18,4 +18,4 @@ Isto retornará:
 	  <option value=\"hest\">hest</option>
 	</select>
 
-Veja que estou usando a opção `:index => 108` no método `fields_for`. Agora repare as propriedades **id** e **name** da tag criada pelo método `select`. Embora nada tenha sido especificado para este método, ele acrescenta o indice em seu resultado também.
+Veja que estou usando a opção `:index => 108` no método `fields_for`. Agora repare as propriedades `id` e `name` da tag criada pelo método `select`. Embora nada tenha sido especificado para este método, ele acrescenta o indice em seu resultado também.

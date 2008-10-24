@@ -1,1 +1,385 @@
 # CHANGELOG
+
+## actionmailer
+
+*2.2.0 [RC1] (October 24th, 2008)*
+ 
+* Add layout functionality to mailers [Pratik]
+ 
+  Mailer layouts behaves just like controller layouts, except layout names need to
+  have '_mailer' postfix for them to be automatically picked up.
+
+## actionpack
+
+*2.2.0 [RC1] (October 24th, 2008)*
+ 
+* Fix incorrect closing CDATA delimiter and that HTML::Node.parse would blow up on unclosed CDATA sections [packagethief]
+ 
+* Added stale? and fresh\_when methods to provide a layer of abstraction above request.fresh? and friends [DHH]. Example:
+ 
+    class ArticlesController < ApplicationController
+      def show_with_respond_to_block
+        @article = Article.find(params[:id])
+
+        if stale?(:last_modified => @article.published_at.utc, :etag => @article)
+          respond_to do |wants|
+            # normal response processing
+          end
+        end
+      end
+ 
+      def show_with_implied_render
+        @article = Article.find(params[:id])
+ 
+        fresh_when(:last_modified => @article.published_at.utc, :etag => @article)
+      end
+    end
+ 
+ 
+* Added inline builder yield to atom\_feed\_helper tags where appropriate [Sam Ruby]. Example:
+ 
+    entry.summary :type => 'xhtml' do |xhtml|
+      xhtml.p pluralize(order.line_items.count, "line item")
+      xhtml.p "Shipped to #{order.address}"
+      xhtml.p "Paid by #{order.pay_type}"
+    end
+ 
+* Make PrototypeHelper#submit\_to\_remote a wrapper around PrototypeHelper#button\_to\_remote. [Tarmo Tänav]
+ 
+* Set HttpOnly for the cookie session store's cookie. #1046
+ 
+* Added FormTagHelper#image\_submit\_tag confirm option #784 [Alastair Brunton]
+ 
+* Fixed FormTagHelper#submit\_tag with :disable\_with option wouldn't submit the button's value when was clicked #633 [Jose Fernandez]
+ 
+* Stopped logging template compiles as it only clogs up the log [DHH]
+ 
+* Changed the X-Runtime header to report in milliseconds [DHH]
+ 
+* Changed BenchmarkHelper#benchmark to report in milliseconds [DHH]
+ 
+* Changed logging format to be millisecond based and skip misleading stats [DHH]. Went from:
+ 
+    Completed in 0.10000 (4 reqs/sec) | Rendering: 0.04000 (40%) | DB: 0.00400 (4%) | 200 OK [http://example.com]
+ 
+  ...to:
+  
+    Completed in 100ms (View: 40, DB: 4) | 200 OK [http://example.com]
+ 
+* Add support for shallow nesting of routes. #838 [S. Brent Faulkner]
+ 
+  Example :
+ 
+  map.resources :users, :shallow => true do |user|
+    user.resources :posts
+  end
+ 
+  - GET /users/1/posts (maps to PostsController#index action as usual)
+    named route "user_posts" is added as usual.
+ 
+  - GET /posts/2 (maps to PostsController#show action as if it were not nested)
+    Additionally, named route "post" is added too.
+ 
+* Added button\_to\_remote helper. #3641 [Donald Piret, Tarmo Tänav]
+ 
+* Deprecate render\_component. Please use render\_component plugin from http://github.com/rails/render\_component/tree/master [Pratik]
+ 
+* Routes may be restricted to lists of HTTP methods instead of a single method or :any. #407 [Brennan Dunn, Gaius Centus Novus]
+    map.resource :posts, :collection => { :search => [:get, :post] }
+    map.session 'session', :requirements => { :method => [:get, :post, :delete] }
+ 
+* Deprecated implicit local assignments when rendering partials [Josh Peek]
+ 
+* Introduce current\_cycle helper method to return the current value without bumping the cycle. #417 [Ken Collins]
+ 
+* Allow polymorphic\_url helper to take url options. #880 [Tarmo Tänav]
+ 
+* Switched integration test runner to use Rack processor instead of CGI [Josh Peek]
+ 
+* Made AbstractRequest.if\_modified\_sense return nil if the header could not be parsed [Jamis Buck]
+ 
+* Added back ActionController::Base.allow\_concurrency flag [Josh Peek]
+ 
+* AbstractRequest.relative\_url\_root is no longer automatically configured by a HTTP header. It can now be set in your configuration environment with config.action\_controller.relative\_url\_root [Josh Peek]
+ 
+* Update Prototype to 1.6.0.2 #599 [Patrick Joyce]
+ 
+* Conditional GET utility methods. [Jeremy Kemper]
+    response.last_modified = @post.updated_at
+    response.etag = [:admin, @post, current_user]
+ 
+    if request.fresh?(response)
+      head :not_modified
+    else
+      # render ...
+    end
+ 
+* All 2xx requests are considered successful [Josh Peek]
+ 
+* Fixed that AssetTagHelper#compute\_public\_path shouldn't cache the asset\_host along with the source or per-request proc's won't run [DHH]
+ 
+* Removed config.action\_view.cache\_template\_loading, use config.cache\_classes instead [Josh Peek]
+ 
+* Get buffer for fragment cache from template's @output\_buffer [Josh Peek]
+ 
+* Set config.action\_view.warn\_cache\_misses = true to receive a warning if you perform an action that results in an expensive disk operation that could be cached [Josh Peek]
+ 
+* Refactor template preloading. New abstractions include Renderable mixins and a refactored Template class [Josh Peek]
+ 
+* Changed ActionView::TemplateHandler#render API method signature to render(template, local\_assigns = {}) [Josh Peek]
+ 
+* Changed PrototypeHelper#submit\_to\_remote to PrototypeHelper#button\_to\_remote to stay consistent with link\_to\_remote (submit\_to\_remote still works as an alias) #8994 [clemens]
+ 
+* Add :recursive option to javascript\_include\_tag and stylesheet\_link\_tag to be used along with :all. #480 [Damian Janowski]
+ 
+* Allow users to disable the use of the Accept header [Michael Koziarski]
+ 
+    The accept header is poorly implemented by browsers and causes strange
+  errors when used on public sites where crawlers make requests too. You
+  can use formatted urls (e.g. /people/1.xml) to support API clients in a
+  much simpler way.
+ 
+  To disable the header you need to set:
+ 
+  config.action_controller.use_accept_header = false
+ 
+* Do not stat template files in production mode before rendering. You will no longer be able to modify templates in production mode without restarting the server [Josh Peek]
+ 
+* Deprecated TemplateHandler line offset [Josh Peek]
+ 
+* Allow caches\_action to accept cache store options. #416. [José Valim]. Example:
+  
+  caches_action :index, :redirected, :if => Proc.new { |c| !c.request.format.json? }, :expires_in => 1.hour
+ 
+* Remove define\_javascript\_functions, javascript\_include\_tag and friends are far superior. [Michael Koziarski]
+ 
+* Deprecate :use\_full\_path render option. The supplying the option no longer has an effect [Josh Peek]
+ 
+* Add :as option to render a collection of partials with a custom local variable name. #509 [Simon Jefford, Pratik Naik]
+ 
+  render :partial => 'other_people', :collection => @people, :as => :person
+  
+  This will let you access objects of @people as 'person' local variable inside 'other_people' partial template.
+ 
+* time\_zone\_select: support for regexp matching of priority zones. Resolves #195 [Ernie Miller]
+ 
+* Made ActionView::Base#render\_file private [Josh Peek]
+ 
+* Refactor and simplify the implementation of assert\_redirected\_to. Arguments are now normalised relative to the controller being tested, not the root of the application. [Michael Koziarski]
+ 
+  This could cause some erroneous test failures if you were redirecting between controllers
+  in different namespaces and wrote your assertions relative to the root of the application.
+ 
+* Remove follow\_redirect from controller functional tests.
+ 
+  If you want to follow redirects you can use integration tests. The functional test
+  version was only useful if you were using redirect_to :id=>...
+ 
+* Fix polymorphic\_url with singleton resources. #461 [Tammer Saleh]
+ 
+* Replaced TemplateFinder abstraction with ViewLoadPaths [Josh Peek]
+ 
+* Added block-call style to link\_to [Sam Stephenson/DHH]. Example:
+ 
+    <% link_to(@profile) do %>
+      <strong><%= @profile.name %></strong> -- <span>Check it out!!</span>
+    <% end %>
+ 
+* Performance: integration test benchmarking and profiling. [Jeremy Kemper]
+ 
+* Make caching more aware of mime types. Ensure request format is not considered while expiring cache. [Jonathan del Strother]
+ 
+* Drop ActionController::Base.allow\_concurrency flag [Josh Peek]
+ 
+* More efficient concat and capture helpers. Remove ActionView::Base.erb\_variable. [Jeremy Kemper]
+ 
+* Added page.reload functionality. Resolves #277. [Sean Huber]
+ 
+* Fixed Request#remote\_ip to only raise hell if the HTTP\_CLIENT\_IP and HTTP\_X\_FORWARDED\_FOR doesn't match (not just if they're both present) [Mark Imbriaco, Bradford Folkens]
+ 
+* Allow caches\_action to accept a layout option [José Valim]
+ 
+* Added Rack processor [Ezra Zygmuntowicz, Josh Peek]
+
+## activerecord
+
+*2.2.0 [RC1] (October 24th, 2008)*
+ 
+* Skip collection ids reader optimization if using :finder\_sql [Jeremy Kemper]
+ 
+* Add Model#delete instance method, similar to Model.delete class method. #1086 [Hongli Lai]
+ 
+* MySQL: cope with quirky default values for not-null text columns. #1043 [Frederick Cheung]
+ 
+* Multiparameter attributes skip time zone conversion for time-only columns [#1030 state:resolved] [Geoff Buesing]
+ 
+* Base.skip\_time\_zone\_conversion\_for\_attributes uses class\_inheritable\_accessor, so that subclasses don't overwrite Base [#346 state:resolved] [miloops]
+ 
+* Added find\_last\_by dynamic finder #762 [miloops]
+ 
+* Internal API: configurable association options and build\_association method for reflections so plugins may extend and override. #985 [Hongli Lai]
+ 
+* Changed benchmarks to be reported in milliseconds [DHH]
+ 
+* Connection pooling. #936 [Nick Sieger]
+ 
+* Merge scoped :joins together instead of overwriting them. May expose scoping bugs in your code! #501 [Andrew White]
+ 
+* before\_save, before\_validation and before\_destroy callbacks that return false will now ROLLBACK the transaction. Previously this would have been committed before the processing was aborted. #891 [Xavier Noria]
+ 
+* Transactional migrations for databases which support them. #834 [divoxx, Adam Wiggins, Tarmo Tänav]
+ 
+* Set config.active\_record.timestamped\_migrations = false to have migrations with numeric prefix instead of UTC timestamp. #446. [Andrew Stone, Nik Wakelin]
+ 
+* change\_column\_default preserves the not-null constraint. #617 [Tarmo Tänav]
+ 
+* Fixed that create database statements would always include "DEFAULT NULL" (Nick Sieger) [#334]
+ 
+* Add :tokenizer option to validates\_length\_of to specify how to split up the attribute string. #507. [David Lowenfels] Example :
+ 
+  # Ensure essay contains at least 100 words.
+  validates_length_of :essay, :minimum => 100, :too_short => "Your essay must be at least %d words."), :tokenizer => lambda {|str| str.scan(/\w+/) }
+ 
+* Allow conditions on multiple tables to be specified using hash. [Pratik Naik]. Example:
+ 
+  User.all :joins => :items, :conditions => { :age => 10, :items => { :color => 'black' } }
+  Item.first :conditions => { :items => { :color => 'red' } }
+ 
+* Always treat integer :limit as byte length. #420 [Tarmo Tänav]
+ 
+* Partial updates don't update lock\_version if nothing changed. #426 [Daniel Morrison]
+ 
+* Fix column collision with named\_scope and :joins. #46 [Duncan Beevers, Mark Catley]
+ 
+* db:migrate:down and :up update schema\_migrations. #369 [Michael Raidel, RaceCondition]
+ 
+* PostgreSQL: support :conditions => [':foo::integer', { :foo => 1 }] without treating the ::integer typecast as a bind variable. [Tarmo Tänav]
+ 
+* MySQL: rename\_column preserves column defaults. #466 [Diego Algorta]
+ 
+* Add :from option to calculations. #397 [Ben Munat]
+ 
+* Add :validate option to associations to enable/disable the automatic validation of associated models. Resolves #301. [Jan De Poorter]
+ 
+* PostgreSQL: use 'INSERT ... RETURNING id' for 8.2 and later. [Jeremy Kemper]
+ 
+* Added SQL escaping for :limit and :offset in MySQL [Jonathan Wiess]
+
+## activeresource
+
+*2.2.0 [RC1] (October 24th, 2008)*
+ 
+* Add ActiveResource::Base#to\_xml and ActiveResource::Base#to\_json. #1011 [Rasik Pandey, Cody Fauser]
+ 
+* Add ActiveResource::Base.find(:last). [#754 state:resolved] (Adrian Mugnolo)
+ 
+* Fixed problems with the logger used if the logging string included %'s [#840 state:resolved] (Jamis Buck)
+ 
+* Fixed Base#exists? to check status code as integer [#299 state:resolved] (Wes Oldenbeuving)
+
+## activesupport
+
+*2.2.0 [RC1] (October 24th, 2008)*
+ 
+* TimeWithZone#freeze: preload instance variables so that we can actually freeze [Geoff Buesing]
+ 
+* Fix Brasilia timezone #1180 [Marcus Derencius, Kane]
+ 
+* Time#advance recognizes fractional days and weeks. Deprecate Durations of fractional months and years #970 [Tom Lea]
+ 
+* Add ActiveSupport::Rescuable module abstracting ActionController::Base rescue\_from features. [Norbert Crombach, Pratik]
+ 
+* Switch from String#chars to String#mb\_chars for the unicode proxy. [Manfred Stienstra]
+ 
+  This helps with 1.8.7 compatibility and also improves performance for some operations by reducing indirection.
+ 
+* TimeWithZone #wday, #yday and #to\_date avoid trip through #method\_missing [Geoff Buesing]
+ 
+* Added Time, Date, DateTime and TimeWithZone #past?, #future? and #today? #720 [Clemens Kofler, Geoff Buesing]
+ 
+* Fixed Sri Jayawardenepura time zone to map to Asia/Colombo [Jamis Buck]
+ 
+* Added Inflector#parameterize for easy slug generation ("Donald E. Knuth".parameterize => "donald-e-knuth") #713 [Matt Darby]
+ 
+* Changed cache benchmarking to be reported in milliseconds [DHH]
+ 
+* Fix Ruby's Time marshaling bug in pre-1.9 versions of Ruby: utc instances are now correctly unmarshaled with a utc zone instead of the system local zone [#900 state:resolved] [Luca Guidi, Geoff Buesing]
+ 
+* Add Array#in\_groups which splits or iterates over the array in specified number of groups. #579. [Adrian Mugnolo] Example:
+  
+  a = (1..10).to_a
+  a.in_groups(3) #=> [[1, 2, 3, 4], [5, 6, 7, nil], [8, 9, 10, nil]]
+  a.in_groups(3, false) #=> [[1, 2, 3, 4], [5, 6, 7], [8, 9, 10]]
+ 
+* Fix TimeWithZone unmarshaling: coerce unmarshaled Time instances to utc, because Ruby's marshaling of Time instances doesn't respect the zone [Geoff Buesing]
+ 
+* Added Memoizable mixin for caching simple lazy loaded attributes [Josh Peek]
+ 
+* Move the test related core\_ext stuff out of core\_ext so it's only loaded by the test helpers. [Michael Koziarski]
+ 
+* Add Inflection rules for String#humanize. #535 [dcmanges]
+ 
+  ActiveSupport::Inflector.inflections do |inflect|
+    inflect.human(/_cnt$/i, '\1_count')
+  end
+ 
+  'jargon_cnt'.humanize # => 'Jargon count'
+ 
+* TimeWithZone: when crossing DST boundary, treat Durations of days, months or years as variable-length, and all other values as absolute length. A time + 24.hours will advance exactly 24 hours, but a time + 1.day will advance 23-25 hours, depending on the day. Ensure consistent behavior across all advancing methods [Geoff Buesing]
+ 
+* Added TimeZone #=~, to support matching zones by regex in time\_zone\_select. #195 [Ernie Miller]
+ 
+* Added Array#second through Array#tenth as aliases for Array#[1] through Array#[9] [DHH]
+ 
+* Added test/do declaration style testing to ActiveSupport::TestCase [DHH via Jay Fields]
+ 
+* Added Object#present? which is equivalent to !Object#blank? [DHH]
+ 
+* Added Enumberable#many? to encapsulate collection.size > 1 [DHH/Damian Janowski]
+ 
+* Add more standard Hash methods to ActiveSupport::OrderedHash [Steve Purcell]
+ 
+* Namespace Inflector, Dependencies, OrderedOptions, and TimeZone under ActiveSupport [Josh Peek]
+ 
+* Added StringInquirer for doing things like StringInquirer.new("production").production? # => true and StringInquirer.new("production").development? # => false [DHH]
+ 
+* Fixed Date#end\_of\_quarter to not blow up on May 31st [#289 state:resolved] (Danger)
+
+## railties
+
+*2.2.0 [RC1] (October 24th, 2008)*
+ 
+* Fixed that sqlite would report "db/development.sqlite3 already exists" whether true or not on db:create #614 [Antonio Cangiano]
+ 
+* Added config.threadsafe! to toggle allow concurrency settings and disable the dependency loader [Josh Peek]
+ 
+* Turn cache\_classes on by default [Josh Peek]
+ 
+* Added configurable eager load paths. Defaults to app/models, app/controllers, and app/helpers [Josh Peek]
+ 
+* Introduce simple internationalization support. [Ruby i18n team]
+ 
+* Make script/plugin install <plugin> -r <revision> option work with git based plugins. #257. [Tim Pope Jakub Kuźma]. Example:
+ 
+  script/plugin install git://github.com/mislav/will_paginate.git -r agnostic # Installs 'agnostic' branch
+  script/plugin install git://github.com/dchelimsky/rspec.git -r 'tag 1.1.4'
+ 
+* Added Rails.initialized? flag [Josh Peek]
+ 
+* Make rake test:uncommitted work with Git. [Tim Pope]
+ 
+* Added Thin support to script/server. #488 [Bob Klosinski]
+ 
+* Fix script/about in production mode. #370 [Cheah Chu Yeow, Xavier Noria, David Krmpotic]
+ 
+* Add the gem load paths before the framework is loaded, so certain gems like RedCloth and BlueCloth can be frozen.
+ 
+* Fix discrepancies with loading rails/init.rb from gems.
+ 
+* Plugins check for the gem init path (rails/init.rb) before the standard plugin init path (init.rb) [Jacek Becela]
+ 
+* Changed all generated tests to use the test/do declaration style [DHH]
+ 
+* Wrapped Rails.env in StringInquirer so you can do Rails.env.development? [DHH]
+ 
+* Fixed that RailsInfoController wasn't considering all requests local in development mode (Edgard Castro) [#310 state:resolved]

@@ -14,7 +14,7 @@ task :html => :merge do
         html_template.gsub!("#body", output)
         html_template.gsub! /<pre><code>.*?<\/code><\/pre>/m do |code|
           code = code.gsub('<pre><code>', '').gsub('</code></pre>', '').gsub('&lt;', '<').gsub('&gt;', '>').gsub('&amp;', '&')
-          Uv.parse(code, "xhtml", "ruby", false, "twilight")
+          Uv.parse(code, "xhtml", "ruby", false, "mac_classic")
         end
         f.puts html_template
       end

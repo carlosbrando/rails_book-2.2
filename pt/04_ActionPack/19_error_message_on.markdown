@@ -12,7 +12,7 @@ Isto fará com que uma mensagem de erro seja exibida na sua página dentro de um
 
 Mas o mais interessante do método `error_message_on` é que podemos personaliza-lo para que exibida mensagens mais amigáveis. E é aqui que entra a alteração para o Rails 2.2.
 
-Na versão atual os parâmetros de personalização são passadas diretamente para o método, mas no Rails 2.2 serão passadas via um **Hash** de opções:
+Na versão atual os parâmetros de personalização são passadas diretamente para o método, mas no Rails 2.2 serão passadas via um `Hash` de opções:
 
 	<%= error_message_on "post", "title",
 	      :prepend_text => "Title simply ",
@@ -23,7 +23,7 @@ Fique tranqüilo quanto a uma possível migração de seus projetos atuais, pois
 
 ## Mais métodos atualizados para receber Hashes de opções
 
-Os seguintes métodos também foram alterados para aceitarem seus argumentos na forma de um **Hash** de opções, tornando o código mais legível e facilitando a manutenção.
+Os seguintes métodos também foram alterados para aceitarem seus argumentos na forma de um `Hash` de opções, tornando o código mais legível e facilitando a manutenção.
 
 ### truncate
 
@@ -33,8 +33,8 @@ Os seguintes métodos também foram alterados para aceitarem seus argumentos na 
 	truncate("Once upon a time in a world far far away", :length => 14)
 	# => Once upon a...
 
-	truncate("And they found that many people were sleeping better.", :omission => "... (continued)", 
-		:length => 15)
+	truncate("And they found that many people were sleeping better.", 
+		:omission => "... (continued)", :length => 15)
 	# => And they found... (continued)
 
 ### highlight

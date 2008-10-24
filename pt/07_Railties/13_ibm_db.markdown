@@ -2,7 +2,7 @@
 
 Foi adicionado ao generator do Rails a opção IBM DB para o banco de dados. Para usá-la basta executar no terminal o seguinte comando ao criar o projeto Rails:
 
-**rails app\_name -d ibm\_db**
+`rails app_name -d ibm_db`
 
 Isto criará seu projeto com o seguinte arquivo **database.yml**:
 

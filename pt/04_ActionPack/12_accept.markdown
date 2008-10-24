@@ -13,10 +13,11 @@ Vamos iniciar com um código de exemplo:
 
 No exemplo acima o Rails tem duas formas de identificar qual é o formato que deve ser usado no bloco `respond_to`. A primeira e mais comum é através do formato informado na URL (/index**.xml**, por exemplo) e a segunda forma para o caso de o formato não ter sido especificado é examinando o cabeçalho **Accept** da requisição HTTP.
 
-Para quem não sabe o cabeçalho **Accept** é aquele que informa o tipo do documento desejado em **strings** mais ou menos assim:
+Para quem não sabe o cabeçalho **Accept** é aquele que informa o tipo do documento desejado em strings mais ou menos assim:
 
-	Accept: text/plain, text/html
-	Accept: text/x-dvi; q=.8; mxb=100000; mxt=5.0, text/x-c
+Accept: text/plain, text/html
+
+Accept: text/x-dvi; q=.8; mxb=100000; mxt=5.0, text/x-c
 
 	# recuperando esta informação via código
 	@request.env["HTTP_ACCEPT"] = "text/javascript"
