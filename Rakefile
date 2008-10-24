@@ -6,3 +6,7 @@ require 'script/pdf'
 require 'script/prince'
 
 task :default => [:pdf]
+
+task :clean do
+  `rm -rf output/*`
+end
