@@ -2,7 +2,7 @@
 
 With this new Rails release we will have a new feature that is sure to delight the spammers!
 
-Joking aside, just as we have layouts for controllers, we now have them for mailers too. The only thing you need to do is add **'_mailer'** to the end of your filenames, which will cause the layout to be applied automatically.
+Joking aside, just as we have layouts for controllers, we now have them for mailers too. The only thing you need to do is add `_mailer` to the end of your filenames, which will cause the layout to be applied automatically.
 
 Let's take a look at the examples. First, the views:
 
@@ -35,7 +35,7 @@ To avoid having the mailer use the default layout, all you have to do is include
 			:body => { :world => "Earth" })
 	end
 
-You can also specify a different layout for the mailer by changing the `:layout` option. In this case, the layout you use does not need to have the '_mailer' suffix.
+You can also specify a different layout for the mailer by changing the `:layout` option. In this case, the layout you use does not need to have the `_mailer` suffix.
 
 	def spam(recipient)
 	  recipients recipient
