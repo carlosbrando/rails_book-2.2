@@ -1,6 +1,6 @@
 ## New test syntax
 
-A new way of declaring tests has been added to Rails, using **test/do**. Take a look:
+A new way of declaring tests has been added to Rails, using `test/do`. Take a look:
 
 	test "verify something" do
 	  # ...
