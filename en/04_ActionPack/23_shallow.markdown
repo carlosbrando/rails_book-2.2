@@ -29,3 +29,9 @@ All the helpers for accessing the routes directly also get created, such as:
 	user_posts_path(@user) # => '/users/1/posts'
 	posts_path # => '/posts'
 	post_comments_path(@post) # => /posts/5/comments
+
+## Defining routes with arrays of routing verbs
+
+You can now pass an array of methods to new members or collections of routes. This eliminates the need for defining a route that will accept any verb (`:any`) when you actually only want it to respond to more than one. In Rails 2.2 you can declare a route like this:
+
+	map.resources :photos, :collection => { :search => [:get, :post] }

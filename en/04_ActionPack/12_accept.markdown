@@ -1,6 +1,6 @@
 ## Disabling the Accept header in HTTP requests
 
-When we use the `respond_to` method to do something like this:
+Let's start with some example code:
 
 	def index
 	  @people = Person.find(:all)
@@ -11,7 +11,7 @@ When we use the `respond_to` method to do something like this:
 	  end
 	end
 
-Rails has two ways of identifying what format it should use. The first and most common is through the format indicated in the URL (/index.xml, for example), and the second is when the format is not specified, in which case it consults the HTTP request's **Accept** header.
+In the example above, Rails has two ways of identifying which format should be used for the `respond_to` block. The first and most common is through the format indicated in the URL (/index.xml, for example), and the second is when the format is not specified, in which case it consults the HTTP request's **Accept** header.
 
 For those who may not know, the **Accept** header is used to indicate what types of documents (often called MIME Types: http://en.wikipedia.org/wiki/MIME) the browser prefers using **strings** like:
 
@@ -26,7 +26,7 @@ http://www.developershome.com/wap/detection/detection.asp?page=httpHeaders
 
 This header is implemented inefficiently on many browsers, and when it is used on public web sites, sometimes strange errors occur when indexing robots perform their HTTP requests.
 
-Thus the decision was made to disable this header by default, but soon after it was decided that it would be better to leave it enabled but just allow it to be disabled if desired. To do this, just include the following line in your **environment.rb**:
+Thus, the decision was made to disable this header by default. It's always better to indicate the desired format in your URLs, but if you need to enable this header, just include the following line in your **environment.rb**:
 
 	config.action_controller.use_accept_header = false
 
