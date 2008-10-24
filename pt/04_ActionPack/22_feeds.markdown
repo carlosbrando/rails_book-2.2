@@ -4,7 +4,7 @@ Algumas vezes você assina o feed de um blog e de repente se depara com uma sér
 
 Isto pode acontecer por vários motivos, mas não seria legal deixar isto acontecer com os assinantes do seu feed, correto?
 
-Para ajudar-nos a evitar este tipo de constrangimento, cada entrada e o próprio feed criado pelo builder `atom_feed` receberam uma nova opção chamada `:id`.
+Para ajudar-nos a evitar este tipo de constrangimento, cada entrada e o próprio feed criado pelo builder `atom_feed` receberam uma nova opção chamada `:id`, que permite a personalização do id.
 
 	atom_feed({ :id => 'tag:nomedojogo.com,2008:test/' }) do |feed|
 	  feed.title("My great blog!")
