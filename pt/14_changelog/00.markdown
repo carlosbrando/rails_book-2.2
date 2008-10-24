@@ -18,20 +18,20 @@
 * Added stale? and fresh\_when methods to provide a layer of abstraction above request.fresh? and friends [DHH]. Example:
  
     class ArticlesController < ApplicationController
-      def show_with_respond_to_block
+      def show\_with\_respond\_to\_block
         @article = Article.find(params[:id])
 
-        if stale?(:last_modified => @article.published_at.utc, :etag => @article)
-          respond_to do |wants|
+        if stale?(:last\_modified => @article.published\_at.utc, :etag => @article)
+          respond\_to do |wants|
             # normal response processing
           end
         end
       end
  
-      def show_with_implied_render
+      def show\_with\_implied\_render
         @article = Article.find(params[:id])
  
-        fresh_when(:last_modified => @article.published_at.utc, :etag => @article)
+        fresh\_when(:last\_modified => @article.published\_at.utc, :etag => @article)
       end
     end
  
@@ -105,11 +105,11 @@
 * Update Prototype to 1.6.0.2 #599 [Patrick Joyce]
  
 * Conditional GET utility methods. [Jeremy Kemper]
-    response.last_modified = @post.updated_at
-    response.etag = [:admin, @post, current_user]
+    response.last\_modified = @post.updated\_at
+    response.etag = [:admin, @post, current\_user]
  
     if request.fresh?(response)
-      head :not_modified
+      head :not\_modified
     else
       # render ...
     end
@@ -141,7 +141,7 @@
  
   To disable the header you need to set:
  
-  config.action_controller.use_accept_header = false
+  config.action\_controller.use\_accept\_header = false
  
 * Do not stat template files in production mode before rendering. You will no longer be able to modify templates in production mode without restarting the server [Josh Peek]
  
@@ -149,7 +149,7 @@
  
 * Allow caches\_action to accept cache store options. #416. [José Valim]. Example:
   
-  caches_action :index, :redirected, :if => Proc.new { |c| !c.request.format.json? }, :expires_in => 1.hour
+  caches\_action :index, :redirected, :if => Proc.new { |c| !c.request.format.json? }, :expires\_in => 1.hour
  
 * Remove define\_javascript\_functions, javascript\_include\_tag and friends are far superior. [Michael Koziarski]
  
@@ -238,7 +238,7 @@
 * Add :tokenizer option to validates\_length\_of to specify how to split up the attribute string. #507. [David Lowenfels] Example :
  
   # Ensure essay contains at least 100 words.
-  validates_length_of :essay, :minimum => 100, :too_short => "Your essay must be at least %d words."), :tokenizer => lambda {|str| str.scan(/\w+/) }
+  validates\_length\_of :essay, :minimum => 100, :too\_short => "Your essay must be at least %d words."), :tokenizer => lambda {|str| str.scan(/\w+/) }
  
 * Allow conditions on multiple tables to be specified using hash. [Pratik Naik]. Example:
  
@@ -320,10 +320,10 @@
 * Add Inflection rules for String#humanize. #535 [dcmanges]
  
   ActiveSupport::Inflector.inflections do |inflect|
-    inflect.human(/_cnt$/i, '\1_count')
+    inflect.human(/\_cnt$/i, '\1\_count')
   end
  
-  'jargon_cnt'.humanize # => 'Jargon count'
+  'jargon\_cnt'.humanize # => 'Jargon count'
  
 * TimeWithZone: when crossing DST boundary, treat Durations of days, months or years as variable-length, and all other values as absolute length. A time + 24.hours will advance exactly 24 hours, but a time + 1.day will advance 23-25 hours, depending on the day. Ensure consistent behavior across all advancing methods [Geoff Buesing]
  
