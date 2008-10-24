@@ -21,8 +21,8 @@
       def show\_with\_respond\_to\_block
         @article = Article.find(params[:id])
 
-        if stale?(:last\_modified => @article.published\_at.utc, :etag => @article)
-          respond\_to do |wants|
+        if stale?(:last_modified => @article.published_at.utc, :etag => @article)
+          respond_to do |wants|
             # normal response processing
           end
         end
@@ -31,7 +31,7 @@
       def show\_with\_implied\_render
         @article = Article.find(params[:id])
  
-        fresh\_when(:last\_modified => @article.published\_at.utc, :etag => @article)
+        fresh_when(:last_modified => @article.published_at.utc, :etag => @article)
       end
     end
  
@@ -320,7 +320,7 @@
 * Add Inflection rules for String#humanize. #535 [dcmanges]
  
   ActiveSupport::Inflector.inflections do |inflect|
-    inflect.human(/\_cnt$/i, '\1\_count')
+    inflect.human(/_cnt$/i, '\1_count')
   end
  
   'jargon\_cnt'.humanize # => 'Jargon count'
