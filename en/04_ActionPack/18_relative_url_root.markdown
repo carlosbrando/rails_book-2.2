@@ -8,7 +8,7 @@ The easiest way of doing this is to have multiple (sub)domains, each with its ow
 * http://www.nomedojogo.com/jilldoe/blog
 * http://www.nomedojogo.com/joedoe/blog
 
-In these cases, the prefixes **johndoe**, **jilldoe** and **joedoe** identify the instances of the app that are running in corresponding subdirectories of the same name. The application routing happens after this. You can tell Rails to ignore this part of the URLs when a request is made, but still put it on the URLs that it generates. This can be configured using the **RAILS\_RELATIVE\_URL\_ROOT** constant or the `AbstractRequest.relative_url_root` method.
+In these cases, the prefixes **johndoe**, **jilldoe** and **joedoe** identify the instances of the app that are running in corresponding subdirectories of the same name. The application routing happens after this. You can tell Rails to ignore this part of the URLs when a request is made, but still put it on the URLs that it generates. This can be configured using the `RAILS_RELATIVE_URL_ROOT` constant or the `AbstractRequest.relative_url_root` method.
 
 If your Rails project is running on Apache, however, this feature is already activated automatically, so in many cases it is not necessary to worry about configuring this. Once again, this is only if you are using Apache.
 

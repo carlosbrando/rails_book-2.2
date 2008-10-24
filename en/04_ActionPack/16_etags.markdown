@@ -6,7 +6,7 @@ The server has the responsibility to verify that the requested resource is the s
 
 Web servers like Apache and IIS already know how to do this for static pages, but when the content is dynamic, as is the case for most pages in a Ruby on Rails project, this is your responsibility.
 
-The `response` object has acquired two new methods, the `last_modified=` and the `etag=` (note the assignment operator). When you assign values to these methods, they will be included in the **HTTP\_IF\_MODIFIED\_SINCE** and **HTTP\_IF\_NONE\_MATCH** headers, respectively. When a new request for the same resource comes in, it will come back with these headers, allowing you to compare the new value in the `response` and decide if you want to send all of the resource's content again or just a 304 status.
+The `response` object has acquired two new methods, the `last_modified=` and the `etag=` (note the assignment operator). When you assign values to these methods, they will be included in the `HTTP_IF_MODIFIED_SINCE` and `HTTP_IF_NONE_MATCH` headers, respectively. When a new request for the same resource comes in, it will come back with these headers, allowing you to compare the new value in the `response` and decide if you want to send all of the resource's content again or just a 304 status.
 
 Let's see some code (stealing an example from Ryan Daigle's blog)
 
