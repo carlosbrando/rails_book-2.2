@@ -11,17 +11,16 @@ Support for `=~` was added to `TimeZone` so that it would be possible to generat
 You can now do something like this:
 
 	<%= time_zone_select( "user", 'time_zone', /Australia/) %>
-	<!-- This returns:
-		(GMT +08:00) Perth
-		(GMT +09:30) Adelaide
-		(GMT +09:30) Darwin
-		(GMT +10:00) Brisbane
-		(GMT +10:00) Canberra
-		(GMT +10:00) Hobart
-		(GMT +10:00) Melbourne
-		(GMT +10:00) Sydney
-	-->
 
-This example narrows down a large list of all world time zones to display only those where an internal mapping index contains the word "Australia." Consult the `TimeZone` class documentation to see the mapping index and learn which place names can be matched against.
+The code above returns all time zones, but puts the following time zones at the top of the list:
+
+	(GMT +08:00) Perth
+	(GMT +09:30) Adelaide
+	(GMT +09:30) Darwin
+	(GMT +10:00) Brisbane
+	(GMT +10:00) Canberra
+	(GMT +10:00) Hobart
+	(GMT +10:00) Melbourne
+	(GMT +10:00) Sydney
 
 To learn more about `TimeZones`, I suggest that you watch Episode 106 of RailsCasts (http://railscasts.com/episodes/106) and also take a look at my last book.

@@ -23,6 +23,8 @@ Don't worry about having to port your current projects for these changes, becaus
 
 ## More methods updated to accept option Hashes
 
+The following methods have also been modified to accept their arguments in `Hash` format, making your code more readable and easy to maintain.
+
 ### truncate
 
 	truncate("Once upon a time in a world far far away")

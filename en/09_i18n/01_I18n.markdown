@@ -42,7 +42,7 @@ The foundation of this implementation is a module call `i18n`, which comes from 
 
 Besides these methods, this module contains the code necessary to store and load the localization backends. And it comes with an standard exception handler that catches exceptions raised in the backend.
 
-Both the backend and the exception handler can (and should) be extended. There are also aliases for `#translate` and `#localize` that save you a little time: `#t` and `#l`, respectively.
+Both the backend and the exception handler can (and should) be extended. There are also aliases for `#translate` and `#localize` that save you a little time: `#t` and `#l`, respectively. These methods work in both views and controllers.
 
 ## Practical examples
 
