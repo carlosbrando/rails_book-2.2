@@ -6,7 +6,7 @@ For example, if you wanted to retrieve all users who bought red items, you could
 
 	User.all :joins => :items, :conditions => ["items.color = ?", 'red']
 
-This syntax is a little odd, since you need to include the name of the table (**items** in this case) inside a **string**.
+This syntax is a little odd, since you need to include the name of the table (**items** in this case) inside a string.
 
 In Rails 2.2 there is a new way of doing this, using a hash key to identify the table:
 

@@ -2,7 +2,7 @@
 
 Maybe you have already heard of `assert_queries`, which helps to validate tests and the number of queries executed on a database.  For example:
 
-In the test below I am specifying that if there are **partial\_updates**, a query should be executed on the database; otherwise, no query should be executed.
+In the test below I am specifying that if there are `partial_updates`, a query should be executed on the database; otherwise, no query should be executed.
 
 We have now got another helper to make it easier to test the SQL query that will be run from `ActiveRecord` abstractions. For example:
 
