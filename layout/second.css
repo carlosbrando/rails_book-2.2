@@ -318,7 +318,7 @@ div.backcover {
 
 div.frontcover { 
 	page: cover; 
-	background-image: url(../images/cover.png);
+	background-image: url(../images/cover.jpg);
 	position: absolute;
 	width: 37.5in; height: 29.167in;
   left: 0; top: 0;
