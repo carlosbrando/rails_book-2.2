@@ -2,7 +2,7 @@
 
 A partir deste release do Rails teremos uma nova funcionalidade que será a alegria dos spammers!
 
-Bincadeiras à parte, assim como temos layouts para controllers, teremos layouts para mailers também. A única restrição é que devemos colocar o sufixo **'_mailer'** no nome do arquivo se quisermos que o layout seja aplicado automaticamente.
+Bincadeiras à parte, assim como temos layouts para controllers, teremos layouts para mailers também. A única restrição é que devemos colocar o sufixo `_mailer` no nome do arquivo se quisermos que o layout seja aplicado automaticamente.
 
 Vamos aos nossos exemplos. Primeiro as views:
 

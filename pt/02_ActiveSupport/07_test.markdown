@@ -1,6 +1,6 @@
 ## Nova sintaxe para testes
 
-Uma nova forma de se declarar testes foi adicionada ao Rails, usando declarações **test/do**. Veja:
+Uma nova forma de se declarar testes foi adicionada ao Rails, usando declarações `test/do`. Veja:
 
 	test "verify something" do
 	  # ...

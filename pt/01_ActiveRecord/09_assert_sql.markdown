@@ -4,7 +4,7 @@ Talvez você já conheça o método `assert_queries` que ajuda a validar nos tes
 
 	assert_queries(Firm.partial_updates? ? 0 : 1) { firm.save! }
 
-No teste acima estou afirmando que se houver **partial\_updates** uma query deve ser executada no banco de dados, caso contrário nenhuma deve ser executada.
+No teste acima estou afirmando que se houver `partial_updates` uma query deve ser executada no banco de dados, caso contrário nenhuma deve ser executada.
 
 Agora ganhamos mais um helper para ajudar a testar o tipo de query executada, o método `assert_sql`. Um exemplo:
 

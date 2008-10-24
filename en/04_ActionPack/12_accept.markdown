@@ -13,7 +13,7 @@ When we use the `respond_to` method to do something like this:
 
 Rails has two ways of identifying what format it should use. The first and most common is through the format indicated in the URL (/index.xml, for example), and the second is when the format is not specified, in which case it consults the HTTP request's **Accept** header.
 
-For those who may not know, the **Accept** header is used to indicate what types of documents (often called MIME Types: http://en.wikipedia.org/wiki/MIME) the browser prefers using **strings** like:
+For those who may not know, the **Accept** header is used to indicate what types of documents (often called MIME Types: http://en.wikipedia.org/wiki/MIME) the browser prefers using strings like:
 
 	Accept: text/plain, text/html
 	Accept: text/x-dvi; q=.8; mxb=100000; mxt=5.0, text/x-c

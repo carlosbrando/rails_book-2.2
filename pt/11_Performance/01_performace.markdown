@@ -2,7 +2,7 @@
 
 Jeremy Kemper andou trabalhando em melhorias de performance no Rails.Uma das coisas que ele andou melhorando foi o **Erb**, tornando-o mais rápido. Além disso ele tem atacado alguns métodos especiais como o `concat` e `capture` que são usados por muitos **helpers** do Rails.
 
-Jeremy também atacou o processo de inicialização de **partials** e otimizou diversos helpers que geravam código em **Javascript**.
+Jeremy também atacou o processo de inicialização de `partials` e otimizou diversos helpers que geravam código em **Javascript**.
 
 A classe `RecordIdentifier` também foi melhorada através do uso de caches. O `RecordIdentifier` incorpora uma série de convenções para lidar com registros **ActiveRecords** e **ActiveResources** ou praticamente qualquer outro tipo de modelo que tenha um id.
 
