@@ -2,7 +2,7 @@
 
 O Ruby on Rails 2.2 está cheio de novidades, incluindo novas funcionalidades, melhorias e correções de bugs antigos. Neste livro você encontrará uma breve descrição, acompanhada de um exemplo (na maioria dos casos) de cada uma das principais novidades deste versão.
 
-Escrever este livro foi um trabalho gigantesco, por isto espero que ele lhe seja muito útil, ajudando-o a usar mais plenamente cada novo recurso incluído no Ruby on Rails.
+Escrever este livro foi um trabalho árduo, por isto espero que ele lhe seja muito útil, ajudando-o a usar mais plenamente cada novo recurso incluído no Ruby on Rails.
 
 À partir desta versão o Rails passa a ser políglota. Fazendo uso do novo sistema de internacionalização (i18n) podemos construir aplicativos para usuários do mundo com pouquíssimo esforço.
 
