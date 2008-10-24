@@ -29,3 +29,9 @@ Todos os helpers para acessar as rotas diretamente também são criados, como:
 	user_posts_path(@user) # => '/users/1/posts'
 	posts_path # => '/posts'
 	post_comments_path(@post) # => /posts/5/comments
+
+## Usando Arrays para definir os verbos de membros e coleções de rotas
+
+Agora podemos fornecer um array de métodos para novos membros ou coleções de rotas. Isso remove o problema de termos que definir uma rota aceitando qualquer verbo (`:any`) quando na verdade apenas precisávamos que ele respondesse a mais de um. No Rails 2.2 podemos declarar uma rota desta maneira:
+
+	map.resources :photos, :collection => { :search => [:get, :post] }

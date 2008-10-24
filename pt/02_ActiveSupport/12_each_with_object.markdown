@@ -1,6 +1,6 @@
 ## Novo método each\_with\_object
 
-O método `each_with_object` do Ruby 1.9 foi adicionado ao Rails, caso você ainda não esteja usando a nova versão do Ruby. Este método é bem interessante, pois ele funciona como o conhecido método `each`, com um pequeno diferencial. Cada iteração além de receber um elemento da coleção, recebe também um objeto que chamamos de **memo**.
+O método `each_with_object` do Ruby 1.9 foi adicionado ao Rails, caso você ainda não esteja usando a nova versão do Ruby. Este método é bem interessante, pois ele funciona como o conhecido método `inject`, com um pequeno diferencial. Cada iteração além de receber um elemento da coleção, recebe também um objeto que chamamos de **memo**.
 
 Por exemplo, vamos dizer que eu pretenda preencher um hash com valores de uma coleção:
 

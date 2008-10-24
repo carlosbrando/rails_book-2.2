@@ -1,6 +1,6 @@
 ## Desabilitando o cabeçalho Accept em requisições HTTP
 
-Quando usamos o método `respond_to` para fazer algo assim:
+Vamos iniciar com um código de exemplo:
 
 	def index
 	  @people = Person.find(:all)
@@ -11,7 +11,7 @@ Quando usamos o método `respond_to` para fazer algo assim:
 	  end
 	end
 
-O Rails tem duas formas de identificar qual é o formato que deve ser usado. A primeira e mais comum é através do formato informado na URL (/index.xml, por exemplo) e a segunda forma para o caso de o formato não ter sido especificado é examinando o cabeçalho **Accept** da requisição HTTP.
+No exemplo acima o Rails tem duas formas de identificar qual é o formato que deve ser usado no bloco `respond_to`. A primeira e mais comum é através do formato informado na URL (/index**.xml**, por exemplo) e a segunda forma para o caso de o formato não ter sido especificado é examinando o cabeçalho **Accept** da requisição HTTP.
 
 Para quem não sabe o cabeçalho **Accept** é aquele que informa o tipo do documento desejado em **strings** mais ou menos assim:
 
@@ -25,7 +25,7 @@ Para ver uma lista dos tipos mais comuns acesse a endereço: http://www.develope
 
 Acontece que este cabeçalho é porcamente implementado na maioria dos browsers. E quando ele é usado em sites públicos algumas vezes estranhos erros acontecem quando robôs indexadores fazem seus requests.
 
-Assim, tomou-se a decisão de desativar este cabeçalho por padrão, depois voltou-se atrás e resolveu-se que era melhor deixar apenas a opção de desligar se desejado. Para isto basta incluir a seguinte linha no arquivo **environment.rb**:
+Assim, tomou-se a decisão de desativar este cabeçalho por padrão. É sempre uma melhor opção utilizar URLs formatadas para indicar o formato desejado. Se precisar do cabeçalho Accept, você deve habilitá-lo de volta, para isto basta incluir a seguinte linha no arquivo **environment.rb**:
 
 	config.action_controller.use_accept_header = false
 
