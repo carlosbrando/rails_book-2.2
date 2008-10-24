@@ -4,7 +4,7 @@ Ruby on Rails 2.2 is chock full of new features, improvements and bug fixes. In 
 
 This book was a significant undertaking, and we hope that it helps you to make the most of each new feature in Rails.
 
-With this new version, Rails has become a polyglot. With the new internationalization (i18n) system, you can make applications for users throughout the world with ease.
+With this new version, Rails has turned polyglot. With the new internationalization (i18n) system, you can make applications for users throughout the world with ease.
 
 A lot of work went into making Rails thread-safe and as ready as possible for the upcoming Ruby 1.9. There was also a great deal of effort spend on making it more compatible with JRuby. Although the thread-safe mode is not yet available to everyone, since it only works on virtual machines with support for native threads (such as JRuby), it is a great addition to the framework.
 
