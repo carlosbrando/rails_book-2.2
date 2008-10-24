@@ -46,4 +46,4 @@ Tanto o backend como o manipulador de exceções podem (devem) ser substituídos
 
 ## Exemplos práticos
 
-A melhor forma de enteder como usar este suporte a internacionalização no Rails é vendo seu funcionamento na prática. Eu aconselho então acessar o projeto criado por Sven Fuchs e outros no endereço: **http://i18n-demo.phusion.nl/**.
+A melhor forma de entender como usar este suporte a internacionalização no Rails é vendo seu funcionamento na prática. Eu aconselho então acessar o projeto criado por Sven Fuchs e outros no endereço: **http://i18n-demo.phusion.nl/**.

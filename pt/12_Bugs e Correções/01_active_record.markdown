@@ -20,4 +20,4 @@ Nesta versão do Ruby on Rails isto já foi resolvido.
 
 ### Partial updates não atualizavam o lock\_version se nada foi alterado.
 
-Quando usávamos optimistic locking com partial updates, tinhamos queries extras quando na verdade elas não eram necessárias.
+Quando usávamos optimistic locking com partial updates, tínhamos queries extras quando na verdade elas não eram necessárias.

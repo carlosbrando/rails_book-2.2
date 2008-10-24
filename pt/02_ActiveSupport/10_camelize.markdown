@@ -5,7 +5,7 @@ Por padrão o método `camelize` do Rails é usado para converter string para o 
 	'Capital'.camelize(:lower)
 	# => "Capital"
 
-Como você pode ver, a letra ‘C’ no ínicio da palavra não retornou minúscula como deveria. Isto foi corrigido. Veja o retorno do mesmo trecho de código, agora executado no Rails 2.2:
+Como você pode ver, a letra ‘C’ no início da palavra não retornou minúscula como deveria. Isto foi corrigido. Veja o retorno do mesmo trecho de código, agora executado no Rails 2.2:
 
 	'Capital'.camelize(:lower)
 	# => "capital"

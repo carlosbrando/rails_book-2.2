@@ -1,6 +1,6 @@
-## Criando testes de performace
+## Criando testes de performance
 
-No Rails 2.2 ganhamos um novo **generator** para testes de performace.
+No Rails 2.2 ganhamos um novo **generator** para testes de performance.
 
 Ao executar no terminal o seguinte comando:
 
