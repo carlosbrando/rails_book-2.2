@@ -8,7 +8,7 @@ Toda vez que uma requisição ao banco de dados é feita, perde-se algum tempo c
 
 A solução para este tipo de problema é criar um pool de conexões com o banco de dados e distribuir as requisições feitas entre estas conexões.
 
-O processo é o seguinte: Uma conexão com o banco de dados é aberta e utilizada para realizar uma pesquisa. Depois disso, ao invés de fecha-la, ela é armazena no pool de conexões. Quando uma outra requisição é feita, ao invés de abrir uma nova conexão, o sistema reaproveita uma que já foi aberta, diminuindo o tempo e os recursos necessários para realizar a tarefa. Várias conexões podem ser armazenadas no pool ao mesmo tempo e as requisições serão distribuidas entre elas. Isto significa que mesmo com uma querie lenta sendo executada no banco de dados, a aplicação continuará recebendo e executando outras queries usando as demais conexões armazenadas no pool.
+O processo é o seguinte: Uma conexão com o banco de dados é aberta e utilizada para realizar uma pesquisa. Depois disso, ao invés de fecha-la, ela é armazena no pool de conexões. Quando uma outra requisição é feita, ao invés de abrir uma nova conexão, o sistema reaproveita uma que já foi aberta, diminuindo o tempo e os recursos necessários para realizar a tarefa. Várias conexões podem ser armazenadas no pool ao mesmo tempo e as requisições serão distribuídas entre elas. Isto significa que mesmo com uma querie lenta sendo executada no banco de dados, a aplicação continuará recebendo e executando outras queries usando as demais conexões armazenadas no pool.
 
 No Rails será criado um novo pool para cada execução do método `establish_connection`. Em outras palavras, cada banco de dados cadastrado no arquivo **database.yml** terá seu próprio pool de conexões.
 

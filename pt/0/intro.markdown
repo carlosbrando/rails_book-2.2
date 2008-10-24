@@ -8,7 +8,7 @@ Escrever este livro foi um trabalho gigantesco, por isto espero que ele lhe seja
 
 Muito trabalho foi feito para deixar o Rails thread-safety e o mais preparado possível para o futuro Ruby 1.9. Também houve uma preocupação grande para deixá-lo mais compatível com o JRuby. Embora o recurso de thread-safe ainda não esteja disponível para todos nós, já que ele apenas funcionará em máquinas virtuais com suporte a threads nativas, como o JRuby por exemplo, ele é uma grande adição ao framework.
 
-Se no passado houve muita reclamação quanto a documentação do Rails, agora nínguem poderá mais reclamar. Um grande trabalho foi feito para documentar o código e as funcionalidades do Rails. Quer um exemplo? Execute no terminal:
+Se no passado houve muita reclamação quanto a documentação do Rails, agora ninguém poderá mais reclamar. Um grande trabalho foi feito para documentar o código e as funcionalidades do Rails. Quer um exemplo? Execute no terminal:
 
 **rake doc:guides**
 
