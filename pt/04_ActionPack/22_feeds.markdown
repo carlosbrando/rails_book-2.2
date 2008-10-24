@@ -25,3 +25,23 @@ Para ajudar-nos a evitar este tipo de constrangimento, cada entrada e o próprio
 Fazendo desta forma, mesmo que você tenha de reescrever algum trecho do código que gera os feeds, ou fazer alguma grande alteração no conteúdo do seu site, o **id** criado para aquela entrada será sempre o mesmo fazendo com que o leitor de feeds não duplique as entradas antigas.
 
 Seus leitores agradecem.
+
+## Adicionando instruções de processamento em documentos XML
+
+Uma nova opção foi incluida ao método `atom_feed`, agora podemos incluir instruções de processamento ao xml. Veja um exemplo:
+
+	atom_feed(:schema_date => '2008', :instruct => {
+	  'xml-stylesheet' => {
+	    :href=> 't.css', :type => 'text/css'
+	  }
+	}) do |feed|
+
+	  # ...
+
+	end
+
+Instruções de processamento em arquivos XML são informações contidas no documento XML que serão repassadas para o aplicativo que o requisitou. Essas instruções são na maioria das vezes usadas para informar ao aplicativo como ele deve manipular os dados que estão no documento XML.
+
+No exemplo acima estou dizendo ao aplicativo que recebe o XML que ele deve exibi-lo com uma folha de estilo (CSS) especifico. Veja como fica no XML:
+
+	<?xml-stylesheet type="text/css" href="t.css"?>
