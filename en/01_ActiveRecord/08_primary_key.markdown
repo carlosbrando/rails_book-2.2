@@ -2,7 +2,7 @@
 
 A new option called `:primary_key` has been added to the `has_many` and `has_one` methods.
 
-Using this option, you can define which method and associated model will return the primary key that will be used in the association. Obviously the standard primary key is **id**.
+Using this option, you can define which method and associated model will return the primary key that will be used in the association. Obviously the standard primary key is `id`.
 
 Look at this usage example:
 
