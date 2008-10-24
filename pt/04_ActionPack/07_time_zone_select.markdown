@@ -6,7 +6,7 @@ O problema é que em alguns casos vamos desenvolver software para pessoas em out
 
 Houve uma longa discussão sobre criar ou não métodos como `african_zones`, `american_zones`, etc.. No fim prevaleceu o seguinte:
 
-Foi implantado no objeto `TimeZone` o suporte para `=~` afim de ajudar a montar uma lista de fusos-horários a partir de uma expressão regular. Além disso o método `time_zone_select` foi alterado para trabalhar em conjunto com esta novidade.
+Foi implantado no objeto `TimeZone` o suporte para `=~` afim de ajudar a montar uma lista de fusos-horários a partir de uma expressão regular. Além disso, o método `time_zone_select` foi alterado para trabalhar em conjunto com esta novidade.
 
 Agora podemos fazer isto:
 
