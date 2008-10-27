@@ -24,11 +24,6 @@ Isto criará seu projeto com o seguinte arquivo **database.yml**:
 	# On Windows:
 	# Issue the command: gem install ibm_db
 	# If prompted, select the mswin32 option
-	#
-	# For more details on the installation refer to http://rubyforge.org/docman/view.php/2361/7682/IBM_DB_GEM.pdf
-	#
-	# For more details on the connection parameters below refer to:
-	# http://rubyibm.rubyforge.org/docs/adapter/0.9.0/rdoc/classes/ActiveRecord/ConnectionAdapters/IBM_DBAdapter.html
 
 	development:
 	  adapter: ibm_db
