@@ -1,6 +1,6 @@
-## Updating an association using its foreign key
+## Mettre à jour une association via sa clef étrangère
 
-I'm not sure if this is a bug or not, but in my opinion, this has been a problem. Check out the following code, in which I try to modify a user's account using its foreign key in a project that uses Rails 2.1 or earlier:
+Je ne sais pas si c'est un bug ou pas, mais à mon avis c'est un problème. Regardez le code ci-dessous, dans lequel je tente de modifier le compte  (*account*) d'un utilisateur (*user*) via sa clef étrangère dans un projet Rails&nbsp;2.1 ou antérieur.
 
 	class User < ActiveRecord::Base
 	  belongs_to :account
@@ -18,9 +18,9 @@ I'm not sure if this is a bug or not, but in my opinion, this has been a problem
 	user.account
 	# => #<Account id: 1, name: "My Account">
 
-Note that I am modifying the user's account, but the association wasn't updated. Even after saving the `user` object, if it is not reloaded, the association will continue to show the wrong account.
+Vous remarquez que je modifie le compte de l'utilisateur mais que l'association n'a pas été mise à jour. Même après avoir enregistré l'objet `user`, s'il n'est pas rechargé en mémoire, l'association continue à montrer le mauvais compte.
 
-This has been fixed in Rails 2.2. Take a look:
+Ce comportement a été corrigé en Rails&nbsp;2.2 :
 
 	class Comment < ActiveRecord::Base
 	  belongs_to :post
@@ -38,4 +38,4 @@ This has been fixed in Rails 2.2. Take a look:
 	>> comment.post
 	# => #<Post id: 2>
 
-Notice that, upon modifying the `post` using its foreign key, the association gets updated automatically.
+Vous remarquez qu'après la modification du `post` via sa clef étrangère, l'association est mise à jour automatiquement.
