@@ -1,8 +1,8 @@
-## New Model#delete instance method
+## Nouvelle méthode Model#delete
 
-To make `ActiveRecord` more consistent, an additional instance method has been created: `Model#delete`. It is similar to the class method with the same name. The `delete` method, contrary to the `destroy` method, erases the database record without calling any callback methods, such as `before_destroy` and `after_destroy`.
+Une nouvelle méthode a été créée pour rendre `ActiveRecord` plus cohérent : `Model#delete`. Elle est similaire à la méthode de classe du même nom. Contrairement à la méthode `destroy`, la méthode `delete` efface l'enregistrement en base de données sans appeler les méthodes *callback* telles que `before_destroy` et `after_destroy`.
 
-This method also disregards constraint options, such as the `:dependent` option, which specifies what should be done with associated objects when a record is destroyed.
+Cette méthode ignore aussi les contraintes comme `:dependent`.
 
 	client = Client.find(1)
 	client.delete

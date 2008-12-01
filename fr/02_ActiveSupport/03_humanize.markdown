@@ -1,8 +1,8 @@
-## Make rules for the String#humanize
+## Régles spécifiques pour String#humanize
 
-For some time now Pratik Naik has been trying to get this patch accepted in Rails and it looks like he finally succeeded.
+Pratik Naik essaye de faire accepter ce patch depuis un moment et il semble qu'il a finalement réussi.
 
-In **config/initializers/inflections.rb** you have the option of adding new inflections to pluralization, singularization and others:
+Vous pouvez ajouter de nouvelles inflexions (pluriel, singulier ou autre) dans **config/initializers/inflections.rb** :
 
 	Inflector.inflections do |inflect|
 	  inflect.plural /^(ox)$/i, '\\1en'
@@ -11,7 +11,7 @@ In **config/initializers/inflections.rb** you have the option of adding new infl
 	  inflect.uncountable %w( fish sheep )
 	end
 
-In Rails 2.2 you can also include inflections for the `String` class's `humanize` method. Let's look at some awesome examples:
+Dans Rails&nbsp;2.2 vous pouvez aussi ajouter des inflexions pour la méthode `humanize` de la classe `String`. Voyons ces exemples célèbres :
 
 	'jargon_cnt'.humanize # => "Jargon cnt"
 	'nomedojogo'.humanize # => "Nomedojogo"

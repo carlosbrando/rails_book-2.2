@@ -1,8 +1,8 @@
-## Array#second through Array#tenth
+## Méthodes Array#second à Array#tenth
 
-In the `Array` class we already had the `first` and `last` methods, so why not add the `second`, `third`, `fourth`, and so on? That's just what they did. These methods return the element at the specified offset of the array.
+La classe `Array` comportait déjà les méthodes `first` and `last` ; pourquoi ne pas ajouter `second`, `third`, `fourth`, etc. ? C'est ce qui vient d'être fait : ces méthodes renvoient le n-ième élément du tableau.
 
-Here is an example:
+Voici un exemple :
 
 	array = (1..10).to_a
 

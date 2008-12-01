@@ -1,24 +1,24 @@
-## alias\_attribute works with dirty objects
+## alias\_attribute fonctionne avec des objets modifiés (*Dirty Objects*)
 
-To understand this modification, we will need to analyze a code snippet running in both previous and 2.2 versions of Rails. Let's look at an example model:
+Pour comprendre cette évolution, analysons un fragment de code exécuté sous les versions antérieures et 2.2 de Rails. Examinons cet exemple :
 
 	class Comment < ActiveRecord::Base
 	  alias_attribute :text, :body
 	end
 
-Note that I am using the `alias_attribute` method to create an alias for the `body` attribute called `text`. In theory, this method should replicate all the various dynamic methods that get created by `ActiveRecord` that involve the `body` attribute. But look at this example code running in Rails 2.1 or earlier:
+Nous remarquons que j'utilise la méthode `alias_attribute`pour créer un alias nommé `text` pour l'attribut `body`. En théorie, cette méthode devrait répliquer toutes les méthodes dynamiques créées par `ActiveRecord` pour `body`. Mais voyez cet exemple de code exécuté sous Rails&nbsp;2.1 ou antérieur :
 
 	c = Comment.first
-	# => #<Comment id: 1, body: "my comment">
+	# => #<Comment id: 1, body: "mon commentaire">
 
 	c.body
-	# => "my comment"
+	# => "mon commentaire"
 
 	c.text
-	# => "my comment"
+	# => "mon commentaire"
 
-	c.body = "a new message"
-	# => "a new message"
+	c.body = "nouveau message"
+	# => "nouveau message"
 
 	c.body_changed?
 	# => true
@@ -26,19 +26,19 @@ Note that I am using the `alias_attribute` method to create an alias for the `bo
 	c.text_changed?
 	# => NoMethodError: undefined method `text_changed?' ...
 
-Upon running the `text_changed?` method, we have an error, because the `alias_attribute` call was replicating the tracking methods, but this has now been corrected. Check out the same code running in a Rails 2.2 project:
+L'exécution de la méthode `text_changed?` provoque une erreur, car `alias_attribute` ne réplique pas les méthodes de suivi. Ceci a été corrigé, voici le même code exécuté sous Rails&nbsp;2.2 :
 
 	c = Comment.first
-	# => #<Comment id: 1, body: "my comment">
+	# => #<Comment id: 1, body: "mon commentaire">
 
 	c.body
-	# => "my comment"
+	# => "mon commentaire"
 
 	c.text
-	# => "my comment"
+	# => "mon commentaire"
 
-	c.body = "a new message"
-	# => "a new message"
+	c.body = "nouveau message"
+	# => "nouveau message"
 
 	c.body_changed?
 	# => true
@@ -47,4 +47,4 @@ Upon running the `text_changed?` method, we have an error, because the `alias_at
 	# => true
 
 	c.text_change
-	# => ["my comment", "a new message"]
+	# => ["mon commentaire", "nouveau message"]

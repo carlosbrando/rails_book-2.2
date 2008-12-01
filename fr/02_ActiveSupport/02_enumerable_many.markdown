@@ -1,8 +1,8 @@
-## New method: Enumerable#many?
+## Nouvelle méthode Enumerable#many?
 
-A new method called `many?` was added to the `Enumerable` module. And just as its name seems to say, it tells you if the collection contains more than one object; that is to say, if it contains many objects.
+Une nouvelle méthode `many?` a été ajoutée au module `Enumerable`. Comme son nom ("plusieurs") l'indique, elle vous dit si la collection comporte plusieurs objets.
 
-This method is an alias to `collection.size > 1`. Let's look at a few examples:
+Cette méthode est un alias pour `collection.size > 1`. Voyons quelques exemples :
 
 	>> [].many?
 	# => false
@@ -13,9 +13,9 @@ This method is an alias to `collection.size > 1`. Let's look at a few examples:
 	>> [ 1, 2 ].many?
 	# => true
 
-Besides the format shown in these examples, this method also got a new implementation that allows it to receive blocks, which work the same way as the `any?` method.
+En plus de ces formats, la nouvelle implémentation de cette méthode lui permet de recevoir un bloc, qui fonctionne de la même manière que pour la méthode `any?`.
 
-Check out these examples:
+Quelques exemples :
 
 	>> x = %w{ a b c b c }
 	# => ["a", "b", "c", "b", "c"]
@@ -30,9 +30,9 @@ Check out these examples:
 	# => true
 
 
-	# another example...
+	# un autre exemple...
 	people.many? { |p| p.age > 26 }
 
-Just to remind and reiterate, this method only returns `true` if more than one iteration of the block returns true, and when the collection has more than one object if called without a block.
+Pour préciser, cette méthode renvoie `true` si plus d'une itération du bloc renvoie `true` ou, quand elle est invoquée sans bloc, si la collection contient plus d'un objet.
 
-As an interesting side note, the method was initially going to be called `several?` but it ended up as `many?`.
+Incidemment, cette méthode devait s'appeler `several?` avant d'être changée en `many?`.

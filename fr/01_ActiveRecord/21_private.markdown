@@ -1,19 +1,19 @@
-## Making ActiveRecord attributes private
+## Rendre les attributs ActiveRecord privés
 
-Rails 2.2 allows you to mark `ActiveRecord` objects as `private`. Until now, this was difficult, because these records are created through metaprogramming.
+Rails&nbsp;2.2 vous permet de marquer `private` certains objets `ActiveRecord`. C'était difficile jusqu'à présent car ces objets sont créés par métaprogrammation.
 
-To see how this works, let's make the `name` attribute of the `User` model private:
+Rendons privé l'attribut `name` du modèle `User` pour comprendre le fonctionnement.
 
 	class User < ActiveRecord::Base
 
 	  private
 	  def name
-	    "I'm private"
+	    "Je suis privé"
 	  end
 
 	end
 
-Then let's try to retrieve it:
+Puis essayons de le récupérer :
 
 	user = User.first
 	# => #<User id: 1, name: "teste">
@@ -21,7 +21,7 @@ Then let's try to retrieve it:
 	user.name
 	# => NoMethodError: undefined method `NoMethodError' for #<User:0x234df08>
 
-You can see that the `NoMethodError` exception was raised when we tried to call a private method. On the other hand, I can modify the user's name, since the `name=` method is still public:
+Vous constatez que l'exception `NoMethodError` est signalée quand nous essayons d'invoquer une méthode privée. Par contre, je peux encore modifier le nom de l'utilisateur car la méthode `name=` est encore publique :
 
 	user.name = "Carlos"
 	# => "Carlos"
