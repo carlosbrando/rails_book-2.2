@@ -1,8 +1,8 @@
-## New method: Object#present?
+## Nouvelle méthode : Object#present?
 
-A new method was added to the Object base class. The `present?` method is equivalent to  `!Object#blank?`.
+Une nouvelle méthode a été ajoutée à la classe de base *Object*. La méthode `present?` est équivalente à `!Object#blank?`.
 
-In other words, an object is present if its not empty.  But what exactly is an empty object?
+Autrement dit, un objet est présent s'il n'est pas vide (*empty*). Mais qu'est-ce exactement qu'un objet vide ?
 
 	class EmptyTrue
 	  def empty?() true; end
@@ -26,9 +26,9 @@ In other words, an object is present if its not empty.  But what exactly is an e
 	g.present? # => false
 	h.present? # => false
 
-All of these objects are empty, or in other words, are not present.
+Tous ces objets sont vides, ou autrement dit, ne sont pas présents.
 
-But be very careful; some folks have gotten confused with this. The following are examples of some objects that AREN'T empty, or rather, are present:
+Mais soyez prudents, certaines personnes s'emmêlent. Voici quelques objets non vides, et donc présents :
 
 	class EmptyFalse
 	  def empty?() false; end
@@ -52,4 +52,5 @@ But be very careful; some folks have gotten confused with this. The following ar
 	g.present? # => true
 	h.present? # => true
 
-Any object that contains a value is present, and this is true even of an array containing a `nil`, because the array is not empty.
+Tout objet qui contient une valeur est présent, et c'est même vrai d'un `Array` qui contient `nil`, car il n'est pas vide.
+

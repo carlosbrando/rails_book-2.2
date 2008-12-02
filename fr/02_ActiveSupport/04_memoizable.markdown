@@ -1,32 +1,34 @@
-## Introducing Memoizable for attribute caching
+## Introduction de Memoizable pour cacher les attributs
 
-Performance is important, and one of the most commonly used methods for improving code execution speed is caching. You've probably written code like this before:
+La performance est importante, et le cache est l'une des méthodes les plus utilisées pour augmenter la vitesse. Vous avez déjà dû écrire ce genre de code :
 
 	class Person < ActiveRecord::Base
 	  def age
-	    @age ||= a_very_complex_calculation
+	    @age ||= calcul_tres_complexe
 	  end
 	end
 
-In this version of Rails we have a more elegant way of doing this, using the `memoize` method (it is really `memoize` and not **memorize**). Let's change the example above to use this new functionality:
+Dans cette version de Rails, nous avons une manière de faire plus élégante grâce à la méthode `memoize` (c'est vraiment `memoize` et pas **memorize**). Modifions l'exemple ci-dessus pour profiter de cette nouvelle fonctionnalité.
 
 	class Person < ActiveRecord::Base
 	  def age
-	    a_very_complex_calculation
+	    calcul_tres_complexe
 	  end
 	  memoize :age
 	end
 
-The `age` method will be executed just once and its return value will be stored in memory and returned from memory for future calls to the method.
+La méthode `age` sera exécutée une seule fois et la valeur renvoyée sera stockée en mémoire et retournée lors des invocations futures de la méthode.
 
-There is just one difference between the two examples above. In the first, as the method is always executed, if the value stored in `@age` is `nil` or `false`, the complex calculation will be executed again until you get the person's age. In the second example, the `age` method will only be executed once and the return value will always be returned for future calls, even if it's `nil` or `false`.
+Mais il y a une différence entre les deux exemples. Dans le premier, comme la méthode est appelée si la valeur d'`@age` est `nil` ou `false`, le calcul très complexe sera ré-exécuté jusqu'à ce qu'on ait l'âge de la personne. 
 
-If you ever need to disable or re-enable caching of memoized properties, you can use the `unmemoize_all` and `memoize_all` methods:
+Dans le second exemple, la méthode `age` sera exécutée une seule fois et la valeur stockée sera toujours retournée même si c'est `nil` ou `false`.
+
+Si vous voulez désactiver ou réactiver le cache des attributs, vous pouvez utiliser les méthodes `unmemoize_all` et `memoize_all` :
 
 	@person = Person.first
 
-	# To stop caching the age method
+	# Pour arrêter de cacher la méthode age
 	@person.unmemoize_all
 
-	# To re-enable caching of just the age method
+	# Pour recommencer à cacher la méthode age
 	@person.memoize_all
