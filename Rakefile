@@ -1,4 +1,4 @@
-LANGUAGES = %w( pt en it )
+LANGUAGES = %w( pt en it fr )
 
 require 'script/merge'
 require 'script/html'

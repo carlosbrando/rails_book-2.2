@@ -1,0 +1,3 @@
+# Internationalisation (i18n)
+
+Tout commença en septembre 2007, quand un groupe de développeurs lança les travaux sur une extension (*plugin*) nommée **rails-I18n**, dont l'objet était d'éviter les modifications obligatoires des classes du noyau à l'exécution (*monkey patching*) pour internationaliser une application.
