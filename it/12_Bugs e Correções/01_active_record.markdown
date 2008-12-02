@@ -4,7 +4,7 @@
 
 Quando utilizzavate `with_scope` insieme a `:joins`, tutti gli attributi delle tabelle secondarie venivano aggiunti al modello della tabella principale.
 
-### Il metodo find\_all non funziona in named\_scope
+### Il metodo find\_all non funzionava in named\_scope
 
 Quando eseguivate il metodo `find_all` in un `named_scope`, questo non veniva reindirizzato al metodo `proxy_found` come avrebbe dovuto. Ciò sollevava l'eccezione `NoMethodError`.
 

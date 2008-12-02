@@ -27,4 +27,4 @@ Questo comportava che dopo aver eseguito `rake db:migrate:down` o `up`, se avest
 
 	$
 
-Questo problema è stato corretto facendo in modo che la tabella **schema\_migrations** venga aggiornata con certezza dopo avere eseguito i questi task.
+Questo problema è stato corretto facendo in modo che la tabella **schema\_migrations** venga effettivamente aggiornata dopo avere eseguito questi task.

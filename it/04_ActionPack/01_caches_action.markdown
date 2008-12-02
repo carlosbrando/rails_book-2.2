@@ -12,7 +12,7 @@ L'opzione `:layout` è stata aggiunta al metodo `caches_action`.
 
 Nel precedente esempio abbiamo specificato `:layout => false`, indicante che il solo contenuto dell'azione deve essere posto nella cache, escludendo quindi il layout. Ciò è molto utile quando avete del contenuto dinamico nel vostro layout (come spesso avviene).
 
-Se non indicate nulla funziona come prima, ovvero viene posto in cache tutto (contenuto e layout).
+Se non indicate nulla, funziona come prima, ovvero viene posto in cache tutto (contenuto e layout).
 
 ## Template nella cache
 

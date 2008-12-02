@@ -1,6 +1,6 @@
 ## Supporto per le espressioni regolari in time\_zone\_select
 
-Nella classe `TimeZone` di `ActiveSupport` c'è il metodo `us_zones` che restituisce una lista (generata dinamicamente) con tutti fusi orari degli Stati Uniti.
+Nella classe `TimeZone` di `ActiveSupport` c'è il metodo `us_zones` che restituisce una lista (generata dinamicamente) con tutti i fusi orari degli Stati Uniti.
 
 Il problema è che talvolta vorreste sviluppare software per altri paesi, ma non esiste un metodo analogo per generare i fusi orari.
 
@@ -23,4 +23,4 @@ Il precedente codice restituisce tutti i fusi orari, ma pone i seguenti in cima 
 	(GMT +10:00) Melbourne
 	(GMT +10:00) Sydney
 
-Per approfondire su `TimeZone`, suggeriamo di vedere l'episodio 106 di RailsCasts (http://railscasts.com/episodes/106).
+Per approfondimenti su `TimeZone` suggeriamo di vedere l'episodio 106 di RailsCasts (http://railscasts.com/episodes/106).

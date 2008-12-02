@@ -14,5 +14,4 @@ Nella nuova versione di Rails è possibile impostare a `false` l'opzione `:lib`,
 
 	config.gem 'aws-s3', :lib => false
 
-Pur senza caricare la gem, Rails la istallerà comunque quando viene lanciato il task `rake gems:install`, e sarà inclusa in ogni altro task relativo alle gem.
-
+Pur senza caricare la gem, Rails la istallerà comunque quando verrà lanciato il task `rake gems:install`, e sarà inclusa in ogni altro task relativo alle gem.

@@ -8,6 +8,6 @@ In pratica dice a Rails di non mettere in cache il codice del vostro progetto; o
 
 In produzione, al contrario, è cruciale abilitare tale opzione.
 
-In Rails 2.1 se la precedente linea di codice non era presente nel vostro file di configurazione, Rails assume di non dover metter in cache le classi &mdash; questo per default.
+In Rails 2.1 se la precedente linea di codice non era presente nel vostro file di configurazione, Rails assumeva di non dover metter in cache le classi &mdash; questo per default.
 
 In Rails 2.2 tale comportamento è stato invertito; se non viene trovata questa opzione di configurazione allora tutte le classi vengono messe in cache. Ciò aiuta gli utenti Rails meno esperti a non installare i propri progetti con la modalità di sviluppo.

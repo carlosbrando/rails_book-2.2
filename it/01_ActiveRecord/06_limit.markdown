@@ -1,6 +1,6 @@
 ## Opzione :limit come dimensione in byte sulla colonna
 
-A partire da questa versione di Rails l'opzione `:limit` indica la dimesione in byte per colonne di tipo  intero, per MySQL e PostgreSQL (su Sqlite già funzionava così).
+A partire da questa versione di Rails l'opzione `:limit` indica la dimesione in byte per colonne di tipo intero, per MySQL e PostgreSQL (su Sqlite già funzionava così).
 
 Il tipo di colonna utilizzata nel database dipende dal numero di byte indicati. Date un'occhiata al seguente codice che determina il tipo di colonna in MySQL:
 

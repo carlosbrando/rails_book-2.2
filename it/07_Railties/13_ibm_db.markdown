@@ -4,7 +4,7 @@ E' stata aggiunta un'opzione che vi permette di generare progetti Rails con il s
 
 	`rails app_name -d ibm_db`
 
-Creerà il vostro progetto con il seguente contenuto per il file **database.yml**:
+Rails creerà il vostro progetto con il seguente contenuto per il file **database.yml**:
 
 	# IBM Dataservers
 	#

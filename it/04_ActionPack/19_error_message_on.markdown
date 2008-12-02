@@ -4,7 +4,7 @@ Il messaggio `error_message_on` è molto utile. Potete utilizzarlo per accedere 
 
 	<%= error_message_on "post", "title" %>
 
-	<!-- or -->
+	<!-- oppure -->
 
 	<%= error_message_on @post, "title" %>
 

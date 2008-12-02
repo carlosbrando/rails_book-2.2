@@ -13,7 +13,7 @@ Adesso abbiamo un ulteriore helper che facilita il test delle query generate dal
 	  end
 	end
 
-Nell'esempio precedente stiamo asserendo che nel blocco specificato, almeno una query dovrebbe contenere la parola **COUNT**. Ovviamente potete essere più specifici nell'espressione regolare utilizzata. Vediamo un altro esempio:
+Nell'esempio precedente stiamo asserendo che, nel blocco specificato, almeno una query dovrebbe contenere la parola **COUNT**. Ovviamente potete essere più specifici nell'espressione regolare utilizzata. Vediamo un altro esempio:
 
 	assert_sql(/\(\"companies\".\"id\" IN \(1\)\)/) do
 	  Account.find(1, :include => :firm)

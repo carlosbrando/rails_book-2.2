@@ -4,7 +4,7 @@ Se state già utilizzando Rails 2.2 provate ad eseguire il seguente comando per 
 
 	./script/generate scaffold comment author:string body:text post:references
 
-Notate come abbiamo indicato che comments ha un riferimento alla tabella `posts`, oppure - detto il altri termini - che un commento appartiene (`belongs_to`) ad un post. Ora osservate il file generato per il modello (**app/models/comment.rb**):
+Notate come abbiamo indicato che comments ha un riferimento alla tabella `posts`, oppure &mdash; detto il altri termini &mdash; che un commento appartiene (`belongs_to`) ad un post. Ora osservate il file generato per il modello (**app/models/comment.rb**):
 
 	class Comment < ActiveRecord::Base
 	  belongs_to :post

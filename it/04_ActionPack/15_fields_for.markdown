@@ -4,7 +4,7 @@ Spesso, l'opzione `:index` del metodo `select` è molto utile, ad esempio quando
 
 Fino ad ora, il metodo `fields_for` non inoltrava questa opzione ai metodi `select`, `collection_select`, `country_select` e `time_zone_select`, limitandone l'utilità in alcuni casi.
 
-Nella presente versione di Rails questo è stato corretto. Esempio:
+Nella corrente versione di Rails questo è stato corretto. Esempio:
 
 	fields_for :post, @post, :index => 108 do |f|
 	  concat f.select(:category, %w( abe <mus> hest))
@@ -18,4 +18,4 @@ Restituisce:
 	  <option value=\"hest\">hest</option>
 	</select>
 
-Notate che abbiamo utilizzato l'opzione `:index => 108` nel metodo `fields_for`. Osservate le proprietà `id` e `name` del tag HTML generato dal metodo `select`, benché nessuna opzione sia stata passata a questo metodo, è stato comunque aggiunto l'opportuno indice all'output.
+Notate che abbiamo utilizzato l'opzione `:index => 108` nel metodo `fields_for`. Osservate le proprietà `id` e `name` del tag HTML generato dal metodo `select`: benché nessuna opzione sia stata passata a questo metodo, è stato comunque aggiunto l'opportuno indice all'output.

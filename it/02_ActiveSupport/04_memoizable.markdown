@@ -19,7 +19,7 @@ Con la nuova versione di Rails abbiamo un metodo più elegante per ottenere ciò
 
 Il metodod `age` verrà eseguito solo la prima volta, e il suo valore di ritorno sarà salvato in memoria e successivamente recuperato per le future chiamate allo stesso metodo.
 
-C'è solo una differenza tra i due esempi precedenti. Nel primo caso, dal momento che il metodo viene sempre eseguito se il valore presente in `@age` è `nil` o `false`, il complesso calcolo (indicato con `a_very_complex_computation`) viene eseguito nuovamente. Nel secondo esempio, il metodo `age` viene eseguito solamente una volta ed il valore di ritorno viene restituito sempre, per ogni chiamata futura (anche se è `nil` o `false`).
+C'è solo una differenza tra i due esempi precedenti. Nel primo caso, dal momento che il metodo viene sempre eseguito se il valore presente in `@age` è `nil` o `false`, il complesso calcolo (indicato con `a_very_complex_computation`) viene eseguito nuovamente. Nel secondo esempio il metodo `age` viene eseguito solamente una volta, ed il valore di ritorno viene restituito sempre, per ogni chiamata futura (anche se è `nil` o `false`).
 
 Se avete bisogno di disabilitare o abilitare nuovamente il caching degli attributi memoized, potete utilizzare i metodi `unmemoize_all` a `memoize_all`:
 

@@ -1,6 +1,6 @@
 ## Utilizzare i layout nelle email
 
-Con la nuova versione di Rails, abbiamo una funzionalità che delizierà gli spammers!
+Con la nuova versione di Rails, abbiamo una funzionalità che delizierà gli spammer!
 
 Scherzi a parte, come abbiamo i layout per i controller, adesso li abbiamo anche per i mailer. E' sufficiente aggiungere `_mailer` ai nomi dei vostri file, è il layout verrà applicato automaticamente.
 

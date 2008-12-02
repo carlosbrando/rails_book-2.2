@@ -1,6 +1,6 @@
 ## Evitare le duplicazioni degli articoli nei feeds
 
-Talvolta ci capita di sottoscriversi ai feed di qualche blog, e subito ci ritroviamo dei post che nonostante siano stati già letti compaiono ancora nel nostro feed reader. Vi è mai successo? Capita per una serie di motivi, ma ovviamente non vogliamo che capiti a chi usa le nostra applicazioni, giusto?
+Talvolta ci capita di sottoscriverci ai feed di qualche blog, e subito ci ritroviamo dei post che nonostante siano stati già letti compaiono ancora nel nostro feed reader. Vi è mai successo? Capita per una serie di motivi, ma ovviamente non vogliamo che capiti a chi usa le nostra applicazioni, giusto?
 
 Per aiutarci ad evitare questo inconveniente, ogni entry di un feed generato con il builder `atom_feed` adesso ha una nuova opzione `:id`, che vi permette di customizzare l'id stesso.
 

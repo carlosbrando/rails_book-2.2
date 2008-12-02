@@ -9,8 +9,8 @@ Ad esempio, supponiamo di voler riempire un hash con i valori provenienti da una
 	end
 	# => {:second=>"second", :first=>"first", :third=>"third"}
 
-Notiamo che nel precedente esempio l'oggetto memo è un hash vuoto (`{}`). All'interno del blocco riempiamo l'hash con gli item provenienti dalla collezione.
+Notiamo che nel precedente esempio l'oggetto memo è un hash vuoto (`{}`). All'interno del blocco popoliamo l'hash con gli item provenienti dalla collezione.
 
-Fate attenzione al fatto che non potete utilizzare oggetti immutabili per la variabile memo, come numeri, `true` e `false`. Il codice seguente restituisce sempre 1, poiché il numero 1 (oggetto *memo*) non può essere modificato:
+Fate attenzione al fatto che non dovreste utilizzare oggetti immutabili per la variabile memo, come numeri, `true` e `false`. Il codice seguente restituisce sempre 1, poiché il numero 1 (oggetto *memo*) non può essere modificato:
 
 	(1..5).each_with_object(1) { |value, memo| memo *= value } # => 1

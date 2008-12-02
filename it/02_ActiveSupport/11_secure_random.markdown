@@ -2,7 +2,7 @@
 
 Ora la classe `Rails::SecretKeyGenerator`, utilizzata per generare chiavi segrete random (per la cifratura dei cookie di sessione), è deprecata.
 
-Al suo posto adesso Rails usa la nuova classe `ActiveSupport::SecureRandom` introdotta con Ruby 1.9. La libreria **SecureRandom** esibisce il medesimo comportamento, ma produce risultati migliori. Sono supportati i seguenti generatori di numeri casuali:
+Adesso al suo posto Rails usa la nuova classe `ActiveSupport::SecureRandom` introdotta con Ruby 1.9. La libreria **SecureRandom** esibisce il medesimo comportamento, ma produce risultati migliori. Sono supportati i seguenti generatori di numeri casuali:
 
 * openssl
 * /dev/urandom

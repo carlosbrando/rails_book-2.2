@@ -1,8 +1,8 @@
 ## Cambiamento nel metodo assert\_difference
 
-Quanto utilizziamo il metodo `assert_difference` con più di una espressione e viene generato un errore, diventa difficile capire quale espressione causi il fallimento dell'assertion, dal momento che il messaggio di errore non include tale informazione.
+Quanto utilizziamo il metodo `assert_difference` con più di una espressione e viene generato un errore, diventa difficile capire quale espressione causi il fallimento dell'asserzione, dal momento che il messaggio di errore non include tale informazione.
 
-In Rails 2.2 il messaggio di errore indica chiaramente quale metodo fa fallire l'assertion.
+In Rails 2.2 il messaggio di errore indica chiaramente quale metodo fa fallire l'asserzione.
 Esempio:
 
 	assert_difference ['Post.count', 'current_user.posts.count'] do

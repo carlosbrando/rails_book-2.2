@@ -4,7 +4,7 @@ Talvolta alcune traduzioni dipendono da un numero o una quantità. E' uno scenar
 
 Ad esempio, nel metodo `distance_in_words` (riferita al tempo, NdT), la frase "1 secondo" funziona bene quando il tempo è minore o uguale ad uno, ma deve essere pluralizzata quando il tempo è più lungo.
 
-Nel file di localizzazione potete internazionalizzare le frasi che nella vostra applicazione dipendono da una quantità, come in questo caso:
+Nei file di localizzazione potete internazionalizzare le frasi che nella vostra applicazione dipendono da una quantità, come in questo caso:
 
 	datetime:
 	  distance_in_words:

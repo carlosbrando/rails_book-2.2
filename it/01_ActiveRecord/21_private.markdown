@@ -1,6 +1,6 @@
 ## Rendere gli attributi ActiveRecord privati
 
-Rails 2.2 vi permette di marcare attributi `ActiveRecord` come `private`. Fino ad ora, questo era difficoltoso, dal momento che tali attributi sono creati attraverso tecniche di metaprogrammazione.
+Rails 2.2 vi permette di marcare attributi di `ActiveRecord` come `private`. Fino ad ora, questo era difficoltoso, dal momento che tali attributi sono creati attraverso tecniche di metaprogrammazione.
 
 Per capire come funziona, rendiamo privato l'attributo `name` del modello `User`:
 

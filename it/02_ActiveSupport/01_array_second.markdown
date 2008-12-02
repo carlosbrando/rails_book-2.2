@@ -2,7 +2,6 @@
 
 Nella classe `Array` già sono presenti i metodi `first` e `last`, quindi perché non aggiungere anche `second`, `third`, `fourth` e così via? Questo è proprio ciò che è stato fatto. Questi metodi restituiscono l'elemento dell'array che si trova all'offset specificato.
 
-
 Esempio:
 
 	array = (1..10).to_a

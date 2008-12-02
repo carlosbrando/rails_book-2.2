@@ -1,4 +1,4 @@
-## Assegnare un nome alle variabili locali di una collezione nei partials
+## Assegnare, nei partials, un nome alle variabili locali di una collezione
 
 Nel codice seguente un `partial` viene utilizzato con una collezione di oggetti:
 

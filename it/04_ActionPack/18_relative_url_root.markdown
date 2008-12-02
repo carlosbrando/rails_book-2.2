@@ -1,6 +1,6 @@
 ## Eseguire più istanze di un progetto in path differenti
 
-Talvolta potreste avere l'esigenza di eseguire più copie dello stesso progetto. Magari avete un prodotto utilizzato da diversi clienti, oppure volete eseguire una versione di test accanto ad una di produzione allo stesso tempo.
+Talvolta potreste avere l'esigenza di eseguire più copie dello stesso progetto. Magari avete un prodotto utilizzato da diversi clienti, oppure volete eseguire contemporaneamente una versione di test accanto ad una di produzione.
 
 La via più semplice per ottenere ciò consiste nell'avere più (sotto)domini, ognuno con la propria istanza dell'applicazione. Qualora ciò non fosse possibile potreste spostare la vostra applicazione in una sottodirectory e utilizzare un prefisso nell'URL per distinguere ogni istanza della vostra applicazione. Ad esempio, potreste avere più blog per utenti diversi con URL del tipo:
 

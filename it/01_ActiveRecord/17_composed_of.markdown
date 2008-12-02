@@ -24,4 +24,4 @@ Ecco un esempio:
 
 In questo esempio, il metodo `balance=` si aspetterà sempre un'istanza della classe `Money`, ma, se viene passato un altro tipo di oggetto, questo verrà convertito utilizzando il metodo `parse` dell'oggetto `Money`.
 
-Dovreste utilizzare la nuova opzione `:converter` al posto del blocco di conversione permesso dal metodo.
+Dovreste utilizzare la nuova opzione `:converter` al posto del blocco di conversione previsto dal metodo.

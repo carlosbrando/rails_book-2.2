@@ -1,6 +1,6 @@
 ## Route polimorfici
 
-I metodi `*_polymorphic_url` e `*_polymorphic_path`, molto utilizzati per generare URL a partire dai record del database, adesso accettano un parametro opzionale. Oltre agli usuali parametri accettano anche un hash di opzioni, rendendo di fatto possibile generare nuovi route con parametri addizionali nell'URL.
+Adesso i metodi `*_polymorphic_url` e `*_polymorphic_path`, molto utilizzati per generare URL a partire dai record del database, accettano un parametro opzionale. Oltre agli usuali parametri accettano anche un hash di opzioni, rendendo di fatto possibile generare nuovi route con parametri addizionali nell'URL.
 
 Vediamo qualche esempio. Sotto a ciascun esempio viene mostrato un commento contenente il metodo equivalente:
 

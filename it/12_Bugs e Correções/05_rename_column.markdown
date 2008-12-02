@@ -6,7 +6,7 @@ Questa modifica consiste in una correzione del metodo `rename_column`. Per compr
 	  t.column :name, :string, :default => ''
 	end
 
-Quindi creiamo una seconda **mgration** che rinomini la colonna **name**:
+Quindi creiamo una seconda **migration** che rinomini la colonna **name**:
 
 	rename_column :users, :name, :first_name
 

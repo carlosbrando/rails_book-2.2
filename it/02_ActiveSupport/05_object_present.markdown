@@ -1,6 +1,6 @@
 ## Nuovo metodo: Object#present?
 
-E' stato aggiunto un nuovo metodo alla class base Object. Il metodo `present?` è equivalente a `!Object#blank?`.
+E' stato aggiunto un nuovo metodo alla class base Object. Il metodo `present?` è equivalente all'espressione `!Object#blank?`.
 
 In altri termini, un oggetto è "presente" se non è vuoto. Ma cosa è esattamente un oggetto vuoto?
 
@@ -26,9 +26,9 @@ In altri termini, un oggetto è "presente" se non è vuoto. Ma cosa è esattamen
 	g.present? # => false
 	h.present? # => false
 
-Tutti questi oggetti sono vuoti, ovvero sono non "presenti".
+Tutti questi oggetti sono vuoti, ovvero non sono "presenti".
 
-Ma occorre fare attenzione, ciò ha generato una certa confusione. Nei seguenti esempi vengono illustrati alcuni oggetti che NON sono vuoti, ovvero sono "presenti":
+Ma occorre fare attenzione, ciò ha generato una certa confusione. Negli esempi seguenti vengono illustrati alcuni oggetti che NON sono vuoti, ovvero sono "presenti":
 
 	class EmptyFalse
 	  def empty?() false; end
@@ -52,5 +52,5 @@ Ma occorre fare attenzione, ciò ha generato una certa confusione. Nei seguenti 
 	g.present? # => true
 	h.present? # => true
 
-Ogni oggetto che contiene un valore è "presente", e ciò è vero anche per un array che contenga solo `nil` perché tale array sarebbe non vuoto.
+Ogni oggetto che contiene un valore è "presente", e ciò è vero anche per un array che contiene solo `nil` perché tale array è non vuoto.
 

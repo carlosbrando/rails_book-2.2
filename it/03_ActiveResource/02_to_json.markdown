@@ -1,6 +1,6 @@
 ## ActiveResource::Base #to\_xml e #to\_json
 
-Sono stati aggiunti due nuovi metodi ad `ActiveResource::Base`: `to_xml` e `to_json`. Il primo fornisce una rappresentazione XML di una risorsa, mentre il secondo fornisce una rappresentazione in formato JSON.
+Sono stati aggiunti due nuovi metodi ad `ActiveResource::Base`: `to_xml` e `to_json`. Il primo fornisce una rappresentazione XML di una risorsa, mentre il secondo ne fornisce una rappresentazione in formato JSON.
 
 Il metodo `to_json` può essere configurato utilizzando i parametri opzionali `:only` ed `:except`, i quali vi permettono di selezionare solamente determinati attributi. Esempio:
 

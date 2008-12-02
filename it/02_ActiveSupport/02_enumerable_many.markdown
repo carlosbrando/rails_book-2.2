@@ -29,10 +29,10 @@ Osserviamo i seguenti esempi:
 	>> x.many? { |y| y == 'b' }
 	# => true
 
-	# another example...
+	# un altro esempio...
 	people.many? { |p| p.age > 26 }
 
-Per inciso, questo metodo restituisce `true` solo se una iterazione del blocco restituisce true, oppure laddove la collezione ha più di un oggetto quando invocato senza blocco.
+Per inciso, questo metodo restituisce `true` solo se più di una iterazione del blocco restituisce true, oppure laddove la collezione ha più di un oggetto quando invocato senza blocco.
 
 Un'interessante nota a margine: il metodo fu inizialmente chiamato `several?` ma poi venne cambiato in `many?`.
 

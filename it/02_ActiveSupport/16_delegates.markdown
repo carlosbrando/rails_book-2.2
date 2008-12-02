@@ -1,7 +1,7 @@
 ## Aggiungere un prefisso agli attributi delegati
 
 Ora `Module#delegate` ha una nuova opzione `:prefix` che può essere utilizzata per fare in modo che il nome della classe target venga prefisso al nome del metodo.
-Vediamo due esempi. Nel primo caso, il classico uso degli attributo delegati:
+Vediamo due esempi. Nel primo caso, il classico uso degli attributi delegati:
 
 	class Invoice < ActiveRecord::Base
 	  delegate :street, :city, :name, :to => :client

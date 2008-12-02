@@ -1,6 +1,6 @@
 ## Aggiornare un'associazione utilizzando le sue foreign key
 
-Non sono sicuro che questo sia bug ma, a mio parere, ha causato problemi. Osservate il seguente codice, dove cerco di modificare un account utente utilizzando le sue foreign key in un progetto su Rails 2.1 (o anteriore):
+Non siamo sicuri che questo sia un bug ma, a nostro parere, ha causato dei problemi. Osservate il seguente codice, dove cerco di modificare un account utente utilizzando le sue foreign key in un progetto su Rails 2.1 (o precedente):
 
 	class User < ActiveRecord::Base
 	  belongs_to :account
@@ -18,7 +18,7 @@ Non sono sicuro che questo sia bug ma, a mio parere, ha causato problemi. Osserv
 	user.account
 	# => #<Account id: 1, name: "My Account">
 
-Notate come io stia modificando l'account dell'utente (user), ma l'associazione non viene alterata. Anche dopo aver salvato l'oggetto `user`, se non viene ricaricato, l'associazione continuerà a mostrare l'account sbagliato.
+Notate come stiamo modificando l'account dell'utente (user), ma l'associazione non viene alterata. Anche dopo aver salvato l'oggetto `user`, se non viene ricaricato, l'associazione continuerà a mostrare l'account sbagliato.
 
 Questo problema è stato risolto in Rails 2.2. Osserviamo:
 

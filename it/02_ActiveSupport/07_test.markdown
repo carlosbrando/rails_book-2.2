@@ -6,7 +6,7 @@ In Rails è stato introdotto un nuovo modo per dichiarare i test: `test/do`. Ved
 	  # ...
 	end
 
-Questo è il nuovo standard per il test in Rails. Vediamo, nella nuova versione, come un nuovo file per uno "unit test" viene generato:
+Questo è il nuovo standard per il test in Rails. Vediamo, nella nuova versione, come viene generato un nuovo file per uno "unit test":
 
 	require 'test_helper'
 

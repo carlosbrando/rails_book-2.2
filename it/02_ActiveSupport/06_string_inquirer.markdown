@@ -20,7 +20,7 @@ Per comprenderne il funzionamento, è necessario fare un esempio. Creiamo una cl
 	c.status == "inactive"
 	# => false
 
-Fin qui, nulla di strano. Adesso modifichiamo l'implementazione del metodo `status` utilizzando la classe  `StringInquirer`. Ricordiamo che il valore restituito da `status` generalmente proviene da una colonna del database (ovviamente) &mdash; questo è solo un esempio:
+Fin qui nulla di strano. Adesso modifichiamo l'implementazione del metodo `status` utilizzando la classe  `StringInquirer`. Ricordiamo che il valore restituito da `status` generalmente proviene da una colonna del database (ovviamente) &mdash; questo è solo un esempio:
 
 	class Client
 	  def status
@@ -32,7 +32,7 @@ Fin qui, nulla di strano. Adesso modifichiamo l'implementazione del metodo `stat
 	c.status
 	# => "active"
 
-	# Here is the big difference:
+	# Notate la differenza:
 	c.status.active?
 	# => true
 
@@ -41,6 +41,6 @@ Fin qui, nulla di strano. Adesso modifichiamo l'implementazione del metodo `stat
 
 Per verificare che lo `status` del client, anziché confrontare `String` utilizziamo un metodo con il valore dello status ed un punto interrogativo.
 
-L'uso di questa tecnica è già stato introdotto in Rails stesso. Ad esempio, se occorre verificare che Rails è attivo sull'ambiente di produzione, è sufficiente rimpiazzare il vecchio `Rails.env == "production"` con:
+L'uso di questa tecnica è già stato introdotto in Rails stesso. Ad esempio, se occorre verificare che Rails sia attivo sull'ambiente di produzione, è sufficiente rimpiazzare il vecchio `Rails.env == "production"` con:
 
 	Rails.env.production?

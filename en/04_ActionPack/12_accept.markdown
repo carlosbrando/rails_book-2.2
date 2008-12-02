@@ -19,6 +19,7 @@ For those who may not know, the **Accept** header is used to indicate what types
 	Accept: text/x-dvi; q=.8; mxb=100000; mxt=5.0, text/x-c
 
 	# recuperando esta informação via código
+	# FIXME: retrieve this information via code
 	@request.env["HTTP_ACCEPT"] = "text/javascript"
 
 Consult this URL to see a list of some of the most common MIME types:
@@ -29,6 +30,7 @@ This header is implemented inefficiently on many browsers, and when it is used o
 Thus, the decision was made to disable this header by default. It's always better to indicate the desired format in your URLs, but if you need to enable this header, just include the following line in your **environment.rb**:
 
 	config.action_controller.use_accept_header = false
+	# FIXME shouldn't be "true"?
 
 When disabled, if the format is not indicated by the URL, Rails will assume that it should use **.html** format.
 

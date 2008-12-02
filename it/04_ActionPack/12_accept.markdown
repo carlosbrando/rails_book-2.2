@@ -18,10 +18,10 @@ Per chi non lo conoscesse, l'header **Accept** è utilizzato per indicare quale 
 	Accept: text/plain, text/html
 	Accept: text/x-dvi; q=.8; mxb=100000; mxt=5.0, text/x-c
 
-	# recuperare questa informazine nel codice
+	# recupera questa informazine nel codice
 	@request.env["HTTP_ACCEPT"] = "text/javascript"
 
-Vedete la seguente URL per una lista dei MIME types più comunemente utilizzati:
+Fate riferimento alla seguente URL per una lista dei MIME types più comunemente utilizzati:
 http://www.developershome.com/wap/detection/detection.asp?page=httpHeaders
 
 Questo header non è implementato efficientemente su molti browser, e utilizzato su siti web pubblici causa strani errori quando i robot indicizzatori effettuano le loro richieste HTTP.
@@ -29,7 +29,8 @@ Questo header non è implementato efficientemente su molti browser, e utilizzato
 Da qui la decisione di disabilitare tale header per default. E' sempre consigliabile indicare il formato richieste attraverso l'URL, ma se aveste bisogno di tale header, è sufficiente includere la seguente linea di configurazione nel vostro **environment.rb**:
 
 	config.action_controller.use_accept_header = false
+	FIXME: non dovrebbe essere "true" ?
 
-Quando disabilitato, se il formato non è indicato nell'URL Rails assume che venga richiesto comunque **.html**.
+Quando disabilitato, se il formato non è indicato nell'URL Rails assume comunque che venga richiesto **.html**.
 
 Esiste tuttavia un'eccezione alla regola, ovvero quando effettuate una richiesta ajax utilizzando l'header **X-Requested-With**. In questo caso il formato **.js** viene utilizzato anche se non è stato esplicitamente indicato (esempio: /poeple/1).

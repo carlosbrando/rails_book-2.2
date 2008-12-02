@@ -2,7 +2,7 @@
 
 Una nuova opzione, chiamata `:primary_key`, è stata agiunta ai metodi `has_many` e `has_one`.
 
-Utilizzando questa opzione potete quale metodo e modello associato restituisce la chiave primaria che sarà utilizzata nell'associazione. Ovviamente la chiave primaria standard rimane `id`.
+Utilizzando questa opzione potete definire quale metodo e quale modello associato restituisce la chiave primaria che sarà utilizzata nell'associazione. Ovviamente la chiave primaria standard rimane `id`.
 
 Osservate il seguente esempio:
 

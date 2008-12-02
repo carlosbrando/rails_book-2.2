@@ -1,7 +1,5 @@
 ## Ora polymorphic\_url funziona con le singleton resources
 
-Per maggiori informazioni sui route delle risorse "al singolare" (singleton resources), fate riferimento al capitolo "Informazioni aggiuntive" alla fine del libro.
-
 Fino ad ora l'helper `polymorphic_url` non funzionava correttamente con le singleton resource.
 
 E' stata aggiunta una nuova patch per permettere di indicare risorse singleton attraverso i simboli, analogamente ai namespace. Esempio:
