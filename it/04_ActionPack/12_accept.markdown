@@ -26,10 +26,9 @@ http://www.developershome.com/wap/detection/detection.asp?page=httpHeaders
 
 Questo header non è implementato efficientemente su molti browser, e utilizzato su siti web pubblici causa strani errori quando i robot indicizzatori effettuano le loro richieste HTTP.
 
-Da qui la decisione di disabilitare tale header per default. E' sempre consigliabile indicare il formato richieste attraverso l'URL, ma se aveste bisogno di tale header, è sufficiente includere la seguente linea di configurazione nel vostro **environment.rb**:
+Da qui la decisione di disabilitare tale header per default. E' sempre consigliabile indicare il formato richiesto attraverso l'URL, ma se aveste bisogno dell'header, è sufficiente includere la seguente linea di configurazione nel vostro **environment.rb**:
 
-	config.action_controller.use_accept_header = false
-	FIXME: non dovrebbe essere "true" ?
+	config.action_controller.use_accept_header = true
 
 Quando disabilitato, se il formato non è indicato nell'URL Rails assume comunque che venga richiesto **.html**.
 
