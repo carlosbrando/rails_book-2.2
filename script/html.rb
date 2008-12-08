@@ -10,7 +10,7 @@ task :html => :merge do
       output = Discount.new(output).to_html
 
       File.open("output/#{language}/index.html", 'w') do |f|
-        html_template = File.new("layout/pdf_template.html").read
+        html_template = File.new("layout/pdf_template.#{language}.html").read
         html_template.gsub!("#body", output)
         html_template.gsub! /<pre><code>.*?<\/code><\/pre>/m do |code|
           code = code.gsub('<pre><code>', '').gsub('</code></pre>', '').gsub('&lt;', '<').gsub('&gt;', '>').gsub('&amp;', '&')

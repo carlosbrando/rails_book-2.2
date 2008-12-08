@@ -1,5 +1,7 @@
 ## Support for IBM DB in the Rails generator
 
+FIXME correct name is "DB2"
+
 An option has been added to Rails that allows you to generate a project with IBM DB support. To create a Rails project with this option, just run the following command in your terminal:
 
 `rails app_name -d ibm_db`

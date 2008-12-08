@@ -1,0 +1,3 @@
+# Internazionalizzazione (i18n)
+
+Tutto cominciò nel settembre del 2007 quando un gruppo di sviluppatori iniziò a scrivere un plugin chiamato **rails-I18n**, il cui scopo era quello di eliminare la necessità di patch manuali su Rails per ottenere un'applicazione internazionalizzata.

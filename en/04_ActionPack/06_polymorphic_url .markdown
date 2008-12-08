@@ -1,6 +1,7 @@
 ## polymorphic\_url now works with singleton resources
 
 For more information about singular resource routes, see the "Additional Information" chapter at the end of this book.
+FIXME this chapter doesn't exist!
 
 Until now, the `polymorphic_url` helper did not work properly with singleton resources.
 

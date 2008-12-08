@@ -1,0 +1,7 @@
+## Messaggi di aiuto per i principanti di Rails
+
+Un nuovo messaggio è stato aggiunto al file 500.html per aiutare i programmatori che sono appena agli inizi con Rails:
+
+(If you’re the administrator of this website, then please read the log file “development.log” to find out what went wrong.)
+
+Rails tiene a cuore i nuovi arrivati.

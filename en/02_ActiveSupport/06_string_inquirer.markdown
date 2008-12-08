@@ -40,6 +40,7 @@ Ok, to this point everything is as expected. Now I will modify the implementatio
 	# => false
 
 To verify that the `status` of the client is what you expected, instead of comparing `Strings`, I use a method with the status value and an exclamation point.
+[FIXME question point]
 
 Of course this usage has already begun in Rails itself. For example, if you need to verify that Rails was loaded in a production environment, you can substitute the old `Rails.env == "production"` for:
 
