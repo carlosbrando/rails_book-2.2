@@ -1,8 +1,8 @@
 ## StringInquirer
 
-A new class called `StringInquirer` has been added to Rails.
+Une nouvelle classe nommée `StringInquirer` a été ajoutée a Rails.
 
-To understand how it works, I will need to explain with some terms. Let's create a class called `Client`, which contains a method that returns the `status` of the client:
+Je vais utiliser quelques exemples pour faire comprendre. Créons une classe `Client` avec une méthode qui retourne son statut (`status`).
 
 	class Client
 	  def status
@@ -20,7 +20,7 @@ To understand how it works, I will need to explain with some terms. Let's create
 	c.status == "inactive"
 	# => false
 
-Ok, to this point everything is as expected. Now I will modify the implementation of the status method using the `StringInquirer` class, keeping in mind that the return value of `status` can come from a database column (of course)&mdash;this is only an example:
+OK, jusqu'ici tout est normal. Je vais maintenant modifier l'implémentation de la méthode `status` en utilisant la classe `StringInquirer`. Gardons à l'esprit que la valeur renvoyée par `status` bien sûr peut provenir d'une base de données, ceci n'est qu'un exemple :
 
 	class Client
 	  def status
@@ -39,8 +39,8 @@ Ok, to this point everything is as expected. Now I will modify the implementatio
 	c.status.inactive?
 	# => false
 
-To verify that the `status` of the client is what you expected, instead of comparing `Strings`, I use a method with the status value and an exclamation point.
+Pour vérifier si le `status` du client a la valeur attendue, au lieu de comparer à des `Strings`, j'utilise une méthode du nom de la valeur du statut attendu et un point d'interrogation.
 
-Of course this usage has already begun in Rails itself. For example, if you need to verify that Rails was loaded in a production environment, you can substitute the old `Rails.env == "production"` for:
+Bien sûr cet usage a commencé dans Rails même. Par exemple pour vérifier que Rails a été chargé dans un environnement de production, vous pouvez remplacer le vieux `Rails.env == "production"` par :
 
 	Rails.env.production?
