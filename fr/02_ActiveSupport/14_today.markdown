@@ -1,8 +1,8 @@
-## Three new methods for classes that work with dates and times
+## Trois nouvelle méthodes pour les classes de dates et heures
 
-The `Time`, `Date`, `DateTime` and `TimeWithZone` classes have been given three new methods that are quite convenient. They now have `today?`, `past?` and `future?`, to make our lives a little easier in some situations.
+Les classes `Time`, `Date`, `DateTime` et `TimeWithZone` reçoivent trois nouvelles méthodes très commodes. Elles ont maintenant `today?` (aujourd'hui), `past?` (passé) et `future?` (futur), pour nous faciliter la vie.
 
-It will help to show how each one works. Here are the methods in action:
+Je crois qu'il n'est pas besoin d'en expliquer le fonctionnement, alors voici les trois méthodes en action :
 
 	date = Date.current
 	# => Sat, 04 Oct 2008

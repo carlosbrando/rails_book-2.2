@@ -1,13 +1,11 @@
-## Modification in the assert\_difference method
+## Modification de la méthode the assert\_difference
 
-When you used the `assert_difference` method with more than one expression, and an error occurred, it was difficult to know which expression was the one that failed the assertion, since the error message didn't include this information.
+Quand nous utilisions la méthode `assert_difference` avec plus d'une expression et qu'une erreur se produisait, il était difficile de savoir quelle expression avait déclenché l'erreur puisque le message d'erreur ne le mentionnait pas.
 
-In Rails 2.2, the error message explains exactly which method failed the assertion. For example:
+En Rails&nbsp;2.2, le message d'erreur indique la méthode qui a déclenché l'erreur. Par exemple :
 
 	assert_difference ['Post.count', 'current_user.posts.count'] do
 	  Post.create(params)
 	end
 
-The code above displays the following message, in the event that the second expression doesn't pass:
-
-**<current\_user.posts.count> was expression that failed. <1> expected but was <0>.**
+Le code affiche le message d'erreur suivant si la seconde expression ne passe pas : "<current\_user.posts.count> was expression that failed. <1> expected but was <0>."

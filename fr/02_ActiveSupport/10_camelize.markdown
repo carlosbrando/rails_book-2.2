@@ -1,11 +1,11 @@
 ## camelize(:lower)
 
-By default, the `camelize` method in Rails is used to convert a string to the **UpperCamelCase** format, meaning that the first word of the string will be capitalized along with every other word. It is now possible to convert a string to **lowerCamelCase** (first word lowercase and other words capitalized) using the `:lower` argument. If, however, you try to execute the following code:
+Par défaut la méthode `camelize` sert à convertir une chaîne de caractères au format **UpperCamelCase**, c'est-à-dire que le premier mot de la chaîne aura une majuscule comme tous les morts suivants. Il est aussi possible de convertir une chaîne en **lowerCamelCase** (premier mot avec une minuscule initiale et mots suivants avec une majuscule) avec l'argument `:lower`. Mais si vous essayez le code suivant en Rails&nbsp;2.1.1 ou antérieur :
 
 	'Capital'.camelize(:lower)
 	# => "Capital"
 
-The first letter is not rendered in lowercase. This has been corrected. Here is the same code being executed under Rails 2.2:
+La première lettre n'est pas une minuscule. Ceci a été corrigé ; voici le résultat en Rails&nbsp;2.2 :
 
 	'Capital'.camelize(:lower)
 	# => "capital"

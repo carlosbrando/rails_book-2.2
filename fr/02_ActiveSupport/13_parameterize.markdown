@@ -1,6 +1,6 @@
-## Inflector#parameterize makes it easier to create pretty URLs
+## Inflector#parameterize facilite la création d'URL clairs
 
-A new inflector has been added to Rails that I find particularly useful. The `parameterize` method makes any text URL-friendly. Take a look at this example.
+Un nouvel inflecteur que je trouve particulièrement utile a été ajouté à Rails. La méthode `parameterize` transforme un texte quelconque en un format idéal pour l'utilisation comme URL. Par exemple :
 
 Model:
 
@@ -20,6 +20,6 @@ View:
 	link_to @user.name, user_path
 	# => <a href="/users/1-carlos-e-brando">Carlos E. Brando</a>
 
-One interesting thing to note about this feature is that it initially didn't work on accented characters, which was a significant problem for many people around the world. One day after the initial implementation, Michael Koziarski came to the rescue by adding this support. In spite of this, the code still wasn't perfect, so the code of the excellent [slugalizer](http://github.com/henrik/slugalizer/tree/master) plugin, created by Henrik Nyh, was adapted to this purpose. Now it really is perfect!
+Incidemment, cette méthode ne fonctionnait pas avec les caractères accentués, ce qui était un problème pour beaucoup de monde autour du globe. Le lendemain de la mise en service, Michael Koziarski nous a sauvés en les ajoutant. Malgré cela, le code n'était pas parfait, et le code du *plugin* [slugalizer](http://github.com/henrik/slugalizer/tree/master) créé par Henrik Nyh a été utilisé. Maintenant c'est parfait !
 
-For those who are not using Rails 2.2 yet, the slugalizer plugin can be used.
+Ceux qui n'utilisent pas Rails&nbsp;2.2 peuvent utiliser le *plugin*.

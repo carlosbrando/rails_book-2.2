@@ -1,12 +1,12 @@
-## New test syntax
+## Nouvelle syntaxe de test
 
-A new way of declaring tests has been added to Rails, using `test/do`. Take a look:
+Une nouvelle manière de déclarer les tests a été ajoutée, avec `test/do`. Voyez :
 
 	test "verify something" do
 	  # ...
 	end
 
-This is the new standard for Rails tests. See how a unit test file was generated in this version:
+C'est la nouvelle norme pour les tests Rails. Voici un test unitaire généré dans cete version :
 
 	require 'test_helper'
 
@@ -17,4 +17,4 @@ This is the new standard for Rails tests. See how a unit test file was generated
 	  end
 	end
 
-The old way of doing it using methods will still work, so your old tests will not break.
+La manière classique, avec des méthodes, continuera à fonctionner, ainsi vos anciens tests continueront à passer.

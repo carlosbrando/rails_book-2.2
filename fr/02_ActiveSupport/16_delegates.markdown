@@ -1,6 +1,6 @@
-## Adding a prefix to delegates
+## Ajout d'un préfixe aux *delegates*
 
-The `Module#delegate` now has a new `:prefix` option that can be used when you want the target class's name to be prefixed to the method name. Let's take a look at two examples. First, here is the way you usually work with delegates:
+`Module#delegate` a maintenant une nouvelle option `:prefix` qui peut être utilisée quand vous voulez que le nom de la classe cible soit préfixé par le nom de la méthode. Observons deux exemples. Voici d'abord la façon classique d'employer les *delegates* :
 
 	class Invoice < ActiveRecord::Base
 	  delegate :street, :city, :name, :to => :client
@@ -10,7 +10,7 @@ The `Module#delegate` now has a new `:prefix` option that can be used when you w
 	Invoice.new.city
 	Invoice.new.name
 
-And here is an example that uses the new `:prefix` option:
+Et voici un exemple avec la nouvelle option `:prefix` :
 
 	class Invoice < ActiveRecord::Base
 	  delegate :street, :city, :name, :to => :client, :prefix => true
@@ -20,7 +20,7 @@ And here is an example that uses the new `:prefix` option:
 	Invoice.new.client_city
 	Invoice.new.client_name
 
-You can also use a custom name for the prefix:
+Vous pouvez aussi personnaliser le préfixe :
 
 	class Invoice < ActiveRecord::Base
 		delegate :street, :city, :name, :to => :client, :prefix => :customer
