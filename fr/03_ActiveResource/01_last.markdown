@@ -1,8 +1,8 @@
-## Recovering the last record from ActiveResource
+## Récupérer le dernier enregistrement avec ActiveResource
 
-Following the `ActiveRecord` convention, `ActiveResource`'s find method now accepts the `:last` option:
+Suivant le modèle d'`ActiveRecord`, la méthode find d'`ActiveResource` accepte maintenant l'option `:last`&nbsp;:
 
 	Person.find(:last, :from => :managers)
 	# => GET /people/managers.xml
 
-You can use this to recover the last item in a collection of resources.
+Vous pouvez ainsi récupérer la dernière ressource trouvée.

@@ -1,8 +1,8 @@
-## ActiveResource::Base #to\_xml and #to\_json
+## ActiveResource::Base #to\_xml et #to\_json
 
-Two new methods have been added to `ActiveResource::Base`: `to_xml` and `to_json`. The first converts the resource into an XML string, and the second returns a string in JSON format.
+Deux nouvelles méthodes ont été ajoutées à `ActiveResource::Base`&nbsp;: `to_xml` et `to_json`. La première convertit la ressource en chaîne XML&nbsp;; la seconde renvoie aussi une chaîne mais au format JSON.
 
-The `to_json` method can be configured using the optional hash-based parameters `:only` and `:except`, which allow you to restrict or remove certain attributes. For example:
+La méthode `to_json` peut être configurée avec les paramètres optionnels `:only` et `:except`, qui vous permettent de limiter ou de supprimer certains attributs. Par exemple&nbsp;:
 
 	person = Person.new(:first_name => "Carlos", :last_name => "Brando")
 	person.to_json
