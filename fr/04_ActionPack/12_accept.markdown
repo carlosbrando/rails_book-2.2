@@ -1,6 +1,6 @@
-## Disabling the Accept header in HTTP requests
+## Désactivation du *header* Accept dans les requêtes HTTP
 
-Let's start with some example code:
+Commençons par un exemple de code :
 
 	def index
 	  @people = Person.find(:all)
@@ -11,9 +11,9 @@ Let's start with some example code:
 	  end
 	end
 
-In the example above, Rails has two ways of identifying which format should be used for the `respond_to` block. The first and most common is through the format indicated in the URL (/index.xml, for example), and the second is when the format is not specified, in which case it consults the HTTP request's **Accept** header.
+Dans l'exemple ci-dessus, Rails a deux manières d'identifier le format qui devrait être utilisé pour le bloc `respond_to`. La première et la plus fréquente s'appuie sur le format indiqué dans l'URL (/index.xml, par exemple)&nbsp;; la seconde, quand le format n'est pas spécifié, utilise le *header* **Accept** de la requête HTTP.
 
-For those who may not know, the **Accept** header is used to indicate what types of documents (often called MIME Types: http://en.wikipedia.org/wiki/MIME) the browser prefers using strings like:
+Au cas où vous ne le sauriez pas, le *header* **Accept** indique le type de document désiré (souvent appelé type MIME http://fr.wikipedia.org/wiki/Multipurpose\_Internet\_Mail\_Extensions) dans des chaînes qui ressemblent à ceci&nbsp;: 
 
 	Accept: text/plain, text/html
 	Accept: text/x-dvi; q=.8; mxb=100000; mxt=5.0, text/x-c
@@ -21,15 +21,14 @@ For those who may not know, the **Accept** header is used to indicate what types
 	# recuperando esta informação via código
 	@request.env["HTTP_ACCEPT"] = "text/javascript"
 
-Consult this URL to see a list of some of the most common MIME types:
-http://www.developershome.com/wap/detection/detection.asp?page=httpHeaders
+Vous trouverez ici une liste des types MIME les plus courants&nbsp;: http://www.developershome.com/wap/detection/detection.asp?page=httpHeaders
 
-This header is implemented inefficiently on many browsers, and when it is used on public web sites, sometimes strange errors occur when indexing robots perform their HTTP requests.
+Le *header* est mal implémenté dans la majorité des navigateurs. Et son utilisation dans des sites publics provoque parfois des erreurs d'indexation étranges avec les moteurs de recherche.
 
-Thus, the decision was made to disable this header by default. It's always better to indicate the desired format in your URLs, but if you need to enable this header, just include the following line in your **environment.rb**:
+Il a donc été décidé de désactiver ce *header* par défaut. Il vaut toujours mieux indiquer le format désiré dans vos URL, mais si vous avez besoin de ce header, ajoutez la ligne suivante dans **environment.rb**&nbsp;:
 
 	config.action_controller.use_accept_header = false
 
-When disabled, if the format is not indicated by the URL, Rails will assume that it should use **.html** format.
+Quand l'option est désactivée, si le format n'est pas indiqué par l'URL, Rails supposera qu'il doit utiliser le format **.html**.
 
-There is a special case when you make ajax requests using the **X-Requested-With** header. In this case, the **.js** format will be used even if the format was not specified (/people/1, for example).
+Dans le cas particulier des requêtes AJAX avec le *header* **X-Requested-With**, le format **.js** sera utilisé même s'il n'était pas spécifié dans l'URL (/people/1, par exemple).

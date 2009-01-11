@@ -1,18 +1,18 @@
-## Support for regular expressions in time\_zone\_select
+## Support des expressions régulières dans time\_zone\_select
 
-In `ActiveSupport`'s `TimeZone` class there is a `us_zones` method that conveniently returns a dynamically-generated list of all US time zones.
+Dans la classe `TimeZone` d'`ActiveSupport`, il y a une méthode `us_zones` qui renvoie une liste de tous les fuseaux horaires des USA.
 
-The problem is that sometimes you want to develop software for people in other countries, but there is no such convenient method that lists these other countries' time zones.
+Le problème est que vous voulez parfois développer du logiciel pour d'autres pays, mais qu'il n'y a pas de méthode équivalente qui liste les fuseaux horaires de ces pays.
 
-There was a long debate over whether or not to create methods like `african_zones`, `american_zones`, etc. Eventually, the following solution prevailed.
+Il y a eu un long débat sur la création ou non de méthodes comme `african_zones`, `american_zones`, etc. Finalement, la solution suivante a été adoptée.
 
-Support for `=~` was added to `TimeZone` so that it would be possible to generate a list of time zones from a regular expression. The `time_zone_select` method has also been updated to work with these changes.
+`TimeZone` supporte maintenant `=~` qui permet de produire une liste de fuseaux horaires à partir d'une expression régulière. La méthode `time_zone_select` a aussi été mise à niveau.
 
-You can now do something like this:
+Vous pouvez maintenant faire comme ceci&nbsp;:
 
 	<%= time_zone_select( "user", 'time_zone', /Australia/) %>
 
-The code above returns all time zones, but puts the following time zones at the top of the list:
+Le code ci-dessus renvoie tous les fuseaux horaires, mais place les suivants en tête de liste&nbsp;:
 
 	(GMT +08:00) Perth
 	(GMT +09:30) Adelaide
@@ -23,4 +23,4 @@ The code above returns all time zones, but puts the following time zones at the 
 	(GMT +10:00) Melbourne
 	(GMT +10:00) Sydney
 
-To learn more about `TimeZones`, I suggest that you watch Episode 106 of RailsCasts (http://railscasts.com/episodes/106) and also take a look at my last book.
+Pour en savoir plus sur `TimeZones`, Je vous suggère de regarder l'épisode&nbsp;106 de RailsCasts (http://railscasts.com/episodes/106) et de lire le livre précédent celui-ci.

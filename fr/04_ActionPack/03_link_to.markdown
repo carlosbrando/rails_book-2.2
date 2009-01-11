@@ -1,13 +1,13 @@
-## link\_to method now accepts blocks
+## La méthode link\_to accepte maintenant les blocs
 
-The `link_to` method has been updated to work with blocks. This is useful when you have really long strings in your links. For example, while before you might have done something like this:
+Il est maintenant possible d'utiliser la méthode `link_to` avec un bloc. C'est utile si vous avez de longs textes dans vos liens. Par exemple vous auriez pu écrire ceci&nbsp;:
 
 	<%= link_to "<strong>#{@profile.name}</strong> -- <span>Check it out!!</span>", @profile %>
 
-You can now do something like this, with the same result:
+Vous pouvez maintenant l'écrire ainsi, avec le même résultat&nbsp;:
 
 	<% link_to(@profile) do %>
 	  <strong><%= @profile.name %></strong> -- <span>Check it out!!</span>
 	<% end %>
 
-It is not a significant change in functionality, but it does allow you to write more legible code, which is also important.
+Ce n'est pas un changement significatif de fonctionnalité, mais ça rend le code plus lisible, ce qui est important aussi.

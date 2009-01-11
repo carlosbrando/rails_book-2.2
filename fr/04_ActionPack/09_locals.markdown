@@ -1,7 +1,7 @@
-## render :template now accepts :locals
+## render :template accepte maintenant :locals
 
-The `render :action` and `render :partial` methods allow you to pass a `Hash` containing the data you want them to display using the `:locals` option, but `render :template` used to not allow this.
+Les méthodes `render :action` et `render :partial` vous autorisent à passer, avec l'option `:locals`, un `Hash` qui contient les données que vous voulez afficher, mais `render :template` ne le permettait pas.
 
-In this version of Rails it works now:
+Ça marche maintenant dans cette version de Rails&nbsp;:
 
 	render :template => "weblog/show", :locals => {:customer => Customer.new}

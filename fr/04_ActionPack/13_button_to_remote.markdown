@@ -1,7 +1,7 @@
 ## button\_to\_remote
 
-If you have been using Rails for a while, you probably are familiar with the `submit_to_remote` method. This method returns an HTML button that will send a form using **XMLHttpRequest**.
+Si vous utilisez Rails depuis un moment, vous connaissez certainement la méthode `submit_to_remote`. Elle renvoie un bouton HTML qui soumet le formulaire avec **XMLHttpRequest**.
 
-In Rails 2.2 this method has been renamed to `button_to_remote`, to maintain consistency with the name of its sibling method, `link_to_remote`.
+En Rails&nbsp;2.2, cette méthode a été renommée `button_to_remote`, pour une meilleure cohérence avec le nom de la méthode soeur `link_to_remote`.
 
-Those who plan to update their projects don't need to worry, since the old name (`submit_to_remote`) will be an alias to the new one.
+Ceux qui veulent migrer leurs projets n'ont pas à s'inquiéter, puisque l'ancien nom (`submit_to_remote`) sera un alias du nouveau.

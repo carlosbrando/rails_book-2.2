@@ -1,12 +1,12 @@
-## Receiving warnings for improving performance
+## Recevoir des warnings au sujet de la performance
 
-Rails has gotten a configuration parameter that makes it emit warnings if it renders a template outside of the specified views directory. This is great because files outside of the specified views directories are not stored in the cache, which results in more disk accesses.
+Rails a un nouveau paramètre qui contrôle l'émission des warnings dans le cas où il restitue un template situé hors des répertoires de vues. C'est une bonne chose car les fichiers hors des répertoires de vues ne sont pas stockés dans le cache, ce qui se traduit par plus d'accès disque.
 
-To start receiving warnings about this, just include the following line in your project's **environment.rb** file:
+Pour recevoir ces warnings, ajoutez la ligne suivante dans votre **environment.rb**&nbsp;:
 
 	config.action_view.warn_cache_misses = true
 
-Doing this will result in the following warning if a file outside the configured directories is rendered:
+Ceci fait, le message suivant apparaîtra si un template situé hors des répertoires de vues est restitué.
 
 `[PERFORMANCE] Rendering a template that was
 not found in view path. Templates outside the view path are
@@ -14,4 +14,4 @@ not cached and result in expensive disk operations. Move this
 file into /Users/user/project/app/views or add the folder to your
 view path list`
 
-This option is disabled by default.
+Cette option est désactivée par défaut.

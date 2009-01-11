@@ -1,7 +1,7 @@
-## Changes in the concat method
+## Changements dans la méthode concat
 
-If you are in the habit of avoiding repetition in your views by making helpers, you have no doubt used the `concat` method. If you have never used this method, it is basically the equivalent of `puts` for views.
+Si vous avez l'habitude d'éviter les répétitions dans les vues en créant des helpers, vous avez sûrement utilisé la méthode `concat`. Si vous ne l'avez jamais employée, c'est l'équivalent de `puts` pour les vues.
 
-The current implementation of this method accepts two parameters, a `String` with the text that will be displayed in the view and another parameter called `binding`. Due to certain improvements that have been made in the code, while it still accepts these two parameters, the `binding` argument is no longer necessary. This parameter has been deprecated, which means that starting with version 2.2, you will be warned if you use it, and it will be altogether removed at some future date.
+L'implémentation actuelle accepte deux paramètres, une chaîne de caractères (`String`) avec le texte à afficher et un autre paramètre appelé `binding`. Grâce à certaines améliorations apportées au code, l'argument `binding` n'est plus nécessaire bien qu'il soit encore accepté.  Cet argument est *deprecated*, c'est-à-dire que vous recevrez un warning sous Rails 2.2 si vous l'utilisez. Le paramètre sera supprimé dans une prochaine version de Rails.
 
-The warning method you are shown is as follows: "The binding argument of #concat is no longer needed. Please remove it from your views and helpers."
+Le message d'alerte est le suivant&nbsp;: "The binding argument of #concat is no longer needed. Please remove it from your views and helpers."

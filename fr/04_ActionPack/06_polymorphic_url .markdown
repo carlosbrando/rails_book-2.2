@@ -1,13 +1,11 @@
-## polymorphic\_url now works with singleton resources
+## polymorphic\_url fonctionne maintenant avec les singletons
 
-For more information about singular resource routes, see the "Additional Information" chapter at the end of this book.
+Jusqu'à présent, le helper `polymorphic_url` ne fonctionnait pas correctement avec les singleton.
 
-Until now, the `polymorphic_url` helper did not work properly with singleton resources.
+Un nouveau patch a été inclus dans Rails pour permettre de spécifier un singleton avec des symboles, comme vous le pouvez avec des namespaces. Par exemple&nbsp;:
 
-A new patch has been made to allow a singleton resource to be specified with symbols, like you can with namespaces. For example:
-
-	# This code
+	# Ce code
 	polymorphic_url([:admin, @user, :blog, @post])
 
-	# is the same as
+	# fait la même chose que
 	admin_user_blog_post_url(@user, @post)

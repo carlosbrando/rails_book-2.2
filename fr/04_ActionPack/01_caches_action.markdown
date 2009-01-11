@@ -1,6 +1,6 @@
-## New :layout option for the caches\_action method
+## Nouvelle option :layout pour la méthode caches\_action
 
-An option called :layout has been added to the `caches_action` method.
+Un  option nommée :layout a été ajoutée à la méthode `caches_action`.
 
 	class ListsController < ApplicationController
 	  ...
@@ -10,12 +10,12 @@ An option called :layout has been added to the `caches_action` method.
 	  ...
 	end
 
-In the example above I specified `:layout => false`, which means that only the content of the action and not the layout will be stored in the cache. This is very useful for when you have dynamic content in your layout (which is usually the case).
+Dans l'exemple ci-dessus, j'ai spécifié `:layout => false`, qui signifie que seul le contenu de l'action et non son layout sera enregistré en cache. C'est très utile quand on a des éléments dynamiques dans le contenu (ce qui arrive souvent).
 
-If you don't specify anything, it will continue to function the way it did in the past, which is to cache everything.
+Si vous ne spécifiez rien, le comportement restera le même qu'avant&nbsp;, de même que pour  `true`.
 
-## Templates in the cache
+## Templates dans le cache
 
-To improve Rails performance, template pages will be automatically stored in the cache for the production environment.
+Pour améliorer les performances de Rails, les pages de template seront automatiquement enregistrées en cache dans l'environnement de production.
 
-This means that if you alter a template in production, you will need to restart the server for it to take effect.
+Autrement dit, si vous modifiez un template en production, il faudra relancer le serveur pour que la modification ait un effet.

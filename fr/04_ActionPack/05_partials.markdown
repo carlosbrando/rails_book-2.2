@@ -1,26 +1,26 @@
-## Giving a name to the local variable in a collection of partials
+## Nommage de la variable locale dans une collection de partials
 
-In the code below, a `partial` is being used with a collection of objects:
+Dans le code ci-dessous, un `partial` est utilisé avec une collection d'objets&nbsp;:
 
 	render :partial => "admin_person", :collection => @winners
 
-Inside the `partial` it then becomes possible to use the `admin_person` variable to access the elements of the collection. But this variable naming convention is kind of lousy.
+Il est possible, dans le `partial`, d'utiliser la variable `admin_person` pour accéder aux éléments de la collection. Mais cette convention de nommage est plutôt douteuse.
 
-You now have the option of choosing a custom name for this variable using the `:as` option. Let's change that last example:
+Vous pouvez maintenant choisir le nom de cette variable avec l'option `:as`. Réécrivons ce dernier exemple&nbsp;:
 
 	render :partial => "admin_person", :collection => @winners, :as => :person
 
-Now each item in the collection can be accessed using the more intuitive `person` variable.
+Maintenant nous pouvons accéder à chaque item de la collection en utilisant la variable `person `qui a un nom plus intuitif.
 
-## Partials no longer define local variables implicitly
+## Les partials ne définissent plus les variables locales implicitement
 
-In the example below, I am rendering a partial, and I'm not indicating which variable it should use to fill in the content. Previously, Rails would assume that it should use the instance variable of the same name as the partial.
+Dans l'exemple ci-dessous, j'interprète un partial sans indiquer quelle variable doit être remplie dans le contenu. Rails supposait auparavant qu'il fallait utiliser la variable d'instance du même nom que le partial.
 
 	@customer = Customer.new("Carlos Brando")
 	render :partial => "customer"
 
-This works, but it is a little risky. Starting with Rails 2.2, this functionality still works but now emits a deprecation warning:
+Ça marche mais c'est un peu risqué. À partir de Rails 2.2, la fonctionnalité marche encore mais émet un warning&nbsp;:
 
 "@customer will no longer be implicitly assigned to customer"
 
-You can expect this feature to be removed completely in the future.
+Cette fonction sera supprimée dans le futur.
