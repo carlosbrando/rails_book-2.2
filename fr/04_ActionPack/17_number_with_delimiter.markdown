@@ -1,24 +1,24 @@
-## Changes to the number\_with\_delimeter method's signature
+## Changement de la signature de la méthode number\_with\_delimeter
 
-The `number_with_delimiter` method has been reimplemented. Besides making the code cleaner, the method's signature also changed. Check out how it was before:
+La méthode `number_with_delimiter` a été réimplémentée. En plus de rendre le code plus propre, la signature a aussi changé. Voici comment c'était avant&nbsp;:
 
 	def number_with_delimiter(number, delimiter=",", separator=".")
 
-	# usage examples
+	# exemples d'emploi
 	number_with_delimiter(12345678) # => 12,345,678
 	number_with_delimiter(12345678.05) # => 12,345,678.05
 	number_with_delimiter(12345678, ".") # => 12.345.678
 	number_with_delimiter(98765432.98, " ", ",")
 
-Here is the new version:
+Voici la nouvelle version&nbsp;:
 
 	def number_with_delimiter(number, *args)
 
-	# usage examples
+	# exemples d'emploi
 	number_with_delimiter(12345678) # => 12,345,678
 	number_with_delimiter(12345678.05) # => 12,345,678.05
 	number_with_delimiter(12345678, :delimiter => ".") # => 12.345.678
 	number_with_delimiter(12345678, :seperator => ",") # => 12,345,678
 	number_with_delimiter(98765432.98, :delimiter => " ", :separator => ",")
 
-So make sure, when you use the `number_with_delimiter` method, that you specify the options with symbolized hash keys.
+Assurez vous donc, quand vous utilisez la méthode `number_with_delimiter`, que vous spécifiez bien les options dans un hash.
